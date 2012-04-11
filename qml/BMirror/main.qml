@@ -15,6 +15,7 @@ Rectangle {
         "news launcher" : newsWidget,
                 "twitter launcher" : twitterWidget,
                 "stocks launcher" : stocksWidget,
+                "health launcher" : healthWidget
     }
 
     // Implementation of the "Launcher Delegate Protocol"
@@ -101,6 +102,13 @@ Rectangle {
         id: stocksWidget
         visible: false
         uniqueIdentifier: "stocks widget"
+        width: 300
+        height: 400
+    }
+    PXWidgetHealth{
+        id: healthWidget
+        visible: false
+        uniqueIdentifier: "health widget"
         width: 300
         height: 400
     }
