@@ -21,7 +21,7 @@ PXWindowWidget {
         modelIdentifier: "stocks model"
         arrayResultDelegate: stocksWidget
         viewComponent: Component {
-            PXT {}
+            PXRowText {}
         }
     }
 }
