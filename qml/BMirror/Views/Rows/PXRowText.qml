@@ -3,8 +3,6 @@ import QtQuick 1.1
 
 Rectangle {
 
-    property string textKey;
-
     id: row
     width: parent.width
     height: 50
@@ -14,13 +12,14 @@ Rectangle {
 
         anchors.fill: parent
         onClicked: {
-            console.log(textKey + " was clicked");
+            console.log(rowTextKey + " was clicked");
         }
     }
 
     PXText {
         id: label
-        color: "#000000"
+        color: "black"
+        textKey: rowTextKey
         anchors.left: parent.left
         anchors.leftMargin: 10
         anchors.verticalCenter: parent.verticalCenter
