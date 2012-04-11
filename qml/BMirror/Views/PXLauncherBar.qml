@@ -31,6 +31,7 @@ Rectangle {
         "news widget" : newsLauncher,
                 "stocks widget" : stockLauncher,
                 "twitter widget" : twitterLauncher,
+                "health widget" : healthLauncher
     }
 
     property variant applicationManager;
@@ -109,5 +110,16 @@ Rectangle {
             anchors.leftMargin: 10
             launcherImage: "../../Images/stock2.png"
         }
+
+        PXLauncher {
+            id: healthLauncher
+            launcherIdentifier: "health launcher"
+            launcherDelegate: applicationManager
+            textKey: "Health"
+            anchors.left: stockLauncher.right
+            anchors.leftMargin: 10
+            launcherImage: "../../Images/health.png"
+        }
+
     }
 }
