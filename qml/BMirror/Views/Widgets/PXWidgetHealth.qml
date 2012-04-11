@@ -12,4 +12,10 @@ PXWindowWidget {
         height: 100
     }
 
+    configurationView: Rectangle {
+        color: "blue"
+        anchors.fill: parent;
+        width: 200
+        height: 100
+    }
 }

@@ -4,6 +4,7 @@ import QtQuick 1.1
 
 PXWindowDraggable {
 
+    property variant configurationView;
 
     // Implementation of Button Delegate Protcol
     function buttonClicked (a_button, a_mouse_event) {
@@ -25,6 +26,20 @@ PXWindowDraggable {
             }
         }
     }
+
+    Component.onCompleted: {
+
+        if (windowDraggable.contentView) {
+            windowDraggable.contentView.parent = windowContent;
+        }
+
+        if (windowDraggable.configurationView) {
+            windowDraggable.configurationView.parent = configurationPanel;
+        }
+
+        WindowSerializer.unserializeWindow(windowDraggable);
+    }
+
 
     id: windowDraggable
     state: "DEFAULT"
@@ -52,6 +67,7 @@ PXWindowDraggable {
         anchors.leftMargin: 10
         anchors.top: parent.top
         anchors.topMargin: 50
+        z: 2
     }
 
     Rectangle {
