@@ -16,6 +16,7 @@ PXWindowDraggable {
             break;
 
         case "window-title-bar-configure-button":
+
             if (windowDraggable.state === "CONFIGURING") {
 
                 windowDraggable.state = "DEFAULT"
@@ -57,10 +58,12 @@ PXWindowDraggable {
     }
 
     Rectangle {
+
         id: configurationPanel
-        color: "#dcffffff"
+        color: "black"
         border.width: 2
-        border.color: "#0a646464"
+        border.color: "white"
+        radius: 2
         anchors.right: parent.right
         anchors.rightMargin: 10
         anchors.left: parent.left
@@ -93,7 +96,6 @@ PXWindowDraggable {
 
     transitions: [
         Transition {
-            from: "DEFAULT"
             to: "CONFIGURING"
             PropertyAnimation {
                 properties: "height";

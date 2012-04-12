@@ -85,11 +85,14 @@ var valueForKey = function (user_id, key) {
  *   The unique identififer for an application user
  * @param string key
  *   A unique key for this value, to later be used to look the value up with
+ * @param funciton callback
+ *   An optional callback function to execute after the update has been performed
  *
- * @return boolean
- *   True if the value was successfully saved, otherwise false.
+ * @return null
+ *   Calling functions should rely on the given callback to determine what should
+ *   be done
  */
-var setValueForKey = function (user_id, value, key) {
+var setValueForKey = function (user_id, value, key, callback) {
 
     var rs;
 
@@ -111,9 +114,11 @@ var setValueForKey = function (user_id, value, key) {
 
           rs = tx.executeSql("INSERT INTO settings VALUES (?, ?, ?)", [user_id, key, JSON.stringify(value)]);
         }
-    });
 
-    return !! rs.rowsAffected;
+        if (callback) {
+            callback( !! rs.rowsAffected);
+        }
+    });
 };
 
 /**

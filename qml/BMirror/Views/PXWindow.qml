@@ -3,18 +3,6 @@ import QtQuick 1.1
 
 Rectangle {
 
-    // Instances of PXWindowDraggable should define PXWindowDraggable.contentView
-    // as the view that should be placed in the main section of the window, when
-    // the window is in "main" / "viewing" mode.
-    property variant contentView;
-
-    Component.onCompleted: {
-
-        if (windowBase.contentView) {
-            windowBase.contentView.parent = windowBase;
-        }
-    }
-
     function isOpen () {
         return windowBase.visible == true;
     }

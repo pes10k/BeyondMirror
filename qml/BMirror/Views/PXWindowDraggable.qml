@@ -16,14 +16,19 @@ PXWindow {
         }
     }
 
+    // Instances of PXWindowDraggable should define PXWindowDraggable.contentView
+    // as the view that should be placed in the main section of the window, when
+    // the window is in "main" / "viewing" mode.
+    property variant contentView
+
     // The controller of the this window is expected to give the
     // window a unique identifier, which will be used to referece
     // the window across its life time, including saving it's settings
     // in the database on serialization
-    property string uniqueIdentifier;
-    property bool isDragging: false;
-    property int lastX: 0;
-    property int lastY: 0;
+    property string uniqueIdentifier
+    property bool isDragging: false
+    property int lastX: 0
+    property int lastY: 0
     property string titleKey
 
     Component.onCompleted: {
@@ -97,6 +102,16 @@ PXWindow {
                 WindowSerializer.repositionWindowOnDrag(windowDraggable, mouse, windowDraggable.parent);
             }
         }
+    }
+
+    Rectangle {
+        id: windowContent
+        color: "transparent"
+        anchors.rightMargin: 5
+        anchors.leftMargin: 5
+        anchors.bottomMargin: 5
+        anchors.topMargin: 55
+        anchors.fill: parent
     }
 
     PXTitleBarButtonClose {

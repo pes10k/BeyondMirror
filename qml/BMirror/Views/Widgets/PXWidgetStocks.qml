@@ -1,35 +1,87 @@
+import "../../JS/PXApp.js" as App
+import "../../JS/Controllers/PXController.js" as GenericController
+import "../../JS/PXNotifications.js" as Notifications
 import "../../JS/Controllers/PXWidgetStocks.js" as StocksController
 import "../../Views/Rows"
+import "../Controls"
 import "../"
 import QtQuick 1.1
 
 PXWindowWidget {
 
+    // Implementation of the "Row Text Input Delegate Protocol"
+    function rowTextInputClicked (rowTextInput) {
+
+        if (rowTextInput.rowTextInputIdentifier === "stocks text input") {
+
+            StocksController.stocks.addStock(rowTextInput.text(), function () {
+
+                stocksEditSheet.modelArray().refresh();
+                stocksViewModel.refresh();
+                rowTextInput.clear();
+            });
+        }
+    }
+
     // Implementation of the "Array List Model Delegate Protocol"
     function rowsForModel (model, modelIdentifier) {
 
-        var users_stocks = StocksController.stocks.currentStocks(),
-                i = 0;
+        switch (modelIdentifier) {
 
-        for (i; i < users_stocks.length; i++) {
-
-            StocksController.stockFetcher(users_stocks[i], function (result) {
-
-                                              model.append({
-                                                               "rowTextKey" : result.name,
-                                                               "rowStockValue" : result.value
-                                                           });
-
-                                          });
+        case "stocks view model":
+        case "stocks config model":
+            StocksController.addCurrentUsersStocksToModel(model, modelIdentifier);
+            break;
         }
+    }
+
+    // Implementation of "Notification Delegate Protocol"
+    function receivedNotification (notification, params) {
+
+        if (notification === "edit row delete clicked") {
+
+            if (params.modelIdentifier == "stocks config model") {
+
+                GenericController.removeRowFromModel(
+                    params.row,
+                    stocksEditSheet.modelArray().getViewModel(),
+                    stocksEditSheet.modelArray(),
+                    function () {
+                        StocksController.stocks.removeStock(params.row.identifier());
+                        stocksEditSheet.modelArray().refresh();
+                        stocksViewModel.refresh();
+                    }
+                );
+            }
+        }
+    }
+
+    Component.onCompleted: {
+        Notifications.registry.registerForNotification(stocksWidget, "edit row delete clicked");
+    }
+
+    Component.onDestruction: {
+        Notifications.registry.unregisterForAll(stocksWidget);
     }
 
     titleKey: "Stocks"
     id: stocksWidget
 
-    contentView: PXListModelArray {
+    configurationView: PXEditableSheet {
+        rowTextInputDelgate: stocksWidget
+        rowTextInputIdentifier: "stocks text input"
+        modelIdentifier: "stocks config model"
+        arrayResultDelegate: stocksWidget
+        viewComponent: Component {
+            PXRowTextEdit {}
+        }
 
-        modelIdentifier: "stocks model"
+        id: stocksEditSheet
+    }
+
+    contentView: PXListModelArray {
+        id: stocksViewModel
+        modelIdentifier: "stocks view model"
         arrayResultDelegate: stocksWidget
         viewComponent: Component {
             Rectangle {
@@ -38,10 +90,15 @@ PXWindowWidget {
                 color: "white"
 
                 MouseArea {
-
                     anchors.fill: parent
                     onClicked: {
-                        console.log(rowTextKey + " was clicked");
+                        Notifications.registry.sendNotification("request for window", {
+                                                                    "window" : "stock window",
+                                                                    "params" : {
+                                                                        "call_letters" : rowTextKey,
+                                                                        "name" : rowStockName
+                                                                    }
+                                                                });
                     }
                 }
 

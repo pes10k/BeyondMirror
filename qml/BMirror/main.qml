@@ -8,14 +8,35 @@
 import QtQuick 1.1
 import "Views"
 import "Views/Widgets"
+import "Views/Windows"
+import "JS/PXNotifications.js" as Notifications
 
 Rectangle {
 
     property variant launcherMappings: {
         "news launcher" : newsWidget,
-                "twitter launcher" : twitterWidget,
-                "stocks launcher" : stocksWidget,
-                "health launcher" : healthWidget
+        "twitter launcher" : twitterWidget,
+        "stocks launcher" : stocksWidget,
+        "health launcher" : healthWidget
+    }
+
+    // Implementation of the ""Notification Delegate Protocol"
+    function receivedNotification (notification, request) {
+
+        switch (notification) {
+
+        case "request for window":
+
+            if (request.window === "stock window") {
+                if (!stockWindow.isOpen()) {
+                    stockWindow.open();
+                }
+
+                stockWindow.setParams(request.params);
+            }
+
+            break;
+        }
     }
 
     // Implementation of the "Launcher Delegate Protocol"
@@ -50,6 +71,14 @@ Rectangle {
         }
     }
 
+    Component.onCompleted: {
+        Notifications.registry.registerForNotification(main, "request for window");
+    }
+
+    Component.onDestruction: {
+        Notifications.registry.unregisterForAll(main);
+    }
+
     width: 1280
     height: 720
     id: main
@@ -71,15 +100,6 @@ Rectangle {
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottom: parent.bottom
         anchors.bottomMargin: -5
-    }
-
-    PXWindowDraggable {
-        uniqueIdentifier: "test window"
-        titleKey: "Window"
-        x: 100
-        y: 100
-        width: 300
-        height: 300
     }
 
     PXWidgetNews {
@@ -105,11 +125,19 @@ Rectangle {
         width: 300
         height: 400
     }
+
     PXWidgetHealth{
         id: healthWidget
         visible: false
         uniqueIdentifier: "health widget"
         width: 300
         height: 400
+    }
+
+    PXWindowStock {
+        id: stockWindow
+        width: 340
+        height: 340
+        visible: false
     }
 }

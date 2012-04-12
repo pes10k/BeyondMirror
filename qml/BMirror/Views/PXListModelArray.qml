@@ -25,7 +25,6 @@ Rectangle {
       * A string, uniquely identifying this instance of the model.
       */
     property string modelIdentifier;
-
     property variant arrayResultDelegate;
     property variant viewComponent: Component {
             id: localListDelegate;
@@ -44,6 +43,11 @@ Rectangle {
         return localListView;
     }
 
+    function refresh () {
+        localListModel.clear();
+        arrayResultDelegate.rowsForModel(localListView.model, localListModelArray.modelIdentifier);
+    }
+
     id: localListModelArray;
     width: parent.width;
     height: parent.height;
@@ -58,7 +62,7 @@ Rectangle {
 
         model: ListModel {
             Component.onCompleted: {
-                arrayResultDelegate.rowsForModel(localListView.model, modelIdentifier);
+                localListModelArray.refresh();
             }
             id: localListModel;
         }
