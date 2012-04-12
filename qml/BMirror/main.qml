@@ -20,19 +20,28 @@ Rectangle {
         "health launcher" : healthWidget
     }
 
+    property variant windowMappings: {
+        "stock window" : stockWindow,
+        "news window" : newsWindow
+    }
+
     // Implementation of the ""Notification Delegate Protocol"
     function receivedNotification (notification, request) {
+
+        var relevantWindow;
 
         switch (notification) {
 
         case "request for window":
 
-            if (request.window === "stock window") {
-                if (!stockWindow.isOpen()) {
-                    stockWindow.open();
+            relevantWindow = main.windowMappings[request.window];
+
+            if (relevantWindow) {
+                if (!relevantWindow.isOpen()) {
+                    relevantWindow.open();
                 }
 
-                stockWindow.setParams(request.params);
+                relevantWindow.setParams(request.params);
             }
 
             break;
@@ -138,6 +147,13 @@ Rectangle {
         id: stockWindow
         width: 340
         height: 340
+        visible: false
+    }
+
+    PXWindowNews {
+        id: newsWindow
+        width: 500
+        height: 500
         visible: false
     }
 }

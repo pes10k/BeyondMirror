@@ -9,6 +9,14 @@ Rectangle {
         return rowTextKey;
     }
 
+    function textLabel () {
+        return label;
+    }
+
+    function mouseArea () {
+        return mouseArea;
+    }
+
     id: row
     width: parent.width
     height: 50
@@ -16,9 +24,20 @@ Rectangle {
 
     MouseArea {
 
+        id: mouseArea
         anchors.fill: parent
         onClicked: {
-            console.log(rowTextKey + " was clicked");
+
+            // Allow "subclasses" to programatically set custom events
+            // for the mousearea tap
+            if (row.mouseAreaEvent) {
+
+                row.mouseAreaEvent(mouseArea);
+
+            } else {
+
+                console.log(rowTextKey + " was clicked");
+            }
         }
     }
 
@@ -27,7 +46,15 @@ Rectangle {
         color: "black"
         textKey: rowTextKey ? rowTextKey : ""
         anchors.left: parent.left
-        anchors.leftMargin: 10
+        anchors.leftMargin: 5
         anchors.verticalCenter: parent.verticalCenter
+        elide: Text.ElideRight
+    }
+
+    Rectangle {
+        color: "black"
+        height: 1
+        width: parent.width
+        anchors.bottom: parent.bottom
     }
 }

@@ -107,9 +107,9 @@ PXWindowWidget {
                     color: "black"
                     textKey: rowTextKey
                     anchors.left: parent.left
-                    anchors.leftMargin: 10
+                    anchors.leftMargin: 5
                     anchors.verticalCenter: parent.verticalCenter
-                    width: parent.width - 60
+                    width: parent.width - 50
                 }
 
                 PXText {
@@ -119,8 +119,15 @@ PXWindowWidget {
                     width: 60
                     horizontalAlignment: Text.AlignRight
                     anchors.right: parent.right
-                    anchors.rightMargin: 10
+                    anchors.rightMargin: 5
                     anchors.verticalCenter: parent.verticalCenter
+                }
+
+                Rectangle {
+                    color: "black"
+                    height: 1
+                    width: parent.width
+                    anchors.bottom: parent.bottom
                 }
             }
         }

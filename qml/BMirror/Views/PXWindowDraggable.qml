@@ -78,9 +78,11 @@ PXWindow {
             anchors.top: parent.top
             anchors.topMargin: 0
             anchors.right: parent.right
-            anchors.rightMargin: 10
+            anchors.rightMargin: 40
             anchors.left: parent.left
-            anchors.leftMargin: 10
+            anchors.leftMargin: 40
+            maximumLineCount: 1
+            elide: Text.ElideMiddle
         }
 
         MouseArea {
