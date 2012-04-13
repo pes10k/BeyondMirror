@@ -31,9 +31,10 @@ var tweetFetcher = (function () {
                             "text" : current_tweet.text,
                             "username" : username,
                             "user" : current_tweet.user.name,
-                            "id" : current_tweet.id,
+                            "id" : current_tweet.id_str,
                             "date" : current_tweet.created_at,
-                            "date_ts" : Date.parse(current_tweet.created_at)
+                            "date_ts" : Date.parse(current_tweet.created_at),
+                            "image_url" : current_tweet.user.profile_image_url
                         });
                     }
 
@@ -115,6 +116,8 @@ var tweets = (function () {
         },
         addAccount: function (account_name, callback) {
 
+            account_name = account_name.replace("@", "");
+
             if (current_items[account_name]) {
 
                 callback(false);
@@ -129,6 +132,8 @@ var tweets = (function () {
             }
         },
         removeAccount: function (account_name, callback) {
+
+            account_name = account_name.replace("@", "");
 
             var adjusted_items = removeFromArray(account_name, current_items);
 
@@ -158,7 +163,7 @@ var addCurrentUsersTwitterAccountsToModel = function (model) {
     for (i; i < num_accounts; i += 1) {
 
         model.append({
-            "rowTextKey" : accounts[i]
+            "rowTextKey" : "@" + accounts[i]
         });
     }
 };
@@ -177,7 +182,8 @@ var addCurrentUsersTwitterItemsToModel = function (model) {
                 "rowTextKey" : result.text,
                 "rowTwitterUrl" : "http://twitter.com/#!/" + result.username + "/status/" + result.id,
                 "rowTwitterUser" : result.username,
-                "rowTwitterDate" : result.date
+                "rowTwitterDate" : result.date,
+                "rowTwitterImageUrl" : result.image_url
             });
         }
     });

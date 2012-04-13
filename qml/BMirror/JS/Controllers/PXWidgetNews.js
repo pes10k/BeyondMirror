@@ -33,7 +33,9 @@ var newsFetcher = (function () {
                           "source" : html_entity_decode(entries[i].publisher, 'ENT_QUOTES'),
                           "date_str" : entries[i].publishedDate,
                           "date_ts" : Date.parse(entries[i].publishedDate),
-                          "image_url" : entries[i].image ? entries[i].image.url : false
+                          "image_url" : entries[i].image ? entries[i].image.url : false,
+                          "image_width" : entries[i].image ? entries[i].image.tbWidth : false,
+                          "image_height" : entries[i].image ? entries[i].image.tbHeight : false,
                       });
                   }
               }

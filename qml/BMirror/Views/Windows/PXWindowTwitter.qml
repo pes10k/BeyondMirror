@@ -15,7 +15,6 @@ PXWindowDraggable {
     function setParams (params) {
 
         twitterWindow.titleKey = params.title;
-        App.dump(params.url);
         webView.url = params.url;
     }
 
@@ -30,6 +29,8 @@ PXWindowDraggable {
         WebView {
             id: webView
             anchors.fill: parent
+            preferredHeight: twitterWindow.height
+            preferredWidth: twitterWindow.width
             url: "qrc:/qtquickplugin/html/welcome.html"
         }
     }

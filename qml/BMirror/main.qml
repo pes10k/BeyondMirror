@@ -170,7 +170,7 @@ Rectangle {
 
     PXWindowTwitter {
         id: twitterWindow
-        width: 500
+        width: 560
         height: 500
         visible: false
     }
