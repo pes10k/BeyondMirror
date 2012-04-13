@@ -18,7 +18,8 @@ Rectangle {
         "twitter launcher" : twitterWidget,
         "stocks launcher" : stocksWidget,
         "health launcher" : healthWidget,
-        "video launcher" : videoWidget
+        "video launcher" : videoWidget,
+        "clock launcher" : clockWidget
     }
 
     property variant windowMappings: {
@@ -60,6 +61,18 @@ Rectangle {
 
             if (!relevantWidget.isOpen()) {
                 relevantWidget.open();
+            }
+        }
+    }
+
+    function launcherInitilized (launcherItem) {
+
+        var relevantWidget = main.launcherMappings[launcherItem.launcherIdentifier];
+
+        if (relevantWidget) {
+
+            if (relevantWidget.isOpen()) {
+                launcherItem.state = "PRESSED"
             }
         }
     }
@@ -180,5 +193,13 @@ Rectangle {
         width: 500
         height: 500
         visible: false
+    }
+
+    PXWidgetClock {
+        id: clockWidget
+        x: 20
+        y: 20
+        width: 200
+        height: 120
     }
 }

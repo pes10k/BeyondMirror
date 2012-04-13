@@ -42,6 +42,12 @@ Rectangle {
     height: 94
     color: "transparent"
 
+    Component.onCompleted: {
+        if (launcherItem.launcherDelegate) {
+            launcherItem.launcherDelegate.launcherInitilized(launcherItem);
+        }
+    }
+
     Rectangle {
 
         id: launcherItemButton

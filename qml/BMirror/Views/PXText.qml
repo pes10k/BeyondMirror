@@ -11,13 +11,26 @@ Text {
       */
     property string textKey;
 
+    // If this property is set to false, the text represented will be
+    // displayed to be exactly as the provided textKey, not translated
+    // to the current application language
+    property bool shouldTranslate: true;
+
     /* Notifications Protocol Methods */
     function receivedNotification (notification, params) {
-        textElement.text = Lang.translateTerm(textElement.textKey);
+        if (textElement.shouldTranslate) {
+            textElement.text = Lang.translateTerm(textElement.textKey);
+        } else {
+            textElement.text = textElement.textKey;
+        }
     }
 
     onTextKeyChanged: {
-        textElement.text = Lang.translateTerm(textElement.textKey);
+        if (textElement.shouldTranslate) {
+            textElement.text = Lang.translateTerm(textElement.textKey);
+        } else {
+            textElement.text = textElement.textKey;
+        }
     }
 
     Component.onCompleted: {
@@ -28,7 +41,7 @@ Text {
         Notifications.registry.unregisterForAll(textElement);
     }
 
-    id: textElement;
+    id: textElement
     font.family: "Futura"
     font.pixelSize: 20
     lineHeight: 28;

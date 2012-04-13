@@ -58,11 +58,10 @@ PXWindowDraggable {
     }
 
     Rectangle {
-
         id: configurationPanel
         color: "black"
         border.width: 2
-        border.color: "white"
+        border.color: "black"
         radius: 2
         anchors.right: parent.right
         anchors.rightMargin: 10

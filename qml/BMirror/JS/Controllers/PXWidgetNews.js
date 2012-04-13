@@ -54,25 +54,31 @@ var news = (function () {
 
     var data_key = "current news feeds",
             default_value,
-            current_items = valueForKey(currentUser.userId(), data_key);
+            _current_items = false,
+            current_users_values = function () {
 
-    // If we're not currently following any news feeds, create some sensable defaults.
-    if (!current_items) {
+                if (!_current_items) {
 
-        // The default value we'll use is "local news", provided by
-        default_value = {
-          "Local News" : "https://ajax.googleapis.com/ajax/services/search/news?v=1.0&geo=Chicago,%20IL"
-        };
-        setValueForKey(currentUser.userId(), default_value, data_key);
-        current_items = default_value;
-    }
+                    _current_items = valueForKey(currentUser.userId(), data_key);
+
+                    if (!_current_items) {
+
+                        _current_items = {
+                            "Local News" : "https://ajax.googleapis.com/ajax/services/search/news?v=1.0&geo=Chicago,%20IL"
+                        };
+                        setValueForKey(currentUser.userId(), _current_items, data_key);
+                    }
+                }
+
+                return _current_items;
+            };
 
     return {
         reset: function () {
-            current_items = valueForKey(currentUser.userId(), data_key);
+            _current_items = false;
         },
         currentFeeds: function () {
-            return current_items;
+            return current_users_values();
         },
         // Returns a sorted array of objects, each representing a news object.
         // The returned array will be a list of news items, from most to least
@@ -121,31 +127,35 @@ var news = (function () {
         },
         addFeed: function (search_term, callback) {
 
-            if (current_items[search_term]) {
+            var current_feeds = current_users_values();
+
+            if (current_feeds[search_term]) {
 
                 callback(false);
 
             } else {
 
-                current_items[search_term] = "https://ajax.googleapis.com/ajax/services/search/news?v=1.0&q=" + encodeURIComponent(search_term);
+                current_feeds[search_term] = "https://ajax.googleapis.com/ajax/services/search/news?v=1.0&q=" + encodeURIComponent(search_term);
 
                 // Build up a cache for the news items in this URL
                 // immediatly, to make things quicker.
-                newsFetcher(current_items[search_term]);
+                newsFetcher(current_feeds[search_term]);
 
-                setValueForKey(currentUser.userId(), current_items, data_key, callback);
+                setValueForKey(currentUser.userId(), current_feeds, data_key, callback);
             }
         },
         removeFeed: function (search_term, callback) {
 
-            if (!current_items[search_term]) {
+            var current_feeds = current_users_values();
+
+            if (!current_feeds[search_term]) {
 
                 callback(false);
 
             } else {
 
-                delete current_items[search_term];
-                setValueForKey(currentUser.userId(), current_items, data_key, callback);
+                delete current_feeds[search_term];
+                setValueForKey(currentUser.userId(), current_feeds, data_key, callback);
             }
         }
     };

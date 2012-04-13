@@ -32,7 +32,8 @@ Rectangle {
         "stocks widget" : stockLauncher,
         "twitter widget" : twitterLauncher,
         "health widget" : healthLauncher,
-        "video widget" : videoLauncher
+        "video widget" : videoLauncher,
+        "clock widget" : clockLauncher
     }
 
     property variant applicationManager;
@@ -126,10 +127,20 @@ Rectangle {
             id: videoLauncher
             launcherIdentifier:"video launcher"
             launcherDelegate: applicationManager
-            textKey:"Video"
+            textKey: "Video"
             anchors.left: healthLauncher.right
             anchors.leftMargin: 10
             launcherImage: "../../Images/video.png"
+        }
+
+        PXLauncher {
+            id: clockLauncher
+            launcherIdentifier: "clock launcher"
+            launcherDelegate: applicationManager
+            textKey: "Clock"
+            anchors.left: videoLauncher.right
+            anchors.leftMargin: 10
+            launcherImage: "../../Images/clock.png"
         }
     }
 }

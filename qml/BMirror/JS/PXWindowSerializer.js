@@ -32,6 +32,7 @@ function unserializeWindow (pxwindow) {
 
         pxwindow.x = window_properties.x;
         pxwindow.y = window_properties.y;
+        pxwindow.visible = window_properties.visible || false;
         return true;
 
     } else {
@@ -66,7 +67,8 @@ function serializeWindow (pxwindow) {
 
         return setValueForKey(currentUser.userId(), {
           "x" : pxwindow.x,
-          "y" : pxwindow.y
+          "y" : pxwindow.y,
+          "visible" : pxwindow.visible
         }, pxwindow.uniqueIdentifier);
     }
 }
