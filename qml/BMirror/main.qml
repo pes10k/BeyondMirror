@@ -17,7 +17,8 @@ Rectangle {
         "news launcher" : newsWidget,
         "twitter launcher" : twitterWidget,
         "stocks launcher" : stocksWidget,
-        "health launcher" : healthWidget
+        "health launcher" : healthWidget,
+        "video launcher" : videoWidget
     }
 
     property variant windowMappings: {

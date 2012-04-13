@@ -29,9 +29,10 @@ Rectangle {
     // and their respective laucher
     property variant widgetMappings: {
         "news widget" : newsLauncher,
-                "stocks widget" : stockLauncher,
-                "twitter widget" : twitterLauncher,
-                "health widget" : healthLauncher
+        "stocks widget" : stockLauncher,
+        "twitter widget" : twitterLauncher,
+        "health widget" : healthLauncher,
+        "video widget" : videoLauncher
     }
 
     property variant applicationManager;
