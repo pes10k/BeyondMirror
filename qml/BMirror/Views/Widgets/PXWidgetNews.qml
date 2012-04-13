@@ -27,9 +27,13 @@ PXWindowWidget {
     function rowsForModel (model, modelIdentifier) {
 
         if (modelIdentifier === "news view model") {
+
             NewsController.addCurrentUsersNewsItemsToModel(model);
+
         } else if (modelIdentifier === "news config model") {
+
             NewsController.addCurrentUsersNewsFeedsToModel(model);
+
         }
     }
 

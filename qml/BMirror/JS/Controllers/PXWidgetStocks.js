@@ -54,6 +54,9 @@ var stocks = (function () {
     }
 
     return {
+        reset: function () {
+            current_stocks = valueForKey(currentUser.userId(), data_key);
+        },
         currentStocks: function () {
             return current_stocks;
         },

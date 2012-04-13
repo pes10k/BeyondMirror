@@ -24,7 +24,8 @@ Rectangle {
     property variant windowMappings: {
         "stock window" : stockWindow,
         "news window" : newsWindow,
-        "video window" : videoWindow
+        "video window" : videoWindow,
+        "twitter window" : twitterWindow
     }
 
     // Implementation of the ""Notification Delegate Protocol"
@@ -137,7 +138,7 @@ Rectangle {
         height: 400
     }
 
-    PXWidgetHealth{
+    PXWidgetHealth {
         id: healthWidget
         visible: false
         uniqueIdentifier: "health widget"
@@ -145,7 +146,7 @@ Rectangle {
         height:400
     }
 
-    PXWidgetVideo{
+    PXWidgetVideo {
         id: videoWidget
         visible: false
         uniqueIdentifier: "video widget"
@@ -164,6 +165,13 @@ Rectangle {
         id: videoWindow
         width: 500
         height: 300
+        visible: false
+    }
+
+    PXWindowTwitter {
+        id: twitterWindow
+        width: 500
+        height: 500
         visible: false
     }
 

@@ -11,7 +11,7 @@ var dump = function (obj) {
 
     var key, i = 1;
 
-    if (typeof obj === "String") {
+    if (typeof obj === "string" || typeof obj === "number") {
 
         console.log(obj);
 

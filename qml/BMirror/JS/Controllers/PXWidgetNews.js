@@ -66,6 +66,9 @@ var news = (function () {
     }
 
     return {
+        reset: function () {
+            current_items = valueForKey(currentUser.userId(), data_key);
+        },
         currentFeeds: function () {
             return current_items;
         },

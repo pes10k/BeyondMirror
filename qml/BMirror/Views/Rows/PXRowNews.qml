@@ -3,7 +3,7 @@ import "../../JS/PXNotifications.js" as Notifications
 import "../"
 import QtQuick 1.1
 
-PXRowText {
+PXRowNext {
 
     function mouseAreaEvent () {
         Notifications.registry.sendNotification("request for window", {
