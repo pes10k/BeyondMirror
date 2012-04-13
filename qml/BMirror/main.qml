@@ -150,7 +150,6 @@ Rectangle {
         uniqueIdentifier: "video widget"
         width: 600
         height: 400
-        playManager: main
     }
 
     PXWindowStock {

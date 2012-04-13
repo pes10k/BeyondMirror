@@ -16,7 +16,7 @@ Rectangle {
     property bool tabInforVisibility
 
     id: tabItem
-    width: 80
+    width: 100
     height: 40
     color: "#000000"
     //radius: 5
