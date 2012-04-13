@@ -23,7 +23,8 @@ Rectangle {
 
     property variant windowMappings: {
         "stock window" : stockWindow,
-        "news window" : newsWindow
+        "news window" : newsWindow,
+        "video window" : videoWindow
     }
 
     // Implementation of the ""Notification Delegate Protocol"
@@ -156,6 +157,13 @@ Rectangle {
         id: stockWindow
         width: 340
         height: 340
+        visible: false
+    }
+
+    PXWindowVideo {
+        id: videoWindow
+        width: 500
+        height: 300
         visible: false
     }
 

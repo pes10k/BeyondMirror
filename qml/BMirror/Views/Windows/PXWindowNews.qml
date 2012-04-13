@@ -14,7 +14,6 @@ PXWindowDraggable {
     function setParams (params) {
 
         newsWindow.titleKey = params.title;
-        App.dump(params)
         webView.url = params.url;
     }
 

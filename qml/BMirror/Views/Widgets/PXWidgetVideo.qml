@@ -3,6 +3,7 @@ import "../Controls"
 import "../Rows"
 import "../"
 import "../../JS/PXData.js" as PXData
+import "../../JS/PXNotifications.js" as Notifications
 import QtQuick 1.1
 
 PXWindowWidget {
@@ -11,7 +12,7 @@ PXWindowWidget {
 
     // Implementation of the "Array List Model Delegate Protocol"
     function rowsForModel (model, modelIdentifier) {
-        console.log("HERE HERE HERE")
+
         var current_data,
             i = 0;
 
@@ -120,7 +121,13 @@ PXWindowWidget {
             viewComponent: Component {
                 PXRowNext {
                     function mouseAreaEvent (mouseArea) {
-                        console.log("Click")
+                        Notifications.registry.sendNotification("request for window", {
+                            "window" : "video window",
+                            "params" : {
+                                "title" : rowTextKey,
+                                "source" : ""
+                            }
+                        });
                     }
                 }
             }
