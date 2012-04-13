@@ -12,20 +12,28 @@ Rectangle {
 
     //
     property variant tabDelegate;
+    //the information of tab which needs to display
+    property bool tabInforVisibility
 
-    id: tab
-    width: 100
-    height: 55
+    id: tabItem
+    width: 80
+    height: 40
     color: "#000000"
-    radius: 5
-    border.color: "#ffffff"
+    //radius: 5
+    //border.color: "#ffffff"
 
     MouseArea {
         id: mouseArea
         anchors.fill: parent
 
         onClicked: {
-
+            if(tabItem.state != "ABLED"){
+                tabItem.state ="ABLED"
+                if (tabItem.tabDelegate) {
+                    //console.log(tabItem.textKey);
+                    tabItem.tabDelegate.tabItemClicked(tabItem);
+                }
+            }
         }
     }
 
@@ -33,21 +41,33 @@ Rectangle {
         id: label
         anchors.fill: parent
         horizontalAlignment: Text.AlignHCenter
-        textKey: tab.textKey
+        textKey: tabItem.textKey
     }
 
     states: [
         State {
             name: "DISABLED"
-
             PropertyChanges {
-                target: rectangle1
-                color: "#757575"
-            }
-
-            PropertyChanges {
-                target: label
+                target: tabItem
                 color: "#000000"
+                tabInforVisibility: false
+            }
+            PropertyChanges{
+                target:label
+                color:"#ffffff"
+            }
+        },
+
+        State {
+            name: "ABLED"
+            PropertyChanges {
+                target:tabItem
+                color: "#ffffff"
+                tabInforVisibility: true
+            }
+            PropertyChanges{
+                target:label
+                color:"#000000"
             }
         }
     ]

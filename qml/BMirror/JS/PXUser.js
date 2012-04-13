@@ -13,6 +13,9 @@ var currentUser = (function () {
   return {
     userId: function () {
       return _user_id;
+    },
+    setUserId: function (user_id) {
+      _user_id = user_id;
     }
   };
 }());

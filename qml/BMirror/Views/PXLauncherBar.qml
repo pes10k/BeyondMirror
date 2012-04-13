@@ -121,5 +121,14 @@ Rectangle {
             launcherImage: "../../Images/health.png"
         }
 
+        PXLauncher {
+            id: videoLauncher
+            launcherIdentifier:"video launcher"
+            launcherDelegate: applicationManager
+            textKey:"Video"
+            anchors.left: healthLauncher.right
+            anchors.leftMargin: 10
+            launcherImage: "../../Images/video.png"
+        }
     }
 }

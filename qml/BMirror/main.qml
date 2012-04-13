@@ -139,8 +139,17 @@ Rectangle {
         id: healthWidget
         visible: false
         uniqueIdentifier: "health widget"
-        width: 300
+        width:600
+        height:400
+    }
+
+    PXWidgetVideo{
+        id: videoWidget
+        visible: false
+        uniqueIdentifier: "video widget"
+        width: 600
         height: 400
+        playManager: main
     }
 
     PXWindowStock {
