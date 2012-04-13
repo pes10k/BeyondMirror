@@ -9,6 +9,20 @@ import QtQuick 1.1
 
 PXWindowWidget {
 
+    // Implementation of the "Row Text Input Delegate Protocol"
+    function rowTextInputClicked (rowTextInput) {
+
+        if (rowTextInput.rowTextInputIdentifier === "news text input") {
+
+            NewsController.news.addFeed(rowTextInput.text(), function () {
+
+                newsEditWidget.modelArray().refresh();
+                newsViewModel.refresh();
+                rowTextInput.clear();
+            });
+        }
+    }
+
     // Implementation of the "Array List Model Delegate Protocol"
     function rowsForModel (model, modelIdentifier) {
 
@@ -16,6 +30,27 @@ PXWindowWidget {
             NewsController.addCurrentUsersNewsItemsToModel(model);
         } else if (modelIdentifier === "news config model") {
             NewsController.addCurrentUsersNewsFeedsToModel(model);
+        }
+    }
+
+    // Implementation of "Notification Delegate Protocol"
+    function receivedNotification (notification, params) {
+
+        if (notification === "edit row delete clicked") {
+
+            if (params.modelIdentifier == "news config model") {
+
+                GenericController.removeRowFromModel(
+                    params.row,
+                    newsEditWidget.modelArray().getViewModel(),
+                    newsEditWidget.modelArray(),
+                    function () {
+                        NewsController.news.removeFeed(params.row.identifier());
+                        newsEditWidget.modelArray().refresh();
+                        newsViewModel.refresh();
+                    }
+                );
+            }
         }
     }
 

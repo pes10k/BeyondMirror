@@ -21,7 +21,7 @@ var newsFetcher = (function () {
               var news_items = [],
                   i = 0,
                   entries = results.responseData.results;
-                          dump(entries);
+
               if (entries.length > 0) {
 
                   for (i; i < entries.length; i += 1) {
@@ -96,7 +96,7 @@ var news = (function () {
                         });
 
                         if (callback) {
-                            console.log("Got " + sorted_items.length + " items");
+
                             callback(sorted_items.slice(0, limit));
                         }
                     }

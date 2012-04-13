@@ -1,3 +1,4 @@
+import "../JS/PXWindowSerializer.js" as WindowSerializer
 import "../JS/PXNotifications.js" as Notifications
 import QtQuick 1.1
 
@@ -12,6 +13,7 @@ Rectangle {
     }
 
     function open () {
+        windowBase.z = WindowSerializer.max_z++;
         windowBase.state = "APPEARING"
     }
 
