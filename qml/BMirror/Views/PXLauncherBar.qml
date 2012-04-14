@@ -33,7 +33,8 @@ Rectangle {
         "twitter widget" : twitterLauncher,
         "health widget" : healthLauncher,
         "video widget" : videoLauncher,
-        "clock widget" : clockLauncher
+        "clock widget" : clockLauncher,
+        "weather widget" : weatherLauncher
     }
 
     property variant applicationManager;
@@ -141,6 +142,16 @@ Rectangle {
             anchors.left: videoLauncher.right
             anchors.leftMargin: 10
             launcherImage: "../../Images/clock.png"
+        }
+
+        PXLauncher {
+            id: weatherLauncher
+            launcherIdentifier: "weather launcher"
+            launcherDelegate: applicationManager
+            textKey: "Weather"
+            anchors.left: clockLauncher.right
+            anchors.leftMargin: 10
+            launcherImage: "../../Images/weather.png"
         }
     }
 }

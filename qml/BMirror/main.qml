@@ -19,7 +19,8 @@ Rectangle {
         "stocks launcher" : stocksWidget,
         "health launcher" : healthWidget,
         "video launcher" : videoWidget,
-        "clock launcher" : clockWidget
+        "clock launcher" : clockWidget,
+        "weather launcher" : weatherWidget
     }
 
     property variant windowMappings: {
@@ -201,5 +202,12 @@ Rectangle {
         y: 20
         width: 200
         height: 120
+    }
+
+    PXWidgetWeather {
+        id: weatherWidget
+        visible: false
+        width: 300
+        height: 308
     }
 }

@@ -35,7 +35,7 @@ Rectangle {
             name: "APPEARING"
             PropertyChanges {
                 target: windowBase
-                opacity: 100
+                opacity: 1
             }
         }
     ]
@@ -50,7 +50,7 @@ Rectangle {
                 }
             }
             PropertyAnimation {
-                properties: "opacity";
+                properties: "opacity"
                 easing.type: Easing.InOutQuad
             }
         },

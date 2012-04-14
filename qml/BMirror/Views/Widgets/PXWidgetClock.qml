@@ -10,7 +10,7 @@ import QtQuick 1.1
 PXWindowWidget {
 
     // Implements the "Checkbox Delegate Protocol"
-    function checkboxStatusChanged (checkbox) {
+    function checkboxClicked (checkbox) {
 
         checkbox.checked(!checkbox.isChecked);
         ClockController.clock.setConfigOptions("hours_24", checkbox.isChecked);

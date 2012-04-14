@@ -100,6 +100,21 @@ Rectangle {
             PropertyChanges {
                 target: launcherItemButton
                 color: "#999999"
+                opacity: .8
+            }
+        }
+    ]
+
+    transitions: [
+        Transition {
+            NumberAnimation {
+                properties: "opacity";
+                easing.type: Easing.InOutQuad
+            }
+            PropertyAnimation {
+                target: launcherItemButton
+                properties: "color"
+                duration: 100
             }
         }
     ]

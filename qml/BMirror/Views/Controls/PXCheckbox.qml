@@ -4,7 +4,7 @@ import QtQuick 1.1
 /**
  * "Checkbox Delegate Protocol"
  *
- * - checkboxStatusChanged (checkbox)
+ * - checkboxClicked (checkbox)
  */
 Rectangle {
 
@@ -68,7 +68,7 @@ Rectangle {
         anchors.fill: parent
         onClicked: {
             if (checkbox.checkboxDelegate) {
-                checkbox.checkboxDelegate.checkboxStatusChanged(checkbox)
+                checkbox.checkboxDelegate.checkboxClicked(checkbox)
             }
         }
     }

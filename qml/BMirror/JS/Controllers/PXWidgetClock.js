@@ -35,7 +35,7 @@ var clock = (function () {
 
     return {
         reset: function () {
-            _current_settins = false;
+            _current_settings = false;
         },
         currentFormattedTime: function () {
 
