@@ -68,7 +68,7 @@ function serializeWindow (pxwindow) {
         return setValueForKey(currentUser.userId(), {
           "x" : pxwindow.x,
           "y" : pxwindow.y,
-          "visible" : pxwindow.visible
+          "visible" : pxwindow.visible && !pxwindow.beginClosed
         }, pxwindow.uniqueIdentifier);
     }
 }

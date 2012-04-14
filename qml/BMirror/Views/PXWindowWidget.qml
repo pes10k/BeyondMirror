@@ -44,6 +44,7 @@ PXWindowDraggable {
 
     id: windowDraggable
     state: "DEFAULT"
+    beginClosed: false
 
     PXTitleBarButtonConfig {
 

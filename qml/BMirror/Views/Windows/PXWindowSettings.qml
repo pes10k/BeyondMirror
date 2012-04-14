@@ -9,6 +9,7 @@ PXWindowDraggable {
     id: settingsWindow
     uniqueIdentifier: "settings window"
     titleKey: "Settings"
+    beginClosed: false
 
     contentView: Rectangle {
 
@@ -51,5 +52,4 @@ PXWindowDraggable {
             }
         }
     }
-
 }

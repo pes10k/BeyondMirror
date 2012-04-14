@@ -155,7 +155,7 @@ PXWindowWidget {
             visible:nutrition.tabInforVisibility
             Image {
                 anchors.left: parent.left
-                source:"../../Images/nutrition.png"
+                source: "../../Images/nutrition.png"
             }
         }
     }

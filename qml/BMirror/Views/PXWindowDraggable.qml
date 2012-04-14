@@ -31,6 +31,10 @@ PXWindow {
     property int lastY: 0
     property string titleKey
 
+    // Implementing windows can set this to be true to make sure that they
+    // start out closed whenever the application is opened
+    property bool beginClosed: true
+
     Component.onCompleted: {
 
         if (windowDraggable.contentView) {
