@@ -1,7 +1,22 @@
 import "../"
 import QtQuick 1.1
 
+/**
+ * "Tab Delegate Protocol"
+ *
+ * - tabItemClicked (tabElement)
+ *   Will be called on the tab delegate whenever
+ *   the given tab is clicked.
+ */
 Rectangle {
+
+    function isActive () {
+        return tabItem.state === "ABLED";
+    }
+
+    function setActiveState (isActive) {
+        tabItem.state = isActive ? "ABLED" : "DISABLED";
+    }
 
     // Untranslated text key for the button label
     property string textKey;
@@ -10,7 +25,8 @@ Rectangle {
     // button presses in the "Tab Delegate Protocol"
     property string tabIdentifier;
 
-    //
+    // Refernece to an object that should implement the "Tab Delegate Protocol",
+    // defined above.
     property variant tabDelegate;
 
     //the information of tab which needs to display

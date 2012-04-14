@@ -8,7 +8,7 @@ import QtQuick 1.1
 
 PXWindowWidget {
 
-    property variant currentTab: tvShowsTab;
+    property variant currentTab: tvshowsTab;
 
     // Implementation of the "Array List Model Delegate Protocol"
     function rowsForModel (model, modelIdentifier) {
@@ -22,9 +22,9 @@ PXWindowWidget {
 
                 current_data = PXData.movies;
 
-            } else if (videoWidget.currentTab == tvShowsTab) {
+            } else if (videoWidget.currentTab == tvshowsTab) {
 
-                current_data = PXData.tVShows;
+                current_data = PXData.tvshows;
 
             } else if (videoWidget.currentTab == podcastTab) {
 
@@ -51,8 +51,8 @@ PXWindowWidget {
             videoModel.refresh();
             break;
 
-        case "tVShows tab":
-            currentTab = tvShowsTab
+        case "tvshows tab":
+            currentTab = tvshowsTab
             videoModel.refresh();
             break;
 
@@ -75,16 +75,16 @@ PXWindowWidget {
         PXTab {
             id: moviesTab
             tabIdentifier: "movies tab"
-            anchors.right: tvShowsTab.left
-            anchors.rightMargin: 60
+            anchors.right: tvshowsTab.left
+            anchors.rightMargin: 20
             textKey: "Movies"
             tabDelegate: videoWidget
             state: "DISABLED"
         }
 
         PXTab {
-            id: tvShowsTab
-            tabIdentifier: "tVShows tab"
+            id: tvshowsTab
+            tabIdentifier: "tvshows tab"
             anchors.horizontalCenter: parent.horizontalCenter
             textKey: "TV Shows"
             tabDelegate: videoWidget
@@ -94,8 +94,8 @@ PXWindowWidget {
         PXTab {
             id: podcastTab
             tabIdentifier: "podcast tab"
-            anchors.left: tvShowsTab.right
-            anchors.leftMargin: 60
+            anchors.left: tvshowsTab.right
+            anchors.leftMargin: 20
             textKey: "Podcasts"
             tabDelegate: videoWidget
             state: "DISABLED"
@@ -122,7 +122,7 @@ PXWindowWidget {
                             "window" : "video window",
                             "params" : {
                                 "title" : rowTextKey,
-                                "source" : ""
+                                "source" : "../../Images/" + rowTextKey + ".png"
                             }
                         });
                     }

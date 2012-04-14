@@ -164,7 +164,7 @@ Rectangle {
         id: videoWidget
         visible: false
         uniqueIdentifier: "video widget"
-        width: 600
+        width: 400
         height: 400
     }
 

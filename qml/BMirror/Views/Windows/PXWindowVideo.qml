@@ -8,7 +8,7 @@ PXWindowDraggable {
     function setParams (params) {
 
         videoWindow.titleKey = params.title;
-        //videoPlayer.source = params.source;
+        video.source = params.source;
     }
 
     id: videoWindow
@@ -18,10 +18,19 @@ PXWindowDraggable {
         id: contentView
         color: "black"
         anchors.fill: parent
-//        Video {
-//            id: videoPlayer
-//            source: ""
-//            anchors.fill: parent
-//        }
+
+        Image {
+            anchors.top: parent.top
+            id:video
+            height: parent.height*0.9
+            width:  parent.width
+        }
+
+        Image{
+            id:player
+            source:"../../Images/nutrition.png"
+            height:parent.height*0.1
+            anchors.top: video.bottom
+        }
     }
 }

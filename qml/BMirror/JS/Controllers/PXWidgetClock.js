@@ -48,7 +48,7 @@ var clock = (function () {
 
             } else {
 
-                return zero_pad(date.getHours() % 12) + ":" + zero_pad(date.getMinutes()) + ":" + zero_pad(date.getSeconds()) + " " + (date.getHours() < 12 ? "AM" : "PM");
+                return (date.getHours() % 12) + ":" + zero_pad(date.getMinutes()) + ":" + zero_pad(date.getSeconds()) + " " + (date.getHours() < 12 ? "AM" : "PM");
 
             }
         },
