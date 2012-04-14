@@ -28,8 +28,9 @@ PXWindowDraggable {
 
         Image{
             id:player
-            source:"../../Images/nutrition.png"
+            source:"../../Images/player.png"
             height:parent.height*0.1
+            width: parent.width
             anchors.top: video.bottom
         }
     }

@@ -66,6 +66,53 @@ PXWindowWidget {
     id: videoWidget
     titleKey: "Video"
 
+    Rectangle {
+        color:"white"
+        anchors.horizontalCenter: parent.horizontalCenter
+        height:parent.height*0.8
+        width:parent.width*0.6
+
+        Row {
+            anchors.left: parent.left
+            anchors.leftMargin: 20
+            anchors.top: parent.top
+            anchors.topMargin: 20
+            anchors.right: parent.right
+            anchors.rightMargin: 20
+
+            PXText {
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.left: parent.left
+                color: "black"
+                textKey: "videoFavorite"
+            }
+            Image {
+                id:device
+                property bool deviceSelection: true
+                anchors.right: parent.right
+                anchors.verticalCenter: parent.verticalCenter
+                source:'../../Images/box-checked.png'
+                MouseArea{
+                    anchors.fill: parent
+                    onClicked: {
+                        if(device.deviceSelection === true){
+                            device.deviceSelection = false
+                            videoModel.visible = false
+                            device.source = '../../Images/box-unchecked.png'
+
+                        }
+                        else {
+                            device.deviceSelection = true
+                            videoModel.visible = true
+                            device.source = '../../Images/box-checked.png'
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
     contentView: Rectangle {
 
         color: "transparent"

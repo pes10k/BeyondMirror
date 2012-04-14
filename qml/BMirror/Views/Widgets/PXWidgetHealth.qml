@@ -51,17 +51,63 @@ PXWindowWidget {
     //record the current slected tab
     property variant currentTab:sleep;
 
-    configurationView: Rectangle {
-        anchors.fill: parent
-        height: parent.height
-        width: parent.width
-        PXText {
-            color: "black"
-            height: parent.height > 40 ? 40:parent.height
-            visible: height > 10
-            textKey: "Magic"
+    Rectangle {
+        color:"white"
+        anchors.horizontalCenter: parent.horizontalCenter
+        height:parent.height*0.8
+        width:parent.width*0.4
+
+        Row {
+            anchors.left: parent.left
+            anchors.leftMargin: 20
+            anchors.top: parent.top
+            anchors.topMargin: 20
+            anchors.right: parent.right
+            anchors.rightMargin: 20
+
+            PXText {
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.left: parent.left
+                color: "black"
+                textKey: "Magic"
+            }
+            Image {
+                id:device
+                property bool deviceSlection: true
+                anchors.right: parent.right
+                anchors.verticalCenter: parent.verticalCenter
+                source:'../../Images/box-checked.png'
+                MouseArea{
+                    anchors.fill: parent
+                    onClicked: {
+                        if(device.deviceSlection === false){
+                            device.deviceSlection = true
+                            device.source = '../../Images/box-checked.png'
+                            weightInforChart.visible = true
+                            sleepInforChart.visible = true
+                            nutritionInforTable.visible = true
+                        }
+                        else{
+                            device.deviceSlection = false
+                            device.source = '../../Images/box-unchecked.png'
+                            weightInforChart.visible = false
+                            sleepInforChart.visible = false
+                            nutritionInforTable.visible = false
+                        }
+                    }
+                }
+            }
         }
     }
+
+    configurationView: Rectangle {
+        //anchors.fill: parent
+        height: parent.height
+        width: parent.width
+        color:'black'
+    }
+
+
 
     contentView:Rectangle {
         //visible:false
@@ -141,6 +187,7 @@ PXWindowWidget {
             anchors.horizontalCenter: sleep.horizontalCenter
             visible: sleep.tabInforVisibility
             Image{
+                id:sleepInforChart
                 anchors.left: parent.left
                 source: "../../Images/sleep.png"
             }
@@ -154,6 +201,7 @@ PXWindowWidget {
             anchors.horizontalCenter: sleep.horizontalCenter
             visible:nutrition.tabInforVisibility
             Image {
+                id:nutritionInforTable
                 anchors.left: parent.left
                 source: "../../Images/nutrition.png"
             }
