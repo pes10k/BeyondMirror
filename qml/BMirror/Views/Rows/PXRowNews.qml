@@ -23,6 +23,7 @@ PXRowNext {
         textLabel.anchors.left = image.right
         textLabel.anchors.leftMargin = rowNewsImageUrl ? 5 : 0
         textLabel.width = newsRow.width - image.width - 60;
+        textLabel.shouldTranslate = false
     }
 
     id: newsRow
@@ -41,6 +42,7 @@ PXRowNext {
         font.pointSize: 12
         maximumLineCount: 1
         lineHeight: sourceLabel.height
+        shouldTranslate: false
     }
 
     Image {

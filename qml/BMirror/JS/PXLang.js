@@ -1,4 +1,4 @@
-.pragma library
+Qt.include("Controllers/PXPaneLanguage.js");
 
 /**
  * @file
@@ -51,11 +51,11 @@ var translationTable = (function () {
  *   The translated version of the string, if available.  Otherwise,
  *   returns back the provided English version.
  */
-var translateTerm = function (term) {
+var translateTerm = function (term, new_language) {
 
     var current_language, table;
 
-    current_language = "en";
+    current_language = new_language || languages.language();
 
     if (current_language === "en") {
 
@@ -71,7 +71,7 @@ var translateTerm = function (term) {
 
         } else {
 
-            console.log("No translation for key '" + term + "' for language '" + current_language + "'");
+//            console.log("No translation for key '" + term + "' for language '" + current_language + "'");
             return term;
         }
     }

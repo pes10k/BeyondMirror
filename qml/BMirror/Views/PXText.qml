@@ -19,7 +19,7 @@ Text {
     /* Notifications Protocol Methods */
     function receivedNotification (notification, params) {
         if (textElement.shouldTranslate) {
-            textElement.text = Lang.translateTerm(textElement.textKey);
+            textElement.text = Lang.translateTerm(textElement.textKey, params.code);
         } else {
             textElement.text = textElement.textKey;
         }

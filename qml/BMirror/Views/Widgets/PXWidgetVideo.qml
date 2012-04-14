@@ -77,7 +77,7 @@ PXWindowWidget {
             tabIdentifier: "movies tab"
             anchors.right: tvShowsTab.left
             anchors.rightMargin: 60
-            textKey:"movies"
+            textKey: "Movies"
             tabDelegate: videoWidget
             state: "DISABLED"
         }
@@ -86,7 +86,7 @@ PXWindowWidget {
             id: tvShowsTab
             tabIdentifier: "tVShows tab"
             anchors.horizontalCenter: parent.horizontalCenter
-            textKey:"TV Shows"
+            textKey: "TV Shows"
             tabDelegate: videoWidget
             state: "ABLED"
         }
@@ -96,7 +96,7 @@ PXWindowWidget {
             tabIdentifier: "podcast tab"
             anchors.left: tvShowsTab.right
             anchors.leftMargin: 60
-            textKey:"podcast"
+            textKey: "Podcasts"
             tabDelegate: videoWidget
             state: "DISABLED"
         }

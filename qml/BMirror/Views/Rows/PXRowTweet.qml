@@ -39,6 +39,7 @@ PXRowNext {
         lineHeight: height
         textKey: "@" + rowTwitterUser + " – " + (rowTwitterDate ? (new Date(rowTwitterDate)).toDateString() : "")
         color: "black"
+        shouldTranslate: false
     }
 
     Image {

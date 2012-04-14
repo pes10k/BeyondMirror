@@ -19,6 +19,7 @@ Rectangle {
 
     id: row
     width: parent.width
+    anchors.horizontalCenter: parent.horizontalCenter
     height: 50
     color: "white"
 

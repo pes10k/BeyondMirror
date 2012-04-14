@@ -51,7 +51,22 @@ Rectangle {
     id: localListModelArray;
     width: parent.width;
     height: parent.height;
-    color: "transparent";
+    color: "black";
+    border.width: 2
+    border.color: "black"
+
+    PXShadow {
+        height: parent.height > 10 ? 10 : parent.height
+        visible: parent.height > 1
+        anchors.top: parent.top;
+    }
+
+    PXShadow {
+        isTop: false
+        height: parent.height > 10 ? 10 : parent.height
+        visible: parent.height > 1
+        anchors.bottom: parent.bottom;
+    }
 
     ListView {
 
