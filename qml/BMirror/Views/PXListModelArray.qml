@@ -44,8 +44,11 @@ Rectangle {
     }
 
     function refresh () {
+
         localListModel.clear();
-        arrayResultDelegate.rowsForModel(localListView.model, localListModelArray.modelIdentifier);
+        if (localListModelArray.arrayResultDelegate) {
+            arrayResultDelegate.rowsForModel(localListView.model, localListModelArray.modelIdentifier);
+        }
     }
 
     id: localListModelArray;

@@ -6,6 +6,31 @@ import QtQuick 1.1
 
 PXWindowDraggable {
 
+    // Implementation of "Tab Delegate Protocol"
+    function tabItemClicked (tabElement) {
+
+        // If the tab being clicked is active, do nothing,
+        // since nothing has changed
+            if (tabElement === wifiTab) {
+
+                wifiTab.setActiveState(true);
+                languageTab.setActiveState(false);
+                wifiPane.show();
+                languagePane.hide();
+
+            } else {
+
+                wifiTab.setActiveState(false);
+                languageTab.setActiveState(true);
+                wifiPane.hide();
+                languagePane.show();
+
+            }
+    }
+
+    // Implementation of the "Array Result Delegate Protocol"
+    function rowsForModel (model, modelIdentifier) {}
+
     id: settingsWindow
     uniqueIdentifier: "settings window"
     titleKey: "Settings"
@@ -47,8 +72,17 @@ PXWindowDraggable {
             anchors.topMargin: 0
 
             PXPaneLanguage {
+                id: languagePane
                 border.width: 0
                 anchors.fill: parent
+                visible: true
+            }
+
+            PXPaneWifi {
+                id: wifiPane
+                border.width: 0
+                anchors.fill: parent
+                visible: false
             }
         }
     }

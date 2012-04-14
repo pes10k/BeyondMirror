@@ -11,11 +11,12 @@ import QtQuick 1.1
 Rectangle {
 
     function isActive () {
-        return tabItem.state === "ABLED";
+        console.log(tabItem.state)
+        return tabItem.state == "ABLED";
     }
 
     function setActiveState (isActive) {
-        tabItem.state = isActive ? "ABLED" : "DISABLED";
+        tabItem.state = isActive === true ? "ABLED" : "DISABLED";
     }
 
     // Untranslated text key for the button label
@@ -36,6 +37,7 @@ Rectangle {
     id: tabItem
     width: 100
     height: 40
+    state: "ABLED"
 
     Rectangle {
 
@@ -52,11 +54,12 @@ Rectangle {
             anchors.fill: parent
 
             onClicked: {
-                if (tabItem.state != "ABLED"){
-                    tabItem.state ="ABLED"
-                    if (tabItem.tabDelegate) {
-                        tabItem.tabDelegate.tabItemClicked(tabItem);
-                    }
+                if (tabItem.state != "ABLED") {
+                    tabItem.state = "ABLED"
+                }
+
+                if (tabItem.tabDelegate) {
+                    tabItem.tabDelegate.tabItemClicked(tabItem);
                 }
             }
         }

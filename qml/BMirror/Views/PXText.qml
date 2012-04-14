@@ -52,4 +52,5 @@ Text {
     horizontalAlignment: Text.AlignLeft;
     elide: Text.ElideRight;
     color: "white"
+    visible: parent.height > 10
 }
