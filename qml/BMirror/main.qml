@@ -20,7 +20,8 @@ Rectangle {
         "health launcher" : healthWidget,
         "video launcher" : videoWidget,
         "clock launcher" : clockWidget,
-        "weather launcher" : weatherWidget
+        "weather launcher" : weatherWidget,
+        "settings launcher" : settingsWindow
     }
 
     property variant windowMappings: {
@@ -71,7 +72,6 @@ Rectangle {
         var relevantWidget = main.launcherMappings[launcherItem.launcherIdentifier];
 
         if (relevantWidget) {
-
             if (relevantWidget.isOpen()) {
                 launcherItem.state = "PRESSED"
             }
@@ -209,5 +209,12 @@ Rectangle {
         visible: false
         width: 300
         height: 308
+    }
+
+    PXWindowSettings {
+        id: settingsWindow
+        visible: false
+        width: 500
+        height: 400
     }
 }

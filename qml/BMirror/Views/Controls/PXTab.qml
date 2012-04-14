@@ -12,62 +12,77 @@ Rectangle {
 
     //
     property variant tabDelegate;
+
     //the information of tab which needs to display
     property bool tabInforVisibility
 
+    color: "transparent"
     id: tabItem
     width: 100
     height: 40
-    color: "#000000"
-    //radius: 5
-    //border.color: "#ffffff"
 
-    MouseArea {
-        id: mouseArea
-        anchors.fill: parent
+    Rectangle {
 
-        onClicked: {
-            if(tabItem.state != "ABLED"){
-                tabItem.state ="ABLED"
-                if (tabItem.tabDelegate) {
-                    //console.log(tabItem.textKey);
-                    tabItem.tabDelegate.tabItemClicked(tabItem);
+        id: tabItemContainer
+        color: "#000000"
+        height: parent.height
+        width: parent.width
+        radius: 5
+        y: 5
+        border.color: "#000000"
+
+        MouseArea {
+            id: mouseArea
+            anchors.fill: parent
+
+            onClicked: {
+                if (tabItem.state != "ABLED"){
+                    tabItem.state ="ABLED"
+                    if (tabItem.tabDelegate) {
+                        tabItem.tabDelegate.tabItemClicked(tabItem);
+                    }
                 }
             }
         }
-    }
 
-    PXText {
-        id: label
-        anchors.fill: parent
-        horizontalAlignment: Text.AlignHCenter
-        textKey: tabItem.textKey
+        PXText {
+            id: label
+            anchors.fill: parent
+            horizontalAlignment: Text.AlignHCenter
+            textKey: tabItem.textKey
+        }
     }
 
     states: [
         State {
             name: "DISABLED"
             PropertyChanges {
-                target: tabItem
+                target: tabItemContainer
                 color: "#000000"
+                border.color: "#ffffff"
+            }
+            PropertyChanges {
+                target: tabItem
                 tabInforVisibility: false
             }
             PropertyChanges{
-                target:label
-                color:"#ffffff"
+                target: label
+                color: "#ffffff"
             }
         },
-
         State {
             name: "ABLED"
             PropertyChanges {
-                target:tabItem
+                target: tabItemContainer
                 color: "#ffffff"
+            }
+            PropertyChanges {
+                target: tabItem
                 tabInforVisibility: true
             }
             PropertyChanges{
-                target:label
-                color:"#000000"
+                target: label
+                color: "#000000"
             }
         }
     ]

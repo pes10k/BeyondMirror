@@ -33,7 +33,6 @@ PXWindowWidget {
        PXTab{
            id:weight
            tabIdentifier: "weight tab"
-           color:"#808080"
            anchors.right: sleep.left
            anchors.rightMargin: 60
            textKey:"weight"
@@ -43,7 +42,6 @@ PXWindowWidget {
        PXTab{
            id:sleep
            tabIdentifier: "sleep tab"
-           color:"#000000"
            anchors.horizontalCenter:parent.horizontalCenter
            textKey:"sleep"
            tabDelegate: healthWidget
@@ -52,7 +50,6 @@ PXWindowWidget {
        PXTab{
            id:nutrition
            tabIdentifier: "nutrition tab"
-           color:"#808080"
            anchors.left: sleep.right
            anchors.leftMargin: 60
            textKey:"nutrition"

@@ -75,7 +75,6 @@ PXWindowWidget {
         PXTab {
             id: moviesTab
             tabIdentifier: "movies tab"
-            color:"#808080"
             anchors.right: tvShowsTab.left
             anchors.rightMargin: 60
             textKey:"movies"
@@ -86,7 +85,6 @@ PXWindowWidget {
         PXTab {
             id: tvShowsTab
             tabIdentifier: "tVShows tab"
-            color:"#000000"
             anchors.horizontalCenter: parent.horizontalCenter
             textKey:"TV Shows"
             tabDelegate: videoWidget
@@ -96,7 +94,6 @@ PXWindowWidget {
         PXTab {
             id: podcastTab
             tabIdentifier: "podcast tab"
-            color:"#808080"
             anchors.left: tvShowsTab.right
             anchors.leftMargin: 60
             textKey:"podcast"

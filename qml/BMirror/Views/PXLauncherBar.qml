@@ -34,7 +34,8 @@ Rectangle {
         "health widget" : healthLauncher,
         "video widget" : videoLauncher,
         "clock widget" : clockLauncher,
-        "weather widget" : weatherLauncher
+        "weather widget" : weatherLauncher,
+        "settings window" : settingsLauncher
     }
 
     property variant applicationManager;
@@ -152,6 +153,16 @@ Rectangle {
             anchors.left: clockLauncher.right
             anchors.leftMargin: 10
             launcherImage: "../../Images/weather.png"
+        }
+
+        PXLauncher {
+            id: settingsLauncher
+            launcherIdentifier: "settings launcher"
+            launcherDelegate: applicationManager
+            textKey: "Settings"
+            anchors.left: weatherLauncher.right
+            anchors.leftMargin: 10
+            launcherImage: "../../Images/setting.png"
         }
     }
 }
