@@ -64,7 +64,7 @@ PXWindowWidget {
             id: weightTab
             tabIdentifier: "weight tab"
             anchors.top: parent.top
-            anchors.right: sleep.left
+            anchors.right: sleepTab.left
             anchors.rightMargin: 60
             textKey: "Weight"
             tabDelegate: healthWidget
@@ -96,23 +96,22 @@ PXWindowWidget {
             id: contentPane
             anchors.top: weightTab.bottom
             anchors.right: parent.right
-            anchors.bottom: parent.sleepTab
+            anchors.bottom: parent.bottom
             anchors.left: parent.left
             anchors.topMargin: 0
 
             Rectangle {
                 id: weightInfo
                 anchors.fill: parent
-                anchors.horizontalCenter: sleepTab.horizontalCenter
-                visible: weight.tabInforVisibility
+
                 property variant currentRadio: monthlyRadioButton
 
                 Image {
-                    id:weightInfoChart
-                    anchors.left:parent.left
-                    source:"../../Images/weight_monthly.png"
-
+                    id: weightInfoChart
+                    anchors.left: parent.left
+                    source: "../../Images/weight_monthly.png"
                 }
+
                 Column {
                     anchors.right: parent.right
                     anchors.rightMargin: 20
@@ -143,8 +142,6 @@ PXWindowWidget {
 
                 id: nutritionInfo
                 anchors.fill: parent
-                anchors.top: sleepTab.bottom
-                anchors.horizontalCenter: sleepTab.horizontalCenter
                 visible: false
 
                 Image {
@@ -157,9 +154,7 @@ PXWindowWidget {
             Rectangle {
                 id: sleepInfo
                 anchors.fill: parent
-                anchors.top: sleepTab.bottom
-                anchors.horizontalCenter: sleepTab.horizontalCenter
-                visible: sleepTab.tabInforVisibility
+
                 Image{
                     id:sleepInforChart
                     anchors.left: parent.left

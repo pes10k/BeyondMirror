@@ -73,6 +73,7 @@ PXWindowWidget {
         width:parent.width*0.6
 
         Row {
+
             anchors.left: parent.left
             anchors.leftMargin: 20
             anchors.top: parent.top
@@ -86,6 +87,7 @@ PXWindowWidget {
                 color: "black"
                 textKey: "videoFavorite"
             }
+
             Image {
                 id:device
                 property bool deviceSelection: true
