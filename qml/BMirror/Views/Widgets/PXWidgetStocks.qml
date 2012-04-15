@@ -93,12 +93,12 @@ PXWindowWidget {
                     anchors.fill: parent
                     onClicked: {
                         Notifications.registry.sendNotification("request for window", {
-                                                                    "window" : "stock window",
-                                                                    "params" : {
-                                                                        "call_letters" : rowTextKey,
-                                                                        "name" : rowStockName
-                                                                    }
-                                                                });
+                            "window" : "stock window",
+                            "params" : {
+                                "call_letters" : rowTextKey,
+                                "name" : rowStockName
+                            }
+                        });
                     }
                 }
 
@@ -109,7 +109,7 @@ PXWindowWidget {
                     anchors.left: parent.left
                     anchors.leftMargin: 5
                     anchors.verticalCenter: parent.verticalCenter
-                    width: parent.width - 50
+                    width: parent.width - stockValueLabel.width - nextImage.width - 15
                 }
 
                 PXText {
@@ -118,9 +118,19 @@ PXWindowWidget {
                     id: stockValueLabel
                     width: 60
                     horizontalAlignment: Text.AlignRight
+                    anchors.right: nextImage.left
+                    anchors.rightMargin: 10
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+
+                Image {
+                    id: nextImage
                     anchors.right: parent.right
                     anchors.rightMargin: 5
+                    width: 22
+                    height: 18
                     anchors.verticalCenter: parent.verticalCenter
+                    source: "../../Images/forward-icon.png"
                 }
 
                 Rectangle {
