@@ -105,12 +105,9 @@ function repositionWindowOnDrag (pxwindow, mouseEvent, parentWindow) {
             "y" : pxwindow.y + mouseEvent.y - pxwindow.lastY
         }
 
-        if (parentWindow && parentWindow.canChildMoveInParent) {
+        if (parentWindow && parentWindow.moveInParent) {
 
-            if ( ! parentWindow.canChildMoveInParent(pxwindow, new_cords)) {
-
-                return false;
-            }
+            new_cords = parentWindow.moveInParent(pxwindow, new_cords);
         }
 
         pxwindow.x = new_cords.x;

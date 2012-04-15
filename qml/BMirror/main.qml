@@ -81,22 +81,33 @@ Rectangle {
     }
 
     // Implementation of "Moving Children Delegate Protocol"
-    // Returns true if the new position is valid and should be
-    // accepted.  Otherwise, returns false.
-    function canChildMoveInParent (child, newCords) {
+    // Adjusts the coordinates of the child to not exceed
+    // the parent's bounds, if needed
+    function moveInParent (child, newCords) {
 
-        if (newCords.x < 0 || newCords.x + child.width > main.width) {
+        var adjusted_cords = {"x" : newCords.x, "y": newCords.y};
 
-            return false;
+        if (newCords.x < 0) {
 
-        } else if (newCords.y < 0 || newCords.y + child.height > main.height) {
+            adjusted_cords.x = 0;
 
-            return false;
+        } else if (newCords.x + child.width > main.width) {
 
-        } else {
+            adjusted_cords.x = main.width - child.width;
 
-            return true;
         }
+
+        if (newCords.y < 0) {
+
+            adjusted_cords.y = 0;
+
+        } else if (newCords.y + child.height > main.height) {
+
+            adjusted_cords.y = main.height - child.height
+
+        }
+
+        return adjusted_cords;
     }
 
     Component.onCompleted: {
