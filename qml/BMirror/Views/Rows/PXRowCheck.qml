@@ -7,13 +7,13 @@ PXRowText {
     Component.onCompleted: {
 
         var textLabel = row.textLabel();
-        textLabel.anchors.left = checkbox.right
-        textLabel.anchors.leftMargin = 10
-        textLabel.anchors.rightMargin = 10
+        textLabel.anchors.left = checkbox.right;
+        textLabel.anchors.leftMargin = 5;
+        textLabel.anchors.right = row.right;
+        textLabel.anchors.rightMargin = 5;
     }
 
     id: row
-    property variant checkbox: checkbox
 
     Image {
         id: checkbox
@@ -24,6 +24,6 @@ PXRowText {
         anchors.topMargin: 1
         anchors.left: parent.left
         anchors.leftMargin: 5
-        source: "../../Images/box-unchecked.png"
+        source: isCurrent ? "../../Images/box-checked.png" : "../../Images/box-unchecked.png"
     }
 }

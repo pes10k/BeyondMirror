@@ -79,6 +79,7 @@ PXWindowDraggable {
         PXWebView {
 
             id: helpWebView
+            showProgressBar: false
             anchors.top: parent.top
             anchors.topMargin: 5
             anchors.right: parent.right

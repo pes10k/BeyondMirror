@@ -1,52 +1,65 @@
 // import QtQuick 1.0 // to target S60 5th Edition or Maemo 5
 import "../"
+import "../Rows"
 import "../Controls"
+import "../../JS/Controllers/PXWidgetHealth.js" as HealthController
+import "../../JS/Controllers/PXController.js" as Controller
 import QtQuick 1.1
+
 PXWindowWidget {
 
-    //record the current slected tab
-    property variant currentTab: sleepTab;
+    function updateCheckmarks (value) {
 
-    // Implementation of "Tab Item Delegate Protocol"
-    function tabItemClicked (tabItem){
-        currentTab.state = "DISABLED"
-        switch (tabItem.tabIdentifier) {
-
-        case "weight tab":
-            currentTab = weightTab
-            break;
-
-        case "sleep tab":
-            currentTab = sleepTab
-            break;
-
-        case "nutrition tab":
-            currentTab = nutritionTab
-            break;
-        }
+        return Controller.updateCheckmarks(healthWidgetConfig.getViewModel(), "rowTextKey", value);
     }
 
-    function radioButtonClicked(radioButton){
+    // Implementation of "Array List Model Delegate Protocol"
+    function rowsForModel (model, modelIdentifier) {
+        HealthController.addDataSourcesToModel(model);
+        updateCheckmarks(HealthController.healthSources.currentSource(globalVariables.currentUserId));
+    }
 
-        if (radioButton.state === 'SELECTED')
-            return
+    // Implementation of "Tab Item Delegate Protocol"
+    function tabItemClicked (tabItem) {
+
+        var isWeightTab = tabItem === weightTab,
+            isSleepTab = tabItem === sleepTab,
+            isNutritionTab = tabItem === nutritionTab;
+
+        weightTab.setActiveState(isWeightTab);
+        sleepTab.setActiveState(isSleepTab);
+        nutritionTab.setActiveState(isNutritionTab);
+
+        weightInfo.visible = isWeightTab;
+        sleepInfo.visible = isSleepTab;
+        nutritionInfo.visible = isNutritionTab;
+    }
+
+    function radioButtonClicked (radioButton){
+
+        if (radioButton.state === 'SELECTED') {
+            return;
+        }
 
         weightInfo.currentRadio.state = "UNSELECTED"
         switch (radioButton.textKey) {
+
         case "yearly":
-            radioButton.state = "SELECTED"
-            weightInfo.currentRadio = yearlyRadioButton
-            weightInfoChart.source = "../../Images/weight_yearly.png"
+            radioButton.state = "SELECTED";
+            weightInfo.currentRadio = yearlyRadioButton;
+            weightInfoChart.source = "../../Images/weight_yearly.png";
             break;
+
         case "monthly":
             radioButton.state = "SELECTED"
-            weightInfo.currentRadio = monthlyRadioButton
-            weightInfoChart.source = "../../Images/weight_monthly.png"
+            weightInfo.currentRadio = monthlyRadioButton;
+            weightInfoChart.source = "../../Images/weight_monthly.png";
             break;
+
         case "weekly":
-            radioButton.state = "SELECTED"
-            weightInfo.currentRadio = weeklyRadioButton
-            weightInfoChart.source = "../../Images/weight_weekly.png"
+            radioButton.state = "SELECTED";
+            weightInfo.currentRadio = weeklyRadioButton;
+            weightInfoChart.source = "../../Images/weight_weekly.png";
             break;
         }
     }
@@ -55,10 +68,49 @@ PXWindowWidget {
     titleKey: "Health"
     uniqueIdentifier: "health widget window"
 
+    configurationView: Rectangle {
+
+        id: configPane
+        anchors.fill: parent
+        visible: parent.height > 40
+
+        PXText {
+            id: dataSourceLabel
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.top: parent.top
+            anchors.topMargin: 10
+            textKey: "Health Information Data Source"
+            color: "black"
+            horizontalAlignment: Text.AlignHCenter
+        }
+
+        PXListModelArray {
+            id: healthWidgetConfig
+            arrayResultDelegate: healthWidget
+            modelIdentifier: "health source model"
+            viewComponent: Component {
+                PXRowCheck {
+                    function mouseAreaEvent (mouseArea) {
+                        HealthController.healthSources.setSource(globalVariables.currentUserId, rowTextKey);
+                        healthWidget.updateCheckmarks(rowTextKey);
+                    }
+                }
+            }
+
+            width: 260
+            anchors.top: dataSourceLabel.bottom
+            anchors.topMargin: 5
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: 5
+        }
+    }
+
     contentView: Rectangle {
 
         anchors.fill: parent
         anchors.horizontalCenter: parent.horizontalCenter
+        color: "transparent"
 
         PXTab {
             id: weightTab
@@ -68,7 +120,7 @@ PXWindowWidget {
             anchors.rightMargin: 60
             textKey: "Weight"
             tabDelegate: healthWidget
-            state: "DISABLED"
+            state: "ABLED"
         }
 
         PXTab {
@@ -78,7 +130,7 @@ PXWindowWidget {
             anchors.horizontalCenter: parent.horizontalCenter
             textKey: "Sleep"
             tabDelegate: healthWidget
-            state: "ABLED"
+            state: "DISABLED"
         }
 
         PXTab {
@@ -93,14 +145,16 @@ PXWindowWidget {
         }
 
         PXPane {
+
             id: contentPane
-            anchors.top: weightTab.bottom
+            anchors.top: parent.top
+            anchors.topMargin: sleepTab.height
             anchors.right: parent.right
             anchors.bottom: parent.bottom
             anchors.left: parent.left
-            anchors.topMargin: 0
 
             Rectangle {
+
                 id: weightInfo
                 anchors.fill: parent
 
@@ -119,22 +173,35 @@ PXWindowWidget {
                     anchors.topMargin: 10
 
                     PXRadioButton{
-                        id:yearlyRadioButton
-                        textKey:'yearly'
-                        delegate:healthWidget
+                        id: yearlyRadioButton
+                        textKey: 'yearly'
+                        delegate: healthWidget
                     }
 
                     PXRadioButton{
-                        id:monthlyRadioButton
-                        textKey:'monthly'
-                        delegate:healthWidget
-                        state:"SELECTED"
+                        id: monthlyRadioButton
+                        textKey: 'monthly'
+                        delegate: healthWidget
+                        state: "SELECTED"
                     }
+
                     PXRadioButton{
-                        id:weeklyRadioButton
-                        textKey:'weekly'
-                        delegate:healthWidget
+                        id: weeklyRadioButton
+                        textKey: 'weekly'
+                        delegate: healthWidget
                     }
+                }
+            }
+
+            Rectangle {
+                id: sleepInfo
+                anchors.fill: parent
+                visible: false
+
+                Image {
+                    id: sleepInforChart
+                    anchors.left: parent.left
+                    source: "../../Images/sleep.png"
                 }
             }
 
@@ -145,20 +212,9 @@ PXWindowWidget {
                 visible: false
 
                 Image {
-                    id:nutritionInfoTable
+                    id: nutritionInfoTable
                     anchors.left: parent.left
                     source: "../../Images/nutrition.png"
-                }
-            }
-
-            Rectangle {
-                id: sleepInfo
-                anchors.fill: parent
-
-                Image{
-                    id:sleepInforChart
-                    anchors.left: parent.left
-                    source: "../../Images/sleep.png"
                 }
             }
         }

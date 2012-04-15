@@ -1,5 +1,6 @@
 import "../"
 import "../Rows"
+import "../../JS/Controllers/PXController.js" as Controller
 import "../../JS/Controllers/PXPaneLanguage.js" as LanguageController
 import "../../JS/PXNotifications.js" as Notifications
 import "../../JS/PXApp.js" as App
@@ -22,23 +23,7 @@ PXPane {
 
     function updateCheckmarks (currentCode) {
 
-        var row,
-            i = 0,
-            index = -1,
-            listModel = lanugageListView.getViewModel(),
-            isCurrent = false;
-
-        for (i; i < listModel.count; i++) {
-
-            row = listModel.get(i);
-            row.isCurrent = row.rowLanguageCode === currentCode;
-
-            if (row.isCurrent) {
-                index = i;
-            }
-        }
-
-        return index;
+        return Controller.updateCheckmarks(lanugageListView.getViewModel(), "rowLanguageCode", currentCode);
     }
 
     id: languagePane

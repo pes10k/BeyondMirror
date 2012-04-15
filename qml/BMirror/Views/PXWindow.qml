@@ -13,7 +13,7 @@ Rectangle {
     }
 
     function open () {
-        windowBase.z = WindowSerializer.max_z++;
+        windowBase.z = globalVariables.currentZIndex++;
         windowBase.state = "APPEARING"
     }
 
