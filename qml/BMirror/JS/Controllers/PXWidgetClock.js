@@ -1,28 +1,23 @@
 Qt.include("../PXStorage.js");
-Qt.include("../PXUser.js");
 
 var clock = (function () {
 
     var data_key = "clock settings",
-        _current_settings = false,
-        current_users_values = function () {
+        current_users_values = function (user_id) {
 
-            if (!_current_settings) {
+            var current_settings = valueForKey(user_id, data_key);
 
-                _current_settings = valueForKey(currentUser.userId(), data_key);
+            // If we don't have any settings / configuration options currently
+            // set for the clock, choose some sensiable defaults.
+            if (!current_settings) {
 
-                // If we don't have any settings / configuration options currently
-                // set for the clock, choose some sensiable defaults.
-                if (!_current_settings) {
-
-                    _current_settings = {
-                        "hours_24" : false
-                    };
-                    setValueForKey(currentUser.userId(), _current_settings, data_key);
-                }
+                current_settings = {
+                    "hours_24" : false
+                };
+                setValueForKey(user_id, current_settings, data_key);
             }
 
-            return _current_settings;
+            return current_settings;
         },
         zero_pad = function (a_number) {
 
@@ -34,12 +29,9 @@ var clock = (function () {
         };
 
     return {
-        reset: function () {
-            _current_settings = false;
-        },
-        currentFormattedTime: function () {
+        currentFormattedTime: function (user_id) {
 
-            var config = current_users_values(),
+            var config = current_users_values(user_id),
                 date = new Date();
 
             if (config.hours_24) {
@@ -52,15 +44,16 @@ var clock = (function () {
 
             }
         },
-        is24HourTime: function () {
+        is24HourTime: function (user_id) {
 
-            var config = current_users_values();
+            var config = current_users_values(user_id);
             return config.hours_24;
         },
-        setConfigOptions: function (option, value) {
+        setConfigOptions: function (user_id, option, value) {
 
-            _current_settings[option] = value;
-            setValueForKey(currentUser.userId(), _current_settings, data_key);
+            var config = current_users_values(user_id);
+            config[option] = value;
+            setValueForKey(user_id, config, data_key);
         }
     }
 }());

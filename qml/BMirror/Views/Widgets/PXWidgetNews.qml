@@ -14,7 +14,7 @@ PXWindowWidget {
 
         if (rowTextInput.rowTextInputIdentifier === "news text input") {
 
-            NewsController.news.addFeed(rowTextInput.text(), function () {
+            NewsController.news.addFeed(globalVariables.currentUserId, rowTextInput.text(), function () {
 
                 newsEditWidget.modelArray().refresh();
                 newsViewModel.refresh();
@@ -28,11 +28,11 @@ PXWindowWidget {
 
         if (modelIdentifier === "news view model") {
 
-            NewsController.addCurrentUsersNewsItemsToModel(model);
+            NewsController.addCurrentUsersNewsItemsToModel(globalVariables.currentUserId, model);
 
         } else if (modelIdentifier === "news config model") {
 
-            NewsController.addCurrentUsersNewsFeedsToModel(model);
+            NewsController.addCurrentUsersNewsFeedsToModel(globalVariables.currentUserId, model);
 
         }
     }
@@ -49,7 +49,7 @@ PXWindowWidget {
                     newsEditWidget.modelArray().getViewModel(),
                     newsEditWidget.modelArray(),
                     function () {
-                        NewsController.news.removeFeed(params.row.identifier());
+                        NewsController.news.removeFeed(globalVariables.currentUserId, params.row.identifier());
                         newsEditWidget.modelArray().refresh();
                         newsViewModel.refresh();
                     }

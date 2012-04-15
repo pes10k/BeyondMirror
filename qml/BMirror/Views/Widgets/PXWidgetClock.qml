@@ -13,7 +13,7 @@ PXWindowWidget {
     function checkboxClicked (checkbox) {
 
         checkbox.checked(!checkbox.isChecked);
-        ClockController.clock.setConfigOptions("hours_24", checkbox.isChecked);
+        ClockController.clock.setConfigOptions(globalVariables.currentUserId, "hours_24", checkbox.isChecked);
     }
 
     uniqueIdentifier: "clock widget"
@@ -43,7 +43,7 @@ PXWindowWidget {
         anchors.fill: parent
         color: "green"
         PXCheckbox {
-            isChecked: ClockController.clock.is24HourTime();
+            isChecked: ClockController.clock.is24HourTime(globalVariables.currentUserId);
             anchors.fill: parent
             textboxIndentifier: "clock AM/PM checkbox"
             textKey: "24 Hr Time?"
@@ -56,7 +56,7 @@ PXWindowWidget {
          running: true
          repeat: true
          onTriggered: {
-            timeLabel.textKey = ClockController.clock.currentFormattedTime();
+            timeLabel.textKey = ClockController.clock.currentFormattedTime(globalVariables.currentUserId);
         }
      }
 }

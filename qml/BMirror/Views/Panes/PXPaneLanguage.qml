@@ -16,7 +16,7 @@ PXPane {
         if (modelIdentifier === "language selection pane") {
 
             LanguageController.addLanguagesToModel(model);
-            current_index = languagePane.updateCheckmarks(LanguageController.languages.language());
+            current_index = languagePane.updateCheckmarks(LanguageController.languages.language(globalVariables.currentUserId));
             lanugageListView.getListView().positionViewAtIndex(current_index, ListView.Center);
         }
     }
@@ -43,7 +43,7 @@ PXPane {
         viewComponent: Component {
             PXRowLanguage {
                 function mouseAreaEvent (mouseArea) {
-                    LanguageController.languages.setLanguage(rowLanguageCode);
+                    LanguageController.languages.setLanguage(Variables.currentUserId, rowLanguageCode);
                     globalVariables.setCurrentLangCode(rowLanguageCode);
                     languagePane.updateCheckmarks(rowLanguageCode);
                 }

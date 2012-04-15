@@ -1,43 +1,35 @@
 Qt.include("../PXStorage.js");
-Qt.include("../PXUser.js");
 Qt.include("../PXApp.js");
 
 var languages = (function () {
     var data_key = "language settings",
-        private_settings = {},
-        current_users_values = function () {
+        current_users_values = function (user_id) {
 
-            if (!private_settings["language"]) {
+            var settings = valueForKey(user_id, data_key);
 
-                private_settings = valueForKey(currentUser.userId(), data_key);
+            // If we don't have any settings / configuration options currently
+            // set for the clock, choose some sensiable defaults.
+            if (!settings) {
 
-                // If we don't have any settings / configuration options currently
-                // set for the clock, choose some sensiable defaults.
-                if (!private_settings) {
-
-                    private_settings = {
-                        "language" : "en"
-                    };
-                    setValueForKey(currentUser.userId(), private_settings, data_key);
-                }
+                settings = {
+                    "language" : "en"
+                };
+                setValueForKey(user_id, settings, data_key);
             }
 
-            return private_settings;
+            return settings;
         };
 
     return {
-        reset: function () {
-            private_settings = {};
-        },
-        language: function () {
-            var config = current_users_values();
+        language: function (user_id) {
+            var config = current_users_values(user_id);
             return config.language;
         },
-        setLanguage: function (new_language) {
+        setLanguage: function (user_id, new_language) {
 
-            private_settings["language"] = new_language;
-            dump(private_settings);
-            setValueForKey(currentUser.userId(), private_settings, data_key);
+            var config = current_users_values(user_id);
+            config["language"] = new_language;
+            setValueForKey(user_id, config, data_key);
         }
     };
 }());

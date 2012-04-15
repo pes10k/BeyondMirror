@@ -54,38 +54,31 @@ var news = (function () {
 
     var data_key = "current news feeds",
             default_value,
-            _current_items = false,
-            current_users_values = function () {
+            current_users_values = function (user_id) {
 
-                if (!_current_items) {
+                var current_items = valueForKey(user_id, data_key);
 
-                    _current_items = valueForKey(currentUser.userId(), data_key);
+                if (!current_items) {
 
-                    if (!_current_items) {
-
-                        _current_items = {
-                            "Local News" : "https://ajax.googleapis.com/ajax/services/search/news?v=1.0&geo=Chicago,%20IL"
-                        };
-                        setValueForKey(currentUser.userId(), _current_items, data_key);
-                    }
+                    current_items = {
+                        "Local News" : "https://ajax.googleapis.com/ajax/services/search/news?v=1.0&geo=Chicago,%20IL"
+                    };
+                    setValueForKey(user_id, current_items, data_key);
                 }
 
-                return _current_items;
+                return current_items;
             };
 
     return {
-        reset: function () {
-            _current_items = false;
-        },
-        currentFeeds: function () {
-            return current_users_values();
+        currentFeeds: function (user_id) {
+            return current_users_values(user_id);
         },
         // Returns a sorted array of objects, each representing a news object.
         // The returned array will be a list of news items, from most to least
         // recent, from all current news feeds.
-        currentItems: function (limit, callback) {
+        currentItems: function (user_id, limit, callback) {
 
-            var current_feeds = this.currentFeeds(),
+            var current_feeds = this.currentFeeds(user_id),
                 num_feeds = Object.keys(current_feeds).length,
                 num_feeds_returned = 0,
                 sorted_items = [],
@@ -125,9 +118,9 @@ var news = (function () {
                 newsFetcher(current_feeds[feed_search_terms], received_items_callback);
             }
         },
-        addFeed: function (search_term, callback) {
+        addFeed: function (user_id, search_term, callback) {
 
-            var current_feeds = current_users_values();
+            var current_feeds = current_users_values(user_id);
 
             if (current_feeds[search_term]) {
 
@@ -141,12 +134,12 @@ var news = (function () {
                 // immediatly, to make things quicker.
                 newsFetcher(current_feeds[search_term]);
 
-                setValueForKey(currentUser.userId(), current_feeds, data_key, callback);
+                setValueForKey(user_id, current_feeds, data_key, callback);
             }
         },
-        removeFeed: function (search_term, callback) {
+        removeFeed: function (user_id, search_term, callback) {
 
-            var current_feeds = current_users_values();
+            var current_feeds = current_users_values(user_id);
 
             if (!current_feeds[search_term]) {
 
@@ -155,15 +148,15 @@ var news = (function () {
             } else {
 
                 delete current_feeds[search_term];
-                setValueForKey(currentUser.userId(), current_feeds, data_key, callback);
+                setValueForKey(user_id, current_feeds, data_key, callback);
             }
         }
     };
 }());
 
-var addCurrentUsersNewsFeedsToModel = function (model) {
+var addCurrentUsersNewsFeedsToModel = function (user_id, model) {
 
-    var feeds = news.currentFeeds(),
+    var feeds = news.currentFeeds(user_id),
         num_feeds = feeds.length,
         feed_search_terms,
         i = 0;
@@ -176,9 +169,9 @@ var addCurrentUsersNewsFeedsToModel = function (model) {
     }
 };
 
-var addCurrentUsersNewsItemsToModel = function (model) {
+var addCurrentUsersNewsItemsToModel = function (user_id, model) {
 
-    news.currentItems(20, function (news_items) {
+    news.currentItems(user_id, 20, function (news_items) {
 
         var i = 0, result;
 

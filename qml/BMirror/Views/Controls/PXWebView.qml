@@ -56,6 +56,8 @@ Rectangle {
         anchors.left: parent.left
         anchors.topMargin: 0
         url: webViewContainer.url
+        preferredWidth: webView.width
+        preferredHeight: webView.height
 
         onProgressChanged: {
             progressBarComplete.anchors.rightMargin = parent.width - (parent.width * webView.progress);
