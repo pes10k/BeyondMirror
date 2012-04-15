@@ -13,6 +13,7 @@ Rectangle {
 
     id: addTextContainer
     color: "#ffffff"
+
     border.width: 1
     border.color: "#000000"
 
@@ -26,8 +27,8 @@ Rectangle {
         horizontalAlignment: Text.AlignLeft;
         color: "black"
         anchors.horizontalCenter: parent.horizontalCenter
-        height: parent.height >= 40 ? parent.height : 0
+        height: parent.height >= 30 ? parent.height : 0
         width: parent.width - 10
-        visible: textElement.height >= 40
+        visible: textElement.height >= 30
     }
 }

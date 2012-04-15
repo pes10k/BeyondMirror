@@ -28,9 +28,6 @@ PXWindowDraggable {
             }
     }
 
-    // Implementation of the "Array Result Delegate Protocol"
-    function rowsForModel (model, modelIdentifier) {}
-
     id: settingsWindow
     uniqueIdentifier: "settings window"
     titleKey: "Settings"

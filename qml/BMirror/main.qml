@@ -122,6 +122,10 @@ Rectangle {
         }
     }
 
+    PXGlobals {
+        id: globalVariables
+    }
+
     PXLauncherBar {
         applicationManager: main
         width: 768

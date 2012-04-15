@@ -1,4 +1,4 @@
-import "../JS/PXWindowSerializer.js" as WindowSerializer
+    import "../JS/PXWindowSerializer.js" as WindowSerializer
 import "../JS/PXNotifications.js" as Notifications
 import QtQuick 1.1
 

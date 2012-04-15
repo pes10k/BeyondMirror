@@ -58,12 +58,6 @@ PXWindowWidget {
         width:parent.width*0.4
 
         Row {
-            anchors.left: parent.left
-            anchors.leftMargin: 20
-            anchors.top: parent.top
-            anchors.topMargin: 20
-            anchors.right: parent.right
-            anchors.rightMargin: 20
 
             PXText {
                 anchors.verticalCenter: parent.verticalCenter

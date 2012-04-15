@@ -9,8 +9,6 @@
 Qt.include("PXUser.js")
 Qt.include("PXStorage.js");
 
-var max_z = 1;
-
 /**
  * Userializes a window and populates relevant properties
  * from stored versions, where available.  Currently

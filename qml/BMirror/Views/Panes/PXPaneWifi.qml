@@ -6,6 +6,44 @@ import "../../JS/PXApp.js" as App
 import QtQuick 1.1
 
 PXPane {
+
+    // Implementation of the "Array Result Delegate Protocol"
+    function rowsForModel (model, modelIdentifier) {
+
+        var rows, i = 0;
+
+        if (modelIdentifier === "wifi networks model") {
+
+            rows = [
+                {
+                    "rowTextKey" : "Weak Network",
+                    "rowImageUrl" : "../../Images/wifi-low-icon.png"
+                },
+                {
+                    "rowTextKey" : "Medium Network",
+                    "rowImageUrl" : "../../Images/wifi-half-icon.png"
+                },
+                {
+                    "rowTextKey" : "Strong Network",
+                    "rowImageUrl" : "../../Images/wifi-high-icon.png"
+                },
+            ];
+
+        } else if (modelIdentifier === "security networks model") {
+
+            rows = [
+                {"rowTextKey" : "WEP"},
+                {"rowTextKey" : "WPA"},
+                {"rowTextKey" : "WPA2"}
+            ];
+        }
+
+        for (i; i < rows.length; i += 1) {
+
+            model.append(rows[i]);
+        }
+    }
+
     id: networkPane
     width: 100
     height: 62
@@ -23,6 +61,12 @@ PXPane {
     }
 
     PXListModelArray {
+        arrayResultDelegate: networkPane
+        modelIdentifier: "wifi networks model"
+        viewComponent: Component {
+            PXRowImage {}
+        }
+
         id: wifiListModel
         width: (parent.width - 30) * .5
         anchors.top: networkLabel.bottom
@@ -68,8 +112,14 @@ PXPane {
     }
 
     PXListModelArray {
+        arrayResultDelegate: networkPane
+        modelIdentifier: "security networks model"
+        viewComponent: Component {
+            PXRowText {}
+        }
+
         id: securityListModel
-        width: (parent.width - 30)* .5
+        width: (parent.width - 30) * .5
         anchors.bottom: passwordLabel.top
         anchors.bottomMargin: 15
         anchors.top: securityLabel.bottom

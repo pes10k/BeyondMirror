@@ -42,6 +42,7 @@ PXWindow {
         }
 
         WindowSerializer.unserializeWindow(windowDraggable);
+        windowDraggable.z = globalVariables.currentZIndex++;
     }
 
     Component.onDestruction: {
@@ -97,7 +98,7 @@ PXWindow {
                 windowDraggable.isDragging = true
                 windowDraggable.lastX = mouse.x
                 windowDraggable.lastY = mouse.y
-                windowDraggable.z = WindowSerializer.max_z++;
+                windowDraggable.z = globalVariables.currentZIndex++;
             }
 
             onReleased: {
