@@ -224,7 +224,7 @@ Rectangle {
         height: 400
     }
 
-    PXWidgetHelp {
+    PXWindowHelp {
         id: helpWidget
         visible: false
         width: 800

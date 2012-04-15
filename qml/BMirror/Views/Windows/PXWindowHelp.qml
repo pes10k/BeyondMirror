@@ -6,34 +6,35 @@ import "../"
 import "../../JS/PXData.js" as PXData
 import QtQuick 1.1
 
-PXWindowWidget {
+PXWindowDraggable {
 
+    // Implementation of "Array Result Delegate Protocol"
     function rowsForModel (model, modelIdentifier){
 
-        if(modelIdentifier === "help model"){
+        if (modelIdentifier === "help model"){
 
             for (var i = 0; i < PXData.widgets.length; i++){
 
                 model.append({"rowTextKey" : PXData.widgets[i]});
-
             }
         }
     }
 
-    function helpInfor(headline){
+    function helpInfor (headline){
         return PXData.helpText[headline]
     }
 
     id: helpWidget
     titleKey: "Help"
+    uniqueIdentifier: "help window"
 
     contentView: Rectangle {
+
         anchors.fill:parent
 
         Rectangle {
-            //id: helpModel
             height: parent.height
-            width: parent.width*0.3
+            width: parent.width * 0.3
             anchors.left: parent.left
             PXListModelArray {
                 anchors.fill: parent
@@ -43,7 +44,6 @@ PXWindowWidget {
                 viewComponent: Component {
                     PXRowNext {
                         function mouseAreaEvent (mouseArea) {
-                            console.log("Clicked");
                             headline.textKey = rowTextKey;
                             content.textKey = helpInfor (headline.textKey)
                         }
