@@ -8,11 +8,8 @@ Rectangle {
     property string url;
 
     id: webViewContainer
-    anchors.fill: parent
-    color: "red"
 
     Rectangle {
-
         id: progressBarContainer
         height: webView.progress < 1 ? 25 : 0
         visible: webView.progress < 1

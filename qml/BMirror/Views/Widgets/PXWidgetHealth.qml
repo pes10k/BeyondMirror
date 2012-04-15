@@ -4,18 +4,24 @@ import "../Controls"
 import QtQuick 1.1
 PXWindowWidget {
 
-    function tabItemClicked(tabItem){
-        //console.log(sleepInfor.width+":"+sleepInfor.height)
+    //record the current slected tab
+    property variant currentTab: sleepTab;
+
+    // Implementation of "Tab Item Delegate Protocol"
+    function tabItemClicked (tabItem){
         currentTab.state = "DISABLED"
-        switch (tabItem.tabIdentifier){
+        switch (tabItem.tabIdentifier) {
+
         case "weight tab":
-            currentTab = weight
+            currentTab = weightTab
             break;
+
         case "sleep tab":
-            currentTab = sleep
+            currentTab = sleepTab
             break;
+
         case "nutrition tab":
-            currentTab = nutrition
+            currentTab = nutritionTab
             break;
         }
     }
@@ -25,179 +31,140 @@ PXWindowWidget {
         if (radioButton.state === 'SELECTED')
             return
 
-        weightInfor.currentRadio.state="UNSELECTED"
-        switch(radioButton.textKey){
+        weightInfo.currentRadio.state = "UNSELECTED"
+        switch (radioButton.textKey) {
         case "yearly":
             radioButton.state = "SELECTED"
-            weightInfor.currentRadio = yearlyRadioButton
-            weightInforChart.source = "../../Images/weight_yearly.png"
+            weightInfo.currentRadio = yearlyRadioButton
+            weightInfoChart.source = "../../Images/weight_yearly.png"
             break;
         case "monthly":
             radioButton.state = "SELECTED"
-            weightInfor.currentRadio = monthlyRadioButton
-            weightInforChart.source = "../../Images/weight_monthly.png"
+            weightInfo.currentRadio = monthlyRadioButton
+            weightInfoChart.source = "../../Images/weight_monthly.png"
             break;
         case "weekly":
             radioButton.state = "SELECTED"
-            weightInfor.currentRadio = weeklyRadioButton
-            weightInforChart.source = "../../Images/weight_weekly.png"
+            weightInfo.currentRadio = weeklyRadioButton
+            weightInfoChart.source = "../../Images/weight_weekly.png"
             break;
         }
     }
 
-    id:healthWidget
-    titleKey:"Health"
+    id: healthWidget
+    titleKey: "Health"
+    uniqueIdentifier: "health widget window"
 
-    //record the current slected tab
-    property variant currentTab:sleep;
+    contentView: Rectangle {
 
-    Rectangle {
-
-        color:"white"
+        anchors.fill: parent
         anchors.horizontalCenter: parent.horizontalCenter
-        height:parent.height * 0.8
-        width:parent.width * 0.4
 
-        Row {
-            PXText {
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.left: parent.left
-                color: "black"
-                textKey: "Magic"
-            }
-            Image {
-                id:device
-                property bool deviceSlection: true
-                anchors.right: parent.right
-                anchors.verticalCenter: parent.verticalCenter
-                source:'../../Images/box-checked.png'
-                MouseArea{
-                    anchors.fill: parent
-                    onClicked: {
-                        if(device.deviceSlection === false){
-                            device.deviceSlection = true
-                            device.source = '../../Images/box-checked.png'
-                            weightInforChart.visible = true
-                            sleepInforChart.visible = true
-                            nutritionInforTable.visible = true
-                        }
-                        else{
-                            device.deviceSlection = false
-                            device.source = '../../Images/box-unchecked.png'
-                            weightInforChart.visible = false
-                            sleepInforChart.visible = false
-                            nutritionInforTable.visible = false
-                        }
+        PXTab {
+            id: weightTab
+            tabIdentifier: "weight tab"
+            anchors.top: parent.top
+            anchors.right: sleep.left
+            anchors.rightMargin: 60
+            textKey: "Weight"
+            tabDelegate: healthWidget
+            state: "DISABLED"
+        }
+
+        PXTab {
+            id: sleepTab
+            tabIdentifier: "sleep tab"
+            anchors.top: parent.top
+            anchors.horizontalCenter: parent.horizontalCenter
+            textKey: "Sleep"
+            tabDelegate: healthWidget
+            state: "ABLED"
+        }
+
+        PXTab {
+            id: nutritionTab
+            tabIdentifier: "nutrition tab"
+            anchors.top: parent.top
+            anchors.left: sleepTab.right
+            anchors.leftMargin: 60
+            textKey: "Nutrition"
+            tabDelegate: healthWidget
+            state: "DISABLED"
+        }
+
+        PXPane {
+            id: contentPane
+            anchors.top: weightTab.bottom
+            anchors.right: parent.right
+            anchors.bottom: parent.sleepTab
+            anchors.left: parent.left
+            anchors.topMargin: 0
+
+            Rectangle {
+                id: weightInfo
+                anchors.fill: parent
+                anchors.horizontalCenter: sleepTab.horizontalCenter
+                visible: weight.tabInforVisibility
+                property variant currentRadio: monthlyRadioButton
+
+                Image {
+                    id:weightInfoChart
+                    anchors.left:parent.left
+                    source:"../../Images/weight_monthly.png"
+
+                }
+                Column {
+                    anchors.right: parent.right
+                    anchors.rightMargin: 20
+                    anchors.top: parent.top
+                    anchors.topMargin: 10
+
+                    PXRadioButton{
+                        id:yearlyRadioButton
+                        textKey:'yearly'
+                        delegate:healthWidget
+                    }
+
+                    PXRadioButton{
+                        id:monthlyRadioButton
+                        textKey:'monthly'
+                        delegate:healthWidget
+                        state:"SELECTED"
+                    }
+                    PXRadioButton{
+                        id:weeklyRadioButton
+                        textKey:'weekly'
+                        delegate:healthWidget
                     }
                 }
             }
-        }
-    }
 
-    configurationView: Rectangle {
-        //anchors.fill: parent
-        height: parent.height
-        width: parent.width
-        color:'black'
-    }
+            Rectangle {
 
+                id: nutritionInfo
+                anchors.fill: parent
+                anchors.top: sleepTab.bottom
+                anchors.horizontalCenter: sleepTab.horizontalCenter
+                visible: false
 
-
-    contentView:Rectangle {
-        //visible:false
-        anchors.horizontalCenter: parent.horizontalCenter
-        //anchors.fill: parent
-        PXTab {
-            id:weight
-            tabIdentifier: "weight tab"
-            anchors.right: sleep.left
-            anchors.rightMargin: 60
-            textKey:"weight"
-            tabDelegate: healthWidget
-            state: "DISABLED"
-        }
-        PXTab {
-            id:sleep
-            tabIdentifier: "sleep tab"
-            anchors.horizontalCenter:parent.horizontalCenter
-            textKey:"sleep"
-            tabDelegate: healthWidget
-            state:"ABLED"
-        }
-        PXTab {
-            id:nutrition
-            tabIdentifier: "nutrition tab"
-            anchors.left: sleep.right
-            anchors.leftMargin: 60
-            textKey:"nutrition"
-            tabDelegate: healthWidget
-            state: "DISABLED"
-        }
-
-        Rectangle {
-            id: weightInfor
-            width:parent.parent.width-20
-            anchors.top: sleep.bottom
-            height:parent.parent.height-sleep.height-10
-            anchors.horizontalCenter: sleep.horizontalCenter
-            visible:weight.tabInforVisibility
-            property variant currentRadio: monthlyRadioButton
-            Image {
-                id:weightInforChart
-                anchors.left:parent.left
-                source:"../../Images/weight_monthly.png"
-
-            }
-            Column {
-                anchors.right: parent.right
-                anchors.rightMargin: 20
-                anchors.top: parent.top
-                anchors.topMargin: 10
-
-                PXRadioButton{
-                    id:yearlyRadioButton
-                    textKey:'yearly'
-                    delegate:healthWidget
-                }
-                PXRadioButton{
-                    id:monthlyRadioButton
-                    textKey:'monthly'
-                    delegate:healthWidget
-                    state:"SELECTED"
-                }
-                PXRadioButton{
-                    id:weeklyRadioButton
-                    textKey:'weekly'
-                    delegate:healthWidget
+                Image {
+                    id:nutritionInfoTable
+                    anchors.left: parent.left
+                    source: "../../Images/nutrition.png"
                 }
             }
-        }
 
-        Rectangle {
-            id: sleepInfor
-            width: parent.parent.width-20
-            anchors.top: sleep.bottom
-            height: parent.parent.height-sleep.height-10
-            anchors.horizontalCenter: sleep.horizontalCenter
-            visible: sleep.tabInforVisibility
-            Image{
-                id:sleepInforChart
-                anchors.left: parent.left
-                source: "../../Images/sleep.png"
-            }
-        }
-
-        Rectangle {
-            id:nutritionInfor
-            width:parent.parent.width-20
-            anchors.top: sleep.bottom
-            height:parent.parent.height-sleep.height-10
-            anchors.horizontalCenter: sleep.horizontalCenter
-            visible:nutrition.tabInforVisibility
-            Image {
-                id:nutritionInforTable
-                anchors.left: parent.left
-                source: "../../Images/nutrition.png"
+            Rectangle {
+                id: sleepInfo
+                anchors.fill: parent
+                anchors.top: sleepTab.bottom
+                anchors.horizontalCenter: sleepTab.horizontalCenter
+                visible: sleepTab.tabInforVisibility
+                Image{
+                    id:sleepInforChart
+                    anchors.left: parent.left
+                    source: "../../Images/sleep.png"
+                }
             }
         }
     }
