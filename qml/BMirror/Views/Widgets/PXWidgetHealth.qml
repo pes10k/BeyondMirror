@@ -52,13 +52,13 @@ PXWindowWidget {
     property variant currentTab:sleep;
 
     Rectangle {
+
         color:"white"
         anchors.horizontalCenter: parent.horizontalCenter
-        height:parent.height*0.8
-        width:parent.width*0.4
+        height:parent.height * 0.8
+        width:parent.width * 0.4
 
         Row {
-
             PXText {
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left: parent.left

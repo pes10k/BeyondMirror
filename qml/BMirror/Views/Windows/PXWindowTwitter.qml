@@ -1,4 +1,5 @@
 import "../../JS/PXApp.js" as App
+import "../Controls"
 import "../"
 import QtQuick 1.1
 import QtWebKit 1.0
@@ -26,12 +27,9 @@ PXWindowDraggable {
         color: "black"
         anchors.fill: parent
 
-        WebView {
+        PXWebView {
             id: webView
             anchors.fill: parent
-            preferredHeight: twitterWindow.height
-            preferredWidth: twitterWindow.width
-            url: "qrc:/qtquickplugin/html/welcome.html"
         }
     }
 }

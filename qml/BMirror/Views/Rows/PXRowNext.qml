@@ -8,5 +8,7 @@ PXRowText {
         anchors.verticalCenter: parent.verticalCenter
         anchors.right: parent.right
         anchors.rightMargin: 10
+        height: 18
+        width: 22
     }
 }

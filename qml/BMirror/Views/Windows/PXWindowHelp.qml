@@ -3,84 +3,90 @@ import "../"
 import "../Controls"
 import "../Rows"
 import "../"
-import "../../JS/PXData.js" as PXData
+import "../../JS/Controllers/PXWindowHelp.js" as HelpController
+import "../../JS/PXNotifications.js" as Notifications
+import "../Controls"
 import QtQuick 1.1
 
 PXWindowDraggable {
 
+    property string lastClickedTab: "news";
+
     // Implementation of "Array Result Delegate Protocol"
     function rowsForModel (model, modelIdentifier){
 
-        if (modelIdentifier === "help model"){
+        if (modelIdentifier === "help list model") {
 
-            for (var i = 0; i < PXData.widgets.length; i++){
-
-                model.append({"rowTextKey" : PXData.widgets[i]});
-            }
+            HelpController.addHelpItemsToModel(model);
         }
     }
 
-    function helpInfor (headline){
-        return PXData.helpText[headline]
+    // Implementation of "Notification Delegate Protocol"
+    function receivedNotification (notification, params) {
+
+        if (notification === "language changed") {
+            helpWindow.updateHelpText();
+        }
     }
 
-    id: helpWidget
+    function updateHelpText () {
+
+        var resolvedUrl = Qt.resolvedUrl("../../HTML/" + globalVariables.currentLangCode + "/help-" + helpWindow.lastClickedTab + ".html");
+        helpWebView.url = resolvedUrl;
+    }
+
+    Component.onCompleted: {
+        Notifications.registry.registerForNotification(helpWindow, "language changed");
+        helpWindow.updateHelpText();
+    }
+
+    Component.onDestruction: {
+        Notifications.registry.unregisterForAll(helpWindow);
+    }
+
+    id: helpWindow
     titleKey: "Help"
     uniqueIdentifier: "help window"
 
     contentView: Rectangle {
 
-        anchors.fill:parent
+        anchors.fill: parent
 
-        Rectangle {
-            height: parent.height
-            width: parent.width * 0.3
+        PXListModelArray {
+
+            id: helpList
+            width: (parent.width - 15) * .33
+
+            anchors.top: parent.top
+            anchors.topMargin: 5
             anchors.left: parent.left
-            PXListModelArray {
-                anchors.fill: parent
-                id: helpModel
-                modelIdentifier: "help model"
-                arrayResultDelegate: helpWidget
-                viewComponent: Component {
-                    PXRowNext {
-                        function mouseAreaEvent (mouseArea) {
-                            headline.textKey = rowTextKey;
-                            content.textKey = helpInfor (headline.textKey)
-                        }
+            anchors.leftMargin: 5
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: 5
+
+            modelIdentifier: "help list model"
+            arrayResultDelegate: helpWidget
+            viewComponent: Component {
+                PXRowNext {
+                    function mouseAreaEvent (mouseArea) {
+                        helpWindow.lastClickedTab = rowTextKey.toLowerCase();
+                        helpWindow.updateHelpText();
                     }
                 }
             }
-
         }
 
-        Rectangle{
-            height: parent.height
-            width: parent.width*0.7
+        PXWebView {
+
+            id: helpWebView
+            anchors.top: parent.top
+            anchors.topMargin: 5
             anchors.right: parent.right
-            PXText {
-                id: headline
-                anchors.top: parent.top
-                anchors.topMargin: 20
-                anchors.left: parent.left
-                anchors.leftMargin: 20
-                color: "black"
-                //textKey: "headline"
-
-            }
-
-            PXText {
-                id: content
-                anchors.top: headline.bottom
-                anchors.topMargin: 20
-                anchors.left: parent.left
-                anchors.leftMargin: 20
-                anchors.right: parent.right
-                //wrapMode: Text.WordWrap
-                width: 80
-                color: "black"
-                textKey: ""
-            }
+            anchors.rightMargin: 5
+            anchors.left: helpList.right
+            anchors.leftMargin: 5
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: 5
         }
-
     }
 }
