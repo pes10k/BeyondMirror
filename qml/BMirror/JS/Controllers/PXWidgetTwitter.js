@@ -52,32 +52,33 @@ var tweetFetcher = (function () {
 var tweets = (function () {
 
     var data_key = "followed twitter accounts",
-          default_value,
-          current_items = valueForKey(currentUser.userId(), data_key);
+        current_prefs = function (user_id) {
 
-    if (!current_items) {
+            var config = valueForKey(user_id, data_key);
 
-        // The default value we'll use is "local news", provided by
-        default_value = ["gapersblock"];
-        setValueForKey(currentUser.userId(), default_value, data_key);
-        current_items = default_value;
-    }
+            if (!config) {
+
+                // The default value we'll use is "local news", provided by
+                config = ["gapersblock"];
+                setValueForKey(user_id, config, data_key);
+            }
+
+            return config;
+        };
+
 
     return {
-        reset: function () {
-            current_items = valueForKey(currentUser.userId(), data_key);
-        },
         // Returns an array of the all the twitter accounts the current
         // user is following.
-        currentAccounts: function () {
-            return current_items;
+        currentAccounts: function (user_id) {
+            return current_prefs(user_id);
         },
         // Returns a sorted array of objects, each representing a tweet object.
         // The returned array will be a list of items, from most to least
         // recent, from all twitter feeds being followed
-        currentItems: function (limit, callback) {
+        currentItems: function (user_id, limit, callback) {
 
-            var current_accounts = this.currentAccounts(),
+            var current_accounts = this.currentAccounts(user_id),
                 num_accounts = current_accounts.length,
                 num_accounts_returned = 0,
                 sorted_items = [],
@@ -114,11 +115,13 @@ var tweets = (function () {
                 tweetFetcher(current_accounts[i], received_items_callback);
             }
         },
-        addAccount: function (account_name, callback) {
+        addAccount: function (user_id, account_name, callback) {
+
+            var config = current_prefs(user_id);
 
             account_name = account_name.replace("@", "");
 
-            if (current_items[account_name]) {
+            if (config[account_name]) {
 
                 callback(false);
 
@@ -127,19 +130,20 @@ var tweets = (function () {
                 // Build up a cache for the news items in this URL
                 // immediatly, to make things quicker.
                 tweetFetcher(account_name);
-                current_items.push(account_name);
-                setValueForKey(currentUser.userId(), current_items, data_key, callback);
+                config.push(account_name);
+                setValueForKey(user_id, config, data_key, callback);
             }
         },
-        removeAccount: function (account_name, callback) {
+        removeAccount: function (user_id, account_name, callback) {
 
             account_name = account_name.replace("@", "");
 
-            var adjusted_items = removeFromArray(account_name, current_items);
+            var config = current_prefs(user_id),
+                adjusted_items = removeFromArray(account_name, config);
 
             // If the item we were trying to remove wasn't in the collection,
             // there isn't anything to do
-            if (current_items === adjusted_items) {
+            if (config === adjusted_items) {
 
                 if (callback) {
                     callback(current_items);
@@ -147,16 +151,16 @@ var tweets = (function () {
 
             } else {
 
-                setValueForKey(currentUser.userId(), adjusted_items, data_key, callback);
+                setValueForKey(user_id, adjusted_items, data_key, callback);
 
             }
         }
     };
 }());
 
-var addCurrentUsersTwitterAccountsToModel = function (model) {
+var addCurrentUsersTwitterAccountsToModel = function (user_id, model) {
 
-    var accounts = tweets.currentAccounts(),
+    var accounts = tweets.currentAccounts(user_id),
         num_accounts = accounts.length,
         i = 0;
 
@@ -168,9 +172,9 @@ var addCurrentUsersTwitterAccountsToModel = function (model) {
     }
 };
 
-var addCurrentUsersTwitterItemsToModel = function (model) {
+var addCurrentUsersTwitterItemsToModel = function (user_id, model) {
 
-    tweets.currentItems(20, function (current_tweets) {
+    tweets.currentItems(user_id, 20, function (current_tweets) {
 
         var i = 0, result;
 

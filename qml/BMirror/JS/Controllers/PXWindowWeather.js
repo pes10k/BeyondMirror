@@ -29,59 +29,52 @@ var weatherFetcher = (function () {
 var weather = (function () {
 
     var data_key = "weather settings",
-        private_current_settings = false,
-        current_users_values = function () {
+        current_users_values = function (user_id) {
 
-            if (!private_current_settings) {
+            var config = valueForKey(user_id, data_key);
 
-                private_current_settings = valueForKey(currentUser.userId(), data_key);
+            // If we don't have any settings / configuration options currently
+            // set for the clock, choose some sensiable defaults.
+            if (!config) {
 
-                // If we don't have any settings / configuration options currently
-                // set for the clock, choose some sensiable defaults.
-                if (!private_current_settings) {
-
-                    private_current_settings = {
-                        "use_f_degrees" : false,
-                        "location" : "Chicago, IL"
-                    };
-                    setValueForKey(currentUser.userId(), private_current_settings, data_key);
-                }
+                config = {
+                    "use_f_degrees" : false,
+                    "location" : "Chicago, IL"
+                };
+                setValueForKey(user_id, config, data_key);
             }
 
-            return private_current_settings;
+            return config;
         };
 
     return {
-        reset: function () {
-            private_current_settings = false;
+        configOptions: function (user_id) {
+            return current_users_values(user_id);
         },
-        configOptions: function () {
-            return current_users_values();
-        },
-        currentWeather: function (callback) {
+        currentWeather: function (user_id, callback) {
 
-            var config = current_users_values();
+            var config = current_users_values(user_id);
             weatherFetcher(config.location, callback);
         },
-        setDegreeType: function (degree_type) {
+        setDegreeType: function (user_id, degree_type) {
 
-            private_current_settings.use_f_degrees = degree_type === "f";
-            setValueForKey(currentUser.userId(), private_current_settings, data_key);
+            var config = current_users_values(user_id);
+            config.use_f_degrees = degree_type === "f";
+            setValueForKey(user_id, config, data_key);
         },
-        degreeType: function () {
+        degreeType: function (user_id) {
 
-            var config = current_users_values();
+            var config = current_users_values(user_id);
             return config.use_f_degrees ? "f" : "c";
         }
     };
 }());
 
-var addWeatherToModel = function (model) {
+var addWeatherToModel = function (user_id, model) {
 
-    weather.currentWeather(function (weather_results) {
+    weather.currentWeather(user_id, function (weather_results) {
 
-        var i = 0,
-            config_options = weather.configOptions();
+        var i = 0, config_options = weather.configOptions(user_id);
 
         for (i; i < weather_results.length; i += 1) {
 

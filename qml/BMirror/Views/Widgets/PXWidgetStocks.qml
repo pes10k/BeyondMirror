@@ -14,7 +14,7 @@ PXWindowWidget {
 
         if (rowTextInput.rowTextInputIdentifier === "stocks text input") {
 
-            StocksController.stocks.addStock(rowTextInput.text(), function () {
+            StocksController.stocks.addStock(globalVariables.currentUserId, rowTextInput.text(), function () {
 
                 stocksEditSheet.modelArray().refresh();
                 stocksViewModel.refresh();
@@ -30,7 +30,7 @@ PXWindowWidget {
 
         case "stocks view model":
         case "stocks config model":
-            StocksController.addCurrentUsersStocksToModel(model, modelIdentifier);
+            StocksController.addCurrentUsersStocksToModel(globalVariables.currentUserId, model, modelIdentifier);
             break;
         }
     }
@@ -47,7 +47,7 @@ PXWindowWidget {
                     stocksEditSheet.modelArray().getViewModel(),
                     stocksEditSheet.modelArray(),
                     function () {
-                        StocksController.stocks.removeStock(params.row.identifier());
+                        StocksController.stocks.removeStock(globalVariables.currentUserId, params.row.identifier());
                         stocksEditSheet.modelArray().refresh();
                         stocksViewModel.refresh();
                     }

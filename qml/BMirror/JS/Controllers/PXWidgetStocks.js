@@ -41,33 +41,34 @@ var stockFetcher = (function () {
 var stocks = (function () {
 
     var data_key = "followed stocks",
-            default_value,
-            current_stocks = valueForKey(currentUser.userId(), data_key);
+        current_prefs = function (user_id) {
 
-    // If we don't have any stocks set (such as the first time we've opened
-    // up the widget) create some sensable defaults.
-    if (!current_stocks) {
+            var config = valueForKey(user_id, data_key);
 
-        default_value = ["AAPL"];
-        setValueForKey(currentUser.userId(), default_value, data_key);
-        current_stocks = default_value;
-    }
+            // If we don't have any stocks set (such as the first time we've opened
+            // up the widget) create some sensable defaults.
+            if (!config) {
+                config = ["AAPL"];
+                setValueForKey(user_id, config, data_key);
+            }
+
+            return config;
+        };
 
     return {
-        reset: function () {
-            current_stocks = valueForKey(currentUser.userId(), data_key);
+        currentStocks: function (user_id) {
+            return current_prefs(user_id);
         },
-        currentStocks: function () {
-            return current_stocks;
-        },
-        addStock: function (new_stock, callback) {
+        addStock: function (user_id, new_stock, callback) {
+
+            var config = current_prefs(user_id);
 
             new_stock = new_stock.toUpperCase();
 
             // First, check to make sure that the stock we're trying
             // to add doesn't already exist in the list of stocks
             // being watched.
-            if (current_stocks.indexOf(new_stock) !== -1) {
+            if (config.indexOf(new_stock) !== -1) {
 
                 return false;
 
@@ -76,26 +77,27 @@ var stocks = (function () {
                 // Next, make sure that the given stock is a valid one
                 stockFetcher(new_stock, function (result) {
 
-                    if ( ! result) {
+                    if (!result) {
 
                         callback(false);
 
                     } else {
 
-                        current_stocks.push(new_stock);
-                        setValueForKey(currentUser.userId(), current_stocks, data_key, callback);
+                        config.push(new_stock);
+                        setValueForKey(user_id, config, data_key, callback);
                     }
                 });
             }
         },
-        removeStock: function (call_letters, callback) {
+        removeStock: function (user_id, call_letters, callback) {
 
-            var adjusted_stocks = removeFromArray(call_letters, current_stocks);
+            var config = current_prefs(user_id),
+                adjusted_stocks = removeFromArray(call_letters, config);
 
             if (adjusted_stocks) {
 
-                current_stocks = adjusted_stocks;
-                setValueForKey(currentUser.userId(), current_stocks, data_key, callback);
+                config = adjusted_stocks;
+                setValueForKey(user_id, config, data_key, callback);
                 return true;
 
             } else {
@@ -106,9 +108,9 @@ var stocks = (function () {
     };
 }());
 
-var addCurrentUsersStocksToModel = function (model, modelIdentifier) {
+var addCurrentUsersStocksToModel = function (user_id, model, modelIdentifier) {
 
-    var users_stocks = stocks.currentStocks(),
+    var users_stocks = stocks.currentStocks(user_id),
             i = 0;
 
     for (i; i < users_stocks.length; i++) {

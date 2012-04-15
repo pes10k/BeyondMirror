@@ -21,12 +21,12 @@ PXWindowWidget {
 
             if (checkbox === weatherFDegreesCheck) {
 
-                WeatherController.weather.setDegreeType("f");
+                WeatherController.weather.setDegreeType(globalVariables.currentUserId, "f");
                 weatherCDegreesCheck.checked(false);
 
             } else {
 
-                WeatherController.weather.setDegreeType("c");
+                WeatherController.weather.setDegreeType(globalVariables.currentUserId, "c");
                 weatherFDegreesCheck.checked(false);
 
             }
@@ -39,7 +39,7 @@ PXWindowWidget {
     function rowsForModel (model, modelIdentifier) {
 
         if (modelIdentifier === "weather view model") {
-            WeatherController.addWeatherToModel(model);
+            WeatherController.addWeatherToModel(globalVariables.currentUserId, model);
         }
     }
 
@@ -74,7 +74,7 @@ PXWindowWidget {
             textboxIndentifier: "weather f degrees checkbox"
             textKey: "Use Fahrenheit Scale"
             checkboxDelegate: weatherWindow
-            isChecked: WeatherController.weather.degreeType() === "f";
+            isChecked: WeatherController.weather.degreeType(globalVariables.currentUserId) === "f";
         }
 
         PXCheckbox {
@@ -92,7 +92,7 @@ PXWindowWidget {
             textboxIndentifier: "weather c degrees checkbox"
             textKey: "Use Celsius Scale"
             checkboxDelegate: weatherWindow
-            isChecked: WeatherController.weather.degreeType() === "c";
+            isChecked: WeatherController.weather.degreeType(globalVariables.currentUserId) === "c";
         }
     }
 }

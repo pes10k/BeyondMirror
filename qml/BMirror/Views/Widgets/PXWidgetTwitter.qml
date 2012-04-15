@@ -14,7 +14,7 @@ PXWindowWidget {
 
         if (rowTextInput.rowTextInputIdentifier === "twitter text input") {
 
-            TwitterController.tweets.addAccount(rowTextInput.text(), function () {
+            TwitterController.tweets.addAccount(globalVariables.currentUserId, rowTextInput.text(), function () {
 
                 twitterEditWidget.modelArray().refresh();
                 twitterViewModel.refresh();
@@ -28,11 +28,11 @@ PXWindowWidget {
 
         if (modelIdentifier === "twitter view model") {
 
-            TwitterController.addCurrentUsersTwitterItemsToModel(model);
+            TwitterController.addCurrentUsersTwitterItemsToModel(globalVariables.currentUserId, model);
 
         } else if (modelIdentifier === "twitter config model") {
 
-            TwitterController.addCurrentUsersTwitterAccountsToModel(model);
+            TwitterController.addCurrentUsersTwitterAccountsToModel(globalVariables.currentUserId, model);
 
         }
     }
@@ -49,7 +49,7 @@ PXWindowWidget {
                     twitterEditWidget.modelArray().getViewModel(),
                     twitterEditWidget.modelArray(),
                     function () {
-                        TwitterController.tweets.removeAccount(params.row.identifier());
+                        TwitterController.tweets.removeAccount(globalVariables.currentUserId, params.row.identifier());
                         twitterEditWidget.modelArray().refresh();
                         twitterViewModel.refresh();
                     }
