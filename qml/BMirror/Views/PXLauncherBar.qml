@@ -35,7 +35,9 @@ Rectangle {
         "video widget" : videoLauncher,
         "clock widget" : clockLauncher,
         "weather widget" : weatherLauncher,
-        "settings window" : settingsLauncher
+        "settings window" : settingsLauncher,
+        "help window": helpLauncher,
+        "log out window": logOutLauncher
     }
 
     property variant applicationManager;
@@ -163,6 +165,27 @@ Rectangle {
             anchors.left: weatherLauncher.right
             anchors.leftMargin: 10
             launcherImage: "../../Images/setting.png"
+        }
+
+        PXLauncher {
+            id: helpLauncher
+            launcherIdentifier: "help launcher"
+            launcherDelegate: applicationManager
+            textKey: "Help"
+            anchors.left: settingsLauncher.right
+            anchors.leftMargin: 10
+            launcherImage: "../../Images/help.png"
+        }
+
+        PXLauncher {
+            id: logOutLauncher
+            launcherIdentifier: "log out launcher"
+            launcherDelegate: applicationManager
+            textKey: "Log out"
+            anchors.left: helpLauncher.right
+            anchors.leftMargin: 10
+            launcherImage: "../../Images/Log-out.png"
+
         }
     }
 }

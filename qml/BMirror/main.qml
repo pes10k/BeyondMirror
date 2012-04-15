@@ -21,7 +21,9 @@ Rectangle {
         "video launcher" : videoWidget,
         "clock launcher" : clockWidget,
         "weather launcher" : weatherWidget,
-        "settings launcher" : settingsWindow
+        "settings launcher" : settingsWindow,
+        "help launcher": helpWidget,
+        //"log out launcher": logOutWidget
     }
 
     property variant windowMappings: {
@@ -216,5 +218,13 @@ Rectangle {
         visible: false
         width: 500
         height: 400
+    }
+
+    PXWidgetHelp {
+        id: helpWidget
+        visible: false
+        width: 800
+        height: 600
+
     }
 }
