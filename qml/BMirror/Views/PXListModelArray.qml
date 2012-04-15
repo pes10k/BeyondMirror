@@ -51,6 +51,10 @@ Rectangle {
         }
     }
 
+    function clear () {
+        localListModel.clear();
+    }
+
     id: localListModelArray;
     width: parent.width;
     height: parent.height;

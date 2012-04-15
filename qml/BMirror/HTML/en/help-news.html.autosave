@@ -5,6 +5,8 @@
 <ul>
 <li>Edit button in the top right, which brings down the widget's configuration panel</li>
 <li>Title of the widget in the center top of the widget</li>
-<li>Close / done button in the top left of the widget¡¯s window, which closes the widget</li>
+<li>Close / done button in the top left of the widget's window, which closes the widget</li>
 <li>Draggability / positioning: By tapping and dragging on a non-input part of a widget, users can position it wherever they'd like on the device's face</li>
 </ul>
+<p>The news widget displays a list of items aggregated from RSS feeds.  By default the widget shows news from the local area (using geolocation from the wireless connection and a service like Google or Yahoo news).
+Clicking on a headline displays the full news story in a separate window</p>
