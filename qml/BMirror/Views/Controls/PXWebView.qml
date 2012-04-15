@@ -1,3 +1,4 @@
+import "../../ThirdParty"
 import QtQuick 1.1
 import QtWebKit 1.0
 
@@ -48,7 +49,8 @@ Rectangle {
 
     }
 
-    WebView {
+    FlickableWebView {
+
         id: webView
         anchors.top: progressBarContainer.bottom
         anchors.right: parent.right
@@ -56,8 +58,6 @@ Rectangle {
         anchors.left: parent.left
         anchors.topMargin: 0
         url: webViewContainer.url
-        preferredWidth: webView.width
-        preferredHeight: webView.height
 
         onProgressChanged: {
             progressBarComplete.anchors.rightMargin = parent.width - (parent.width * webView.progress);
