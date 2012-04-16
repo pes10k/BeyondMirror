@@ -68,7 +68,7 @@ PXWindow {
     property bool isDragging: false
     property int lastX: 0
     property int lastY: 0
-    property string titleKey;
+    property string titleKey
 
     // Implementing windows can set this to be true to make sure that they
     // start out closed whenever the application is opened

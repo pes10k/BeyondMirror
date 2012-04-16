@@ -20,11 +20,15 @@ PXWindowDraggable {
 
             if (windowDraggable.state === "CONFIGURING") {
 
-                windowDraggable.state = "DEFAULT"
+                windowDraggable.state = "DEFAULT";
+
+                if (windowDraggable.configurationViewClosed) {
+                    windowDraggable.configurationViewClosed();
+                }
             }
             else {
 
-                windowDraggable.state = "CONFIGURING"
+                windowDraggable.state = "CONFIGURING";
             }
         }
     }

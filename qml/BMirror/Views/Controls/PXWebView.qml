@@ -12,6 +12,10 @@ Rectangle {
     // hidden, regardless of loading state
     property bool showProgressBar: true
 
+    function getWebview () {
+        return webView.getWebView();
+    }
+
     id: webViewContainer
 
     Rectangle {

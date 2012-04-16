@@ -54,6 +54,10 @@ Flickable {
     property alias preferredHeight: webView.preferredHeight
     property alias preferredWidth: webView.preferredWidth
 
+    function getWebView () {
+        return webView;
+    }
+
     id: flickable
     width: parent.width
     contentWidth: Math.max(parent.width,webView.width)

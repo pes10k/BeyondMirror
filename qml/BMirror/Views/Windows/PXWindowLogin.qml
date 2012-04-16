@@ -33,7 +33,7 @@ PXWindow {
 
             case "configure new user":
             case "configure system":
-                setActivePane(languagePane);
+                    setActivePane(languagePane);
                 break;
 
         }
@@ -121,6 +121,7 @@ PXWindow {
             anchors.fill: parent
             id: wifiPane
             visible: false
+            anchors.bottomMargin: 80
         }
 
         PXPaneAccount {

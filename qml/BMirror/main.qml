@@ -134,18 +134,19 @@ Rectangle {
 
     width: 1280
     height: 720
-    id: main
-
     gradient: Gradient {
         GradientStop {
-            position: 0.00;
-            color: "#ffffff";
+            position: 0
+            color: "#ffffff"
         }
+
         GradientStop {
-            position: 1.00;
-            color: "#400e0e";
+            position: 0.970
+            color: "#494949"
         }
     }
+    id: main
+
 
     PXGlobals {
         id: globalVariables
@@ -262,7 +263,7 @@ Rectangle {
         id: calendarWidget
         visible: false
         width: 500
-        height: 400
+        height: 500
     }
 
     PXWindowHelp {

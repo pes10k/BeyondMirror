@@ -1,6 +1,5 @@
 Qt.include("../PXApp.js");
 Qt.include("../PXStorage.js");
-Qt.include("../PXUser.js");
 Qt.include("../PXJSONFetcher.js");
 Qt.include("../PXStrings.js");
 

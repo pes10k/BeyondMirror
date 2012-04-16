@@ -19,6 +19,9 @@ var fetcher = (function () {
                 var request = new XMLHttpRequest();
 
                 request.open("GET", url, true);
+                request.setRequestHeader("Cache-Control", "no-cache");
+                request.setRequestHeader("Pragma", "no-cache");
+
                 request.onreadystatechange = function (event) {
 
                     var result, i, text;
