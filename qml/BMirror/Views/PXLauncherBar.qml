@@ -28,6 +28,7 @@ Rectangle {
                 break;
 
             case "login":
+                logOutLauncher.state = "DEFAULT"
                 launcherBar.visible = true;
                 break;
         }

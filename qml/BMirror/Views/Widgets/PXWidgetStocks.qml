@@ -63,7 +63,7 @@ PXWindowWidget {
 
         } else if (notification === "logout") {
 
-            stocksWidget.close();
+            stocksWidget.logout();
 
         } else if (notification === "login") {
 

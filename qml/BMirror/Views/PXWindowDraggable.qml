@@ -10,6 +10,8 @@ PXWindow {
     function receivedNotification (notification, params) {
         if (notification === "logout") {
             windowDraggable.logout();
+        } else if (notification === "login") {
+            windowDraggable.login();
         }
     }
 
@@ -36,7 +38,6 @@ PXWindow {
     function logout () {
         WindowSerializer.serializeWindow(globalVariables.currentUserId, windowDraggable, function (isSuccess) {
             if (isSuccess) {
-                console.log("Logging out for window: " + windowDraggable.uniqueIdentifier + " with user " + globalVariables.currentUserId);
                 windowDraggable.close();
                 globalVariables.logoutForWindow(windowDraggable);
             }
@@ -44,12 +45,14 @@ PXWindow {
     }
 
     function login () {
-        console.log("Logging in for window: " + windowDraggable.uniqueIdentifier + " with user " + globalVariables.currentUserId);
-        WindowSerializer.unserializeWindow(globalVariables.currentUserId, windowDraggable, function (isSuccess) {
-            globalVariables.loginForWindow(windowDraggable);
-        });
 
-        globalVariables.loginForWindow(windowDraggable);
+        WindowSerializer.unserializeWindow(globalVariables.currentUserId, windowDraggable, function (isSuccess) {
+
+            globalVariables.loginForWindow(windowDraggable);
+            if (windowDraggable.visible) {
+                windowDraggable.open();
+            }
+        });
     }
 
     // Instances of PXWindowDraggable should define PXWindowDraggable.contentView
@@ -65,7 +68,7 @@ PXWindow {
     property bool isDragging: false
     property int lastX: 0
     property int lastY: 0
-    property string titleKey
+    property string titleKey;
 
     // Implementing windows can set this to be true to make sure that they
     // start out closed whenever the application is opened

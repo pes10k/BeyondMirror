@@ -11,7 +11,6 @@ PXWindowWidget {
 
     // Implements the "Checkbox Delegate Protocol"
     function checkboxClicked (checkbox) {
-
         checkbox.checked(!checkbox.isChecked);
         ClockController.clock.setConfigOptions(globalVariables.currentUserId, "hours_24", checkbox.isChecked);
     }

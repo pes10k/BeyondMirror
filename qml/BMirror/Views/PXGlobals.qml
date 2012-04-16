@@ -29,6 +29,8 @@ QtObject {
     function loginForWindow (aWindow) {
 
         windowRegistery += 1;
+
+//        console.log(windowRegistery + ". Logging in window " + aWindow.uniqueIdentifier + " (user: " + currentUserId + ", visible: " + aWindow.visible + ")");
     }
 
     // Each window should "report" that it's going through its logout cycle here,
@@ -36,6 +38,8 @@ QtObject {
     function logoutForWindow (aWindow) {
 
         windowRegistery -= 1;
+
+        //console.log(windowRegistery + ". Logging out window " + aWindow.uniqueIdentifier + " (user: " + currentUserId + ", visible: " + aWindow.visible + ")");
 
         if (windowRegistery === 0) {
 
