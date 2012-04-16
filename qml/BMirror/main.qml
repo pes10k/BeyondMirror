@@ -172,17 +172,17 @@ Rectangle {
     PXWidgetNews {
         id: newsWidget
         visible: false
-        x: 380
-        y: 380
+        x: 400
+        y: 60
         uniqueIdentifier: "news widget"
         width: 300
-        height: 300
+        height: 400
     }
 
     PXWidgetTwitter {
         id: twitterWidget
-        x: 220
-        y: 220
+        x: 240
+        y: 20
         visible: false
         width: 300
         height: 400
@@ -191,8 +191,8 @@ Rectangle {
     PXWidgetStocks {
         id: stocksWidget
         visible: false
-        x: 340
-        y: 340
+        x: 760
+        y: 20
         uniqueIdentifier: "stocks widget"
         width: 300
         height: 400
@@ -201,8 +201,8 @@ Rectangle {
     PXWidgetHealth {
         id: healthWidget
         visible: false
-        x: 300
-        y: 300
+        x: 520
+        y: 20
         uniqueIdentifier: "health widget"
         width:600
         height:400
@@ -211,8 +211,8 @@ Rectangle {
     PXWidgetVideo {
         id: videoWidget
         visible: false
-        x: 260
-        y: 260
+        x: 480
+        y: 100
         uniqueIdentifier: "video widget"
         width: 400
         height: 400
@@ -221,6 +221,8 @@ Rectangle {
     PXWindowStock {
         id: stockWindow
         visible: false
+        width: 400
+        height: 400
     }
 
     PXWindowVideo {
@@ -234,14 +236,14 @@ Rectangle {
         id: twitterWindow
         x: 220
         y: 220
-        width: 560
+        width: 500
         height: 500
         visible: false
     }
 
     PXWindowNews {
         id: newsWindow
-        x: 180
+        x: 200
         y: 180
         width: 500
         height: 500
@@ -260,16 +262,16 @@ Rectangle {
     PXWidgetWeather {
         id: weatherWidget
         visible: false
-        x: 60
+        x: 80
         y: 60
         width: 300
-        height: 308
+        height: 400
     }
 
     PXWindowSettings {
         id: settingsWindow
         visible: false
-        x: 140
+        x: 160
         y: 140
         width: 500
         height: 400
@@ -278,7 +280,7 @@ Rectangle {
     PXWidgetCalendar {
         id: calendarWidget
         visible: false
-        x: 100
+        x: 120
         y: 100
         width: 500
         height: 500
@@ -287,7 +289,7 @@ Rectangle {
     PXWindowHelp {
         id: helpWidget
         visible: false
-        width: 800
-        height: 600
+        width: 500
+        height: 500
     }
 }

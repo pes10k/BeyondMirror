@@ -18,7 +18,7 @@ PXWindowWidget {
 
                 if (!isSuccess) {
 
-                    newsEditWidget.setFeedback("Invalid topic!", 2000, true);
+                    newsEditWidget.setFeedback("Duplicate topic!", 2000, true);
 
                 } else {
 

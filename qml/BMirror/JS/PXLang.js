@@ -31,6 +31,14 @@ var translationTable = (function () {
 
             table = {
                 "zh" : {
+                    "Duplicate topic!" : "重复的主题！",
+                    "Already following account!" : "已经继帐户！",
+                    "Invalid Stock!" : "无效的股票！",
+                    "Save Account?" : "保存帐户？",
+                    "Not connected to GoogleCalendar" : "没有连接到Google日历",
+                    "Do you wish to save your account for future use?  Doing so will allow BeyondMirror to keep your settings and preferences for next time.": "你想保存您的帐户，以备将来使用？这样做将使BeyondMirror保持下一次您的设置和偏好",
+                    "Select Language" : "选择语言",
+                    "No" : "没有",
                     "Help" : "帮助",
                     "Network Password" : "网络密码",
                     "Security Type" : "安全类型",

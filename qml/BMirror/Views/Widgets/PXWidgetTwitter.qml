@@ -18,7 +18,7 @@ PXWindowWidget {
 
                 if (!isSuccess) {
 
-                    twitterEditWidget.setFeedback("Account already exists!", 2000, true);
+                    twitterEditWidget.setFeedback("Already following account!", 2000, true);
 
                 } else {
 
