@@ -1,9 +1,9 @@
 .pragma library
 
 var movies = ["Bottle Rocket", "Rushmore", "The Royal Tenenbaums"];
-var movies2 = ["Brazil", "Rushmore", "The Royal Tenebaums"]
-var tvshows = ["Friends season1 02", "Friends season2 04", "Friends season3 07"];
-var tvshows2 = ["Friends season5 05", "Friends season6 06", "Friends season3 07"];
+var movies2 = ["Brazil", "Titanic"];
+var tvshows = ["Friends Season1 02", "Friends Season2 04", "Friends Season3 07"];
+var tvshows2 = ["Friends Season5 05", "Friends Season6 06", "Friends Season3 07"];
 var podcasts = ["Funny", "Excitting", "Surprised"];
 var widgets = ["News", "Twitter", "Stocks", "Health", "Video", "Clock", "Weather", "Settings", "LogOut"]
 

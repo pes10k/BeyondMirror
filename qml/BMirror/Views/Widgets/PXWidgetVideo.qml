@@ -13,7 +13,7 @@ PXWindowWidget {
     //var videoData = PXData.videoData1
 
     property variant currentTab: tvshowsTab;
-    property string currentSource: 'videoFavorite'
+    property string currentSource: 'iTunes'
 
     function updateCheckmarks (value) {
 
@@ -23,9 +23,9 @@ PXWindowWidget {
     // Implementation of the "Array List Model Delegate Protocol"
     function rowsForModel (model, modelIdentifier) {
         var videoData = [];
-        if(currentSource === 'videoFavorite')
+        if(currentSource === 'iTunes')
             videoData = PXData.videoData1
-        else if (currentSource === 'videoPopular')
+        else if (currentSource === 'XBox')
             videoData = PXData.videoData2
 
         var current_data,
@@ -117,7 +117,6 @@ PXWindowWidget {
                         videoWidget.updateCheckmarks(rowTextKey);
                         currentSource = rowTextKey
                         videoModel.refresh()
-                        console.log(rowTextKey)
                     }
                 }
             }
@@ -130,57 +129,6 @@ PXWindowWidget {
             anchors.bottomMargin: 5
         }
     }
-
-
-
-    /*Rectangle {
-        color:"white"
-        anchors.horizontalCenter: parent.horizontalCenter
-        height:parent.height*0.8
-        width:parent.width*0.6
-
-        Row {
-
-            anchors.left: parent.left
-            anchors.leftMargin: 20
-            anchors.top: parent.top
-            anchors.topMargin: 20
-            anchors.right: parent.right
-            anchors.rightMargin: 20
-
-            PXText {
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.left: parent.left
-                color: "black"
-                textKey: "videoFavorite"
-            }
-
-            Image {
-                id:device
-                property bool deviceSelection: true
-                anchors.right: parent.right
-                anchors.verticalCenter: parent.verticalCenter
-                source:'../../Images/box-checked.png'
-                MouseArea{
-                    anchors.fill: parent
-                    onClicked: {
-                        if(device.deviceSelection === true){
-                            device.deviceSelection = false
-                            videoModel.visible = false
-                            device.source = '../../Images/box-unchecked.png'
-
-                        }
-                        else {
-                            device.deviceSelection = true
-                            videoModel.visible = true
-                            device.source = '../../Images/box-checked.png'
-                        }
-                    }
-                }
-            }
-        }
-    }*/
-
 
     contentView: Rectangle {
 

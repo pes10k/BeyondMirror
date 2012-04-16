@@ -53,11 +53,11 @@ PXWindowDraggable {
     beginClosed: false
 
     contentView: Rectangle {
-
+        color: "black"
         anchors.fill: parent
 
         PXListModelArray {
-
+            color: "black"
             id: helpList
             width: (parent.width - 15) * .33
 
@@ -81,7 +81,7 @@ PXWindowDraggable {
         }
 
         PXWebView {
-
+            color: "black"
             id: helpWebView
             showProgressBar: false
             anchors.top: parent.top

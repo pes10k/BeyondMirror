@@ -53,7 +53,19 @@ var dataExistsForUser = function (user_id, callback) {
 
     dbConnection().transaction(function (tx) {
 
-       var rs = tx.executeSql("SELECT * FROM settings WHERE user_id = ? LIMIT 1", [user_id]);
+       var rs = tx.executeSql("SELECT * FROM settings WHERE user_id = ? AND setting = 'language settings' LIMIT 1", [user_id]);
+
+       callback(rs.rows.length === 1);
+    });
+};
+
+// Returns a boolean description of whether there is any data stored for any user in the system.
+// The result is returned via callback (true or false).
+var dataExistsForAnyUser = function (callback) {
+
+    dbConnection().transaction(function (tx) {
+
+       var rs = tx.executeSql("SELECT * FROM settings WHERE setting = 'language settings' LIMIT 1", []);
 
        callback(rs.rows.length === 1);
     });

@@ -1,5 +1,6 @@
 import "../"
 import "../Panes"
+import "../Controls"
 import "../../JS/PXNotifications.js" as Notifications
 import QtQuick 1.1
 
@@ -7,22 +8,50 @@ PXWindow {
 
     // Implementation of "Notification Delegate Protocol"
     function receivedNotification (notification, params) {
-        if (notification === "login") {
-            loginWindow.close();
-        } else if (notification === "logout") {
-            loginWindow.open();
+
+        switch (notification) {
+
+            case "login":
+                loginWindow.close();
+                break;
+
+            case "logout":
+                loginText.textKey = "BeyondMirror";
+                setActivePane(loginPane);
+                loginWindow.open();
+                break;
+
+            case "configure new user":
+                loginText.textKey = "Select Language";
+                setActivePane(languagePane);
+                break;
         }
+    }
+
+    function setActivePane (pane) {
+
+        var isLoginPane = pane === loginPane,
+            isLanguagePane = pane === languagePane,
+            isWifiPane = pane === wifiPane;
+
+        loginPane.visible = isLoginPane;
+        languagePane.visible = isLanguagePane;
+        wifiPane.visible = isWifiPane;
+
+        prevButton.visible = isWifiPane;
+        nextButton.visible = isWifiPane || isLanguagePane;
     }
 
     Component.onCompleted: {
         Notifications.registry.registerForNotification(loginWindow, "login");
         Notifications.registry.registerForNotification(loginWindow, "logout");
+        Notifications.registry.registerForNotification(loginWindow, "configure new user");
+        Notifications.registry.registerForNotification(loginWindow, "configure system user");
     }
 
     Component.onDestruction: {
         Notifications.registry.unregisterForAll(loginWindow);
     }
-
 
     id: loginWindow
 
@@ -38,7 +67,6 @@ PXWindow {
         anchors.bottom: paneContainer.top
         anchors.bottomMargin: 10
         textKey: "BeyondMirror"
-
     }
 
     Rectangle {
@@ -55,5 +83,35 @@ PXWindow {
             anchors.fill: parent
             id: loginPane
         }
+
+        PXPaneLanguage {
+            anchors.fill: parent
+            id: languagePane
+            visible: false
+        }
+
+        PXPaneWifi {
+            anchors.fill: parent
+            id: wifiPane
+            visible: false
+        }
+    }
+
+    PXButtonImage {
+        textKey: "Back"
+        isBackButton: true
+        id: prevButton
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: 20
+        anchors.left: parent.left
+        anchors.leftMargin: 20
+    }
+
+    PXButtonImage {
+        id: nextButton
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: 20
+        anchors.right: parent.right
+        anchors.rightMargin: 20
     }
 }

@@ -4,9 +4,11 @@ import QtQuick 1.1
 Rectangle {
 
     property string buttonIdentifier;
+    property bool isBackButton: false;
+    property alias textKey: buttonLabel.textKey
 
     id: button
-    width: 100
+    width: 120
     height: 50
     radius: 5
     color: "white"
@@ -18,9 +20,9 @@ Rectangle {
         color: "#000000"
         horizontalAlignment: Text.AlignLeft
         textKey: "Next"
-        anchors.left: parent.left
+        anchors.left: isBackButton ? nextImage.right : parent.left
         anchors.leftMargin: 10
-        anchors.right: nextImage.left
+        anchors.right: isBackButton ? parent.right : nextImage.left
         anchors.rightMargin: 10
         anchors.verticalCenter: parent.verticalCenter
     }
@@ -28,12 +30,14 @@ Rectangle {
     Image {
         id: nextImage
         height: 18
-        anchors.right: parent.right
+        anchors.right: isBackButton ? undefined : parent.right
         anchors.rightMargin: 10
+        anchors.left: isBackButton ? parent.left : undefined
+        anchors.leftMargin: 10
         anchors.verticalCenter: parent.verticalCenter
         sourceSize.width: 22
         sourceSize.height: 18
-        source: "../../Images/forward-icon.png"
+        source: isBackButton ? "../../Images/backwards-icon.png" : "../../Images/forward-icon.png"
     }
 
     MouseArea {

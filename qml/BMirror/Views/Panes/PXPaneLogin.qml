@@ -91,21 +91,40 @@ PXPane {
 
         function onClick (button) {
 
-            if (fingerPrintInput.text() && parseInt(fingerPrintInput.text(), 10) == fingerPrintInput.text()) {
+            var possibleUserId = parseInt(fingerPrintInput.text(), 10);
 
-                Storage.dataExistsForUser(fingerPrintInput.text(), function (user_exists) {
+            if (fingerPrintInput.text() && possibleUserId == fingerPrintInput.text()) {
+
+                Storage.dataExistsForUser(possibleUserId, function (user_exists) {
 
                     feedBackText.textKey = "";
-
-                    // If the given user ID exists, then we're all done, and can
-                    // fastforward to the login process
-                    globalVariables.currentUserId = parseInt(fingerPrintInput.text(), 10);
-
-                    Notifications.registry.sendNotification("login", {"user_id" : globalVariables.currentUserId});
-
                     fingerPrintInput.clear();
 
-                    console.log(user_exists ? "User exists" : "does not exist");
+                    globalVariables.currentUserId = possibleUserId;
+
+                    // If the given user ID exists, then we're all done, and can
+                    // fastforward past the setup process and just jump to the application.
+                    if (user_exists) {
+
+                        Notifications.registry.sendNotification("login", {"user_id" : possibleUserId});
+
+                    } else {
+
+                        // Next, check to see if there is any data stored for any users in the system.
+                        // If there isn't we need to go through a full config process, including
+                        // setting up the wifi.
+                        Storage.dataExistsForAnyUser(function (dataExists) {
+
+                            if (dataExists) {
+
+                                Notifications.registry.sendNotification("configure new user", {"user_id" : possibleUserId});
+
+                            } else {
+
+                                Notifications.registry.sendNotification("configure system", {"user_id" : possibleUserId});
+                            }
+                        });
+                    }
                 });
 
             } else {

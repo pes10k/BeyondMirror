@@ -61,6 +61,7 @@ Rectangle {
     color: "black";
     border.width: 2
     border.color: "black"
+    clip: true
 
     PXShadow {
         height: parent.height > 10 ? 10 : parent.height

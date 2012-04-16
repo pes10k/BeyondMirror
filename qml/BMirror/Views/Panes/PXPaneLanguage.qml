@@ -32,9 +32,9 @@ PXPane {
 
         id: lanugageListView
         anchors.top: parent.top
-        anchors.topMargin: 20
+        anchors.topMargin: 10
         anchors.bottom: parent.bottom
-        anchors.bottomMargin: 20
+        anchors.bottomMargin: 10
         anchors.horizontalCenter: parent.horizontalCenter
         width: 280
 
@@ -43,7 +43,7 @@ PXPane {
         viewComponent: Component {
             PXRowLanguage {
                 function mouseAreaEvent (mouseArea) {
-                    LanguageController.languages.setLanguage(Variables.currentUserId, rowLanguageCode);
+                    LanguageController.languages.setLanguage(globalVariables.currentUserId, rowLanguageCode);
                     globalVariables.setCurrentLangCode(rowLanguageCode);
                     languagePane.updateCheckmarks(rowLanguageCode);
                 }

@@ -14,7 +14,6 @@ QtObject {
     property int currentZIndex: 0;
     property int currentUserId: 0;
     property string currentLangCode: LanguageController.languages.language(currentUserId);
-
     property int windowRegistery: 0;
 
     function setCurrentLangCode (newLangCode) {
@@ -23,14 +22,17 @@ QtObject {
         Notifications.registry.sendNotification("language changed", {"code" : newLangCode});
     }
 
+    // Whenever the user id changes, we need to update the current language for the application
+    onCurrentUserIdChanged: {
+        currentLangCode = LanguageController.languages.language(currentUserId);
+    }
+
     // Each window should report that it's going through it's "login" serialization
     // process here.  This is mainly so we can keep track of how many windows are involved
     // in the process
     function loginForWindow (aWindow) {
 
         windowRegistery += 1;
-
-//        console.log(windowRegistery + ". Logging in window " + aWindow.uniqueIdentifier + " (user: " + currentUserId + ", visible: " + aWindow.visible + ")");
     }
 
     // Each window should "report" that it's going through its logout cycle here,
@@ -39,10 +41,7 @@ QtObject {
 
         windowRegistery -= 1;
 
-        //console.log(windowRegistery + ". Logging out window " + aWindow.uniqueIdentifier + " (user: " + currentUserId + ", visible: " + aWindow.visible + ")");
-
         if (windowRegistery === 0) {
-
             logoutComplete();
         }
     }

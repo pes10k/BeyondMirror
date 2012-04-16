@@ -17,7 +17,7 @@ var videoSources = (function () {
             if (!current_prefs) {
 
                 current_prefs = {
-                  "source" : "videoFavorite",
+                  "source" : "iTunes",
                 };
 
                 store_prefs(user_id, current_prefs);
@@ -44,8 +44,8 @@ var videoSources = (function () {
 var addDataSourcesToModel = (function () {
 
     var rows = [
-        {"rowTextKey" : "videoFavorite", "isCurrent" : false},
-        {"rowTextKey" : "videoPopular", "isCurrent" : false}
+        {"rowTextKey" : "iTunes", "isCurrent" : false},
+        {"rowTextKey" : "XBox", "isCurrent" : false}
     ];
 
     return function (model) {
