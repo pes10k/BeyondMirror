@@ -172,6 +172,8 @@ Rectangle {
     PXWidgetNews {
         id: newsWidget
         visible: false
+        x: 380
+        y: 380
         uniqueIdentifier: "news widget"
         width: 300
         height: 300
@@ -179,6 +181,8 @@ Rectangle {
 
     PXWidgetTwitter {
         id: twitterWidget
+        x: 220
+        y: 220
         visible: false
         width: 300
         height: 400
@@ -187,6 +191,8 @@ Rectangle {
     PXWidgetStocks {
         id: stocksWidget
         visible: false
+        width: 340
+        height: 340
         uniqueIdentifier: "stocks widget"
         width: 300
         height: 400
@@ -195,6 +201,8 @@ Rectangle {
     PXWidgetHealth {
         id: healthWidget
         visible: false
+        x: 300
+        y: 300
         uniqueIdentifier: "health widget"
         width:600
         height:400
@@ -203,6 +211,8 @@ Rectangle {
     PXWidgetVideo {
         id: videoWidget
         visible: false
+        x: 260
+        y: 260
         uniqueIdentifier: "video widget"
         width: 400
         height: 400
@@ -210,8 +220,6 @@ Rectangle {
 
     PXWindowStock {
         id: stockWindow
-        width: 340
-        height: 340
         visible: false
     }
 
@@ -224,6 +232,8 @@ Rectangle {
 
     PXWindowTwitter {
         id: twitterWindow
+        x: 220
+        y: 220
         width: 560
         height: 500
         visible: false
@@ -231,6 +241,8 @@ Rectangle {
 
     PXWindowNews {
         id: newsWindow
+        x: 180
+        y: 180
         width: 500
         height: 500
         visible: false
@@ -248,6 +260,8 @@ Rectangle {
     PXWidgetWeather {
         id: weatherWidget
         visible: false
+        x: 60
+        y: 60
         width: 300
         height: 308
     }
@@ -255,6 +269,8 @@ Rectangle {
     PXWindowSettings {
         id: settingsWindow
         visible: false
+        x: 140
+        y: 140
         width: 500
         height: 400
     }
@@ -262,6 +278,8 @@ Rectangle {
     PXWidgetCalendar {
         id: calendarWidget
         visible: false
+        x: 100
+        y: 100
         width: 500
         height: 500
     }
