@@ -71,6 +71,7 @@ var translationTable = (function () {
                     "Health" : "健康",
                     "Stocks" : "股票",
                     "Twitter" : "特维特",
+                    "Calendar":"日历",
                     "News" : "新闻",
                     "Next" : "下一个",
                     "Back" : "回来",

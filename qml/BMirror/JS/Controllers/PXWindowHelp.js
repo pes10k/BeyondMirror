@@ -9,7 +9,8 @@ var addHelpItemsToModel = function (model) {
         "Video",
         "Clock",
         "Weather",
-        "Settings"
+        "Settings",
+        "Calendar"
     ];
 
     for (i; i < rows.length; i++) {

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->    
+	</head>
+  <body data-spy="scroll" data-target=".subnav" data-offset="50">
+	
+    <div class="container">
+      <header class="jumbotron subhead" id="overview">
+        <h1>BeyondMirror <small>Group 6</small></h1>
+      </header>    
+    
+      <section>
+        <div class="row">
+          <div class="span7">
+            <h2>Log In and Initial Configuration</h2>
+			<h3>Scan Finger</h3>
+            <p>Our design of sercurity log in is to read users' finger marks.
+			When the BeyondMirror is turned on, a floating finger image hints users to scan their fingers in order to log into BeyondMirror.
+			</p>
+			<P>In the real application, we hava an entry box which allows users to input integers simulating the finger scanning log in. Once users have input an integer, users can click "Next" button for further process.</P>
+			<h3>Select Language</h3>
+			<p>The first time users turns on the device (and every subsequent time BeyondMirror is turned on until it has been configured), users are presented with brief, three step initial configuration process.  
+			The first step is for users to select their preferred language.  
+			The supported languages appear in a list users can scroll through them.
+			Selecting a language updates all interface text immediately.
+			Once users have selected their preferred language, they can click "next" button for further process.</p>
+			<h3>Configure Wireless</h3>
+			<p>The next step is to configure the device's wireless connection.
+			All automatically detected wireless networks will appear in a list.
+			If the user would prefer to connect to a wireless network that is not broadcasting their SSID,
+			they can enter the name of the preferred network in the text field labeled 'Other network name'.
+			Once the user has selected the network they would like to connect the mirror to,
+			they will need to input the wireless network password.
+			Once all fields have been filled, the device will attempt to connect to the network to verify the settings are correct.
+			</p>
+			<h3>Save Account</h3>
+			<p>In the save account configuration step, users can click "No' button to log into BeyondMirror as a guest.
+			   If user click "Yes" button to log in, BeyondMirror will keep user's setting and preference for future log in</p>
+          </div>         
+        </div>
+        
+        <hr>
+          
+          <div class="span8 offset1">
+            <h2><a name="browsing">Welcome Screen</a></h2>
+			<p>Once user has successfully log in, the user can reach the welcome screen.
+			</P>
+			<h3>Launcher Bar</h3>
+			<p>There is a launcher bar in the bottom of the welcome screen. All widgets are located within this launcher bar.
+			Each widget is denoted by an icon and a label below. All icons have the same format and style.</P>
+            
+            <h3>Widget</h3>
+			<p>Clicking an icon, a corresponding widget will show up.
+			All widgets have the similar format and style.
+			 </p>
+			  <ul>
+			  <li>Close button in the top left of the widget's window, which closes the widget</li>
+              <li>Edit button in the top right, which brings down the widget's configuration panel</li>
+              <li>Title of the widget is in the center top of the widget</li>            
+              <li>Draggability / positioning: By tapping and dragging on a non-input part of a widget, users can position it wherever they'd like on the device's face</li>
+            </ul>
+			</div>
+			  <hr>
+			<div>         
+            <h2>Widgets</h2>
+			<h3>News</h3>
+			<p>The news widget displays a list of items aggregated from RSS feeds.
+				By default the widget shows news from the local area (using geolocation from the wireless connection and a service like Google or Yahoo news).
+				Clicking on a headline displays the full news story in a separate window</p>
+			<p>Advanced users can use the edit button to add / remove / edit news sources (see below).</p>
+			<p>
+As with all widgets, clicking on the edit button on the News widget brings down the News widget's settings pane.
+Here users will get a list of news feeds they're currently following.
+Each item in the list appears with a minus ('-') button to the right.
+Clicking the minus button removes the source from the list of followed feeds.
+The bottom of the list includes a text field with a plus '+' button.
+Users can add new news by typing in a keyword.
+The device will then do a web search for the given term, find matching news, and then add them to the list of news</p>
+			<h3>Twitter</h3>
+			<p>The Twitter widget displays all the tweets of twitters that users are following.
+			</p>
+			<p>Users can use the edit button to add or remove twitters they want to follow.</p>
+			<p>The basic procedure is similar to news widget.</p>
+			<h3>Stocks</h3>
+			<p>
+The Stocks widget displays a brief summary of recent activity on a user selected set of stocks.
+The widget display shows, in a list format, each stock name, its performance for the day.
+All information about watched stocks will be retrieved from an online service, such as Yahoo! finance.
+</p>
+<p>Clicking on a stock name pops up a new widwon in which a chart shows the performance of the stock over time.</p>
+<p>User can use the edit button to add or remove stocks they want to focus. The basic procedure is similar to news and twitter widgets.</p>
+			<h3>Health</h3>
+			<p>
+The Health Widget displays information about a given user's weight over time, sleep over time, and their nutrition needs.
+Each of these three sets of data are separated by a named tab, tapping a new tab replaces the content in the middle of the display with information corresponding to the newly selected tab.
+The weight and sleep information is provided through line charts.
+The 'Weight' tab allows for changing the graphed time interval to be yearly, weekly or monthly using the radio buttons.
+</p>
+<p>
+The Nutrition tab of the health widget differs from the other tabs in that, instead of displaying a single type of information in a chart, it displays information about several dietary / nutrition factors in a table.
+For each tracked nutrition category (fat, sodium, protein, etc.) the device displays the amount your body consumed ('intake') and used ('consumed') in the previous 24 hours, along with a recommendation on how you should change your diet for optimum health.
+<p>
+BeyondMirror relies on a separate device to gather the displayed health information.
+We assume that we will be able to connect to this device wirelessly.
+Cliking the edit button bring up a list of all such health-data-collecting devices that can be found in the local area.
+Users can indicate the source of health-data by selecting a device.
+</p>
+			<h3>Video</h3>
+			<p>
+The Video Widget allows users to play video files in the mirror.
+The media files are broken down into relevant subcategories (Movies, TVshows, Podcasts).
+Users can use to drill down through their collection.
+Once a user has located a piece of media they want to play, the user can tap the name of the video and it will begin to play in a separate window.
+</P>
+<p>
+Once a user has selected a media file to play, a separate, non-configurable window will open next to the relevant widget.
+The video itself, along with standard forward-backwards-play-pause controls at the bottom.
+</p>
+<p>
+The configuration pane for the video widgets allows the user to select what source they want to stream media from.
+Cliking the edit button bring up a list of all such video sources.
+Users can indicate the source of videos by selecting a corresponding source.
+</p>
+			<h3>Clock</h3>
+			<p>
+By default the clock widget displays the local time, in digital format and 12-hour.
+In the configuring panes, user can change the cock to be in 24-hour.
+</p>
+			<h3>Weather</h3>
+			<p>
+The Weather widget displays a list of 5-day forecast of the local area.
+Each item of the list has a day of the week, an icon representation(a cloud for overcast, a sun for a clear sky, etc.) of the weather condition and the day's temperature.
+The current day's weather appears at the top of the list.
+</p>
+<p>
+Clicking on the edit button on the Weather widget brings down the Weather widget's settings pane.
+Users can indicate the temperature in Fahrenheit scale or Celsius scale.
+</P>
+			<h3>Calendar</h3>
+			<h3>Settings</h3>
+			<p>
+Setting widget allows user to reconfigure the language and the wireless connection
+The two configuration are seperated by their tabed names.
+</P>
+<p>
+<p>Language</p>
+The configuration of language is the same to the language configuration of log in part.
+</p>
+<p>
+<p>Wireless</p>
+The configuration of wireless network is the same to the wireless network configuration of log in part.
+</p>
+</div>
+<hr>
+<div>
+			<h2>Session Memory</h2>
+			<p>Once user has logged in, user may open some widgets, move them or change the configuration of them.</p>
+			<p>A status of BeyondMirror includs the position, configuration of all widgets</p>
+			<p>Once user logs out, BeyondMirror will record its current status with the user id in a database. In our implementation, we utilize sqlite.</P>
+			<p>If user logs in again, BeyondMirror will recover to the status the latest time user loged out.</p>
+			</div>
+			<hr>
+			<div>
+			<h2>Feed Back</h2>
+			</div>                
+	</body>
+</html>
