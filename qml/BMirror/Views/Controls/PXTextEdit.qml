@@ -44,7 +44,6 @@ Rectangle {
     }
 
     TextEdit {
-
         id: textElement
         font.family: "Futura"
         font.pixelSize: 20

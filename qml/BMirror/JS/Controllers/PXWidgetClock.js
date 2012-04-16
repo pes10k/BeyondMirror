@@ -40,8 +40,14 @@ var clock = (function () {
 
             } else {
 
-                return (date.getHours() % 12) + ":" + zero_pad(date.getMinutes()) + ":" + zero_pad(date.getSeconds()) + " " + (date.getHours() < 12 ? "AM" : "PM");
+                if (date.getHours() > 12) {
 
+                    return (date.getHours() - 12) + ":" + zero_pad(date.getMinutes()) + ":" + zero_pad(date.getSeconds()) + " " + (date.getHours() < 12 ? "AM" : "PM");
+
+                } else {
+
+                    return (date.getHours()) + ":" + zero_pad(date.getMinutes()) + ":" + zero_pad(date.getSeconds()) + " " + (date.getHours() < 12 ? "AM" : "PM");
+                }
             }
         },
         is24HourTime: function (user_id) {

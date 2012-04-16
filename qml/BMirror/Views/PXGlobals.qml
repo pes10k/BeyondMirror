@@ -49,6 +49,6 @@ QtObject {
     function logoutComplete () {
 
         currentUserId = -1;
-        currentLangCode = "en";
+        setCurrentLangCode("en");
     }
 }

@@ -32,13 +32,20 @@ Rectangle {
             // Allow "subclasses" to programatically set custom events
             // for the mousearea tap
             if (row.mouseAreaEvent) {
-
                 row.mouseAreaEvent(mouseArea);
-
-            } else {
-
-                console.log(rowTextKey + " was clicked");
             }
+        }
+
+        onPressed: {
+            row.state = "pressed"
+        }
+
+        onReleased: {
+            row.state = "default"
+        }
+
+        onCanceled: {
+            row.state = "default"
         }
     }
 
@@ -58,4 +65,15 @@ Rectangle {
         width: parent.width
         anchors.bottom: parent.bottom
     }
+
+    states: [
+        State {
+            name: "pressed"
+
+            PropertyChanges {
+                target: row
+                color: "#cccccc"
+            }
+        }
+    ]
 }

@@ -11,7 +11,9 @@ var newsFetcher = (function () {
 
       if (cached_data[url]) {
 
-          callback(cached_data[url]);
+        if (callback) {
+            callback(cached_data[url]);
+        }
 
       } else {
 

@@ -46,5 +46,27 @@ Rectangle {
                 button.onClick(button);
             }
         }
+
+        onPressed: {
+            button.state = "pressed"
+        }
+
+        onCanceled: {
+            button.state = "default"
+        }
+
+        onReleased: {
+            button.state = "default"
+        }
     }
+    states: [
+        State {
+            name: "pressed"
+
+            PropertyChanges {
+                target: button
+                color: "#c0c0c0"
+            }
+        }
+    ]
 }

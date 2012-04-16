@@ -103,6 +103,7 @@ PXWindowWidget {
         arrayResultDelegate: stocksWidget
         viewComponent: Component {
             Rectangle {
+                id: row
                 width: parent.width
                 height: 50
                 color: "white"
@@ -117,6 +118,18 @@ PXWindowWidget {
                                 "name" : rowStockName
                             }
                         });
+                    }
+
+                    onPressed: {
+                        row.state = "pressed"
+                    }
+
+                    onReleased: {
+                        row.state = "default"
+                    }
+
+                    onCanceled: {
+                        row.state = "default"
                     }
                 }
 
@@ -157,6 +170,17 @@ PXWindowWidget {
                     width: parent.width
                     anchors.bottom: parent.bottom
                 }
+
+                states: [
+                    State {
+                        name: "pressed"
+
+                        PropertyChanges {
+                            target: row
+                            color: "#cccccc"
+                        }
+                    }
+                ]
             }
         }
     }
