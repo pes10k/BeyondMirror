@@ -20,9 +20,9 @@ var newsFetcher = (function () {
 
               var news_items = [],
                   i = 0,
-                  entries = results.responseData.results;
+                  entries = results.responseData ? results.responseData.results : false;
 
-              if (entries.length > 0) {
+              if (entries && entries.length > 0) {
 
                   for (i; i < entries.length; i += 1) {
 

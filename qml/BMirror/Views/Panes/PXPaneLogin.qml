@@ -121,6 +121,7 @@ PXPane {
                             if (dataExists) {
 
                                 languagePane.model().refresh();
+                                languagePane.updateCheckmarks("en");
                                 Notifications.registry.sendNotification("configure new user", {"user_id" : globalVariables.currentUserId});
 
                             } else {
