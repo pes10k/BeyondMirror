@@ -33,7 +33,7 @@ function unserializeWindow (user_id, pxwindow, callback) {
 
         pxwindow.x = window_properties.x;
         pxwindow.y = window_properties.y;
-        pxwindow.visible = window_properties.visible || false;
+        pxwindow.visible = window_properties.visible;
 
         result = true;
     }
