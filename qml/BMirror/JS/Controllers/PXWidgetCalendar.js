@@ -15,7 +15,10 @@ var calendarFetcher = (function () {
 
         fetcher.get("http://snyderp.org/calendar-data.php?rand=" + Math.random() + "&user_id=" + user_id, function (results, url) {
 
+            console.log("T");
+
             if (callback) {
+                console.log("Z");
                 callback(results);
             }
         });
@@ -63,3 +66,32 @@ var calendar = (function () {
         }
     };
 }());
+
+var addEventsToModel = function (user_id, model) {
+
+    calendarFetcher(user_id, function (results) {
+
+        if (results && results.data && results.data.length > 0) {
+
+            var i = 0, event;
+
+            for (i; i < results.data.length; i++) {
+
+                event = results.data[i];
+
+                model.append({
+                    "rowTextKey" : event.title,
+                    "rowEventStart" : event.start_format
+                });
+            }
+
+        } else {
+
+            model.append({
+                "rowTextKey" : "Not connected to GoogleCalendar",
+                "rowEventStart" : ""
+            });
+        }
+    });
+};
+

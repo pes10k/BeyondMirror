@@ -17,19 +17,7 @@ PXWindowWidget {
         var auth_code;
 
         if (modelIdentifier === "calendar model") {
-
-            CalendarController.calendarFetcher(globalVariables.currentUserId, function (results, url) {
-
-                var i = 0;
-
-                if (results.data) {
-
-                    for (i; i < results.data.length; i++) {
-
-                        model.append({"rowTextKey" : results.data[i].title});
-                    }
-                }
-            });
+            CalendarController.addEventsToModel(globalVariables.currentUserId, model);
         }
     }
 
@@ -47,7 +35,6 @@ PXWindowWidget {
     }
 
     function configurationViewClosed () {
-
         calendarModel.refresh();
     }
 
@@ -64,10 +51,11 @@ PXWindowWidget {
         anchors.fill: parent
 
         PXListModelArray {
+
             id: calendarModel
             arrayResultDelegate: calendarWidget
             viewComponent: Component {
-                PXRowText {}
+                PXRowEvent {}
             }
 
             modelIdentifier: "calendar model"

@@ -123,7 +123,7 @@ PXWindowWidget {
                 PXText {
                     id: stockNameLabel
                     color: "black"
-                    textKey: rowTextKey
+                    textKey: rowTextKey ? rowTextKey : ""
                     anchors.left: parent.left
                     anchors.leftMargin: 5
                     anchors.verticalCenter: parent.verticalCenter
@@ -132,7 +132,7 @@ PXWindowWidget {
 
                 PXText {
                     color: "black"
-                    textKey: rowStockValue
+                    textKey: rowStockValue ? rowStockValue : ""
                     id: stockValueLabel
                     width: 60
                     horizontalAlignment: Text.AlignRight
