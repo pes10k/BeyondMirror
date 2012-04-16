@@ -145,7 +145,7 @@ var translateTerm = function (term, new_language) {
 
     var current_language, table;
 
-    current_language = new_language || languages.language();
+    current_language = new_language;
 
     if (current_language === "en") {
 
@@ -161,7 +161,7 @@ var translateTerm = function (term, new_language) {
 
         } else {
 
-            console.log('"' + term + '" : "",');
+//            console.log('"' + term + '" : "",');
             return term;
         }
     }

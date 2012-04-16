@@ -125,6 +125,7 @@ Rectangle {
     }
 
     Component.onDestruction: {
+        globalVariables.logoutComplete();
         Notifications.registry.unregisterForAll(main);
     }
 

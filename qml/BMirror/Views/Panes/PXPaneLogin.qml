@@ -100,12 +100,11 @@ PXPane {
                     feedBackText.textKey = "";
                     fingerPrintInput.clear();
 
-                    globalVariables.currentUserId = possibleUserId;
-
                     // If the given user ID exists, then we're all done, and can
                     // fastforward past the setup process and just jump to the application.
                     if (user_exists) {
 
+                        globalVariables.currentUserId = possibleUserId;
                         Notifications.registry.sendNotification("login", {"user_id" : possibleUserId});
 
                     } else {
@@ -115,13 +114,19 @@ PXPane {
                         // setting up the wifi.
                         Storage.dataExistsForAnyUser(function (dataExists) {
 
+                            temporaryUserId = possibleUserId;
+                            globalVariables.currentUserId = -1;
+                            globalVariables.currentLangCode = "en";
+
                             if (dataExists) {
 
-                                Notifications.registry.sendNotification("configure new user", {"user_id" : possibleUserId});
+                                languagePane.model().refresh();
+                                Notifications.registry.sendNotification("configure new user", {"user_id" : globalVariables.currentUserId});
 
                             } else {
 
-                                Notifications.registry.sendNotification("configure system", {"user_id" : possibleUserId});
+                                Notifications.registry.sendNotification("configure system", {"user_id" : globalVariables.currentUserId});
+
                             }
                         });
                     }

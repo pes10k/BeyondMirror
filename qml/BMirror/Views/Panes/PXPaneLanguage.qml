@@ -22,8 +22,11 @@ PXPane {
     }
 
     function updateCheckmarks (currentCode) {
-
         return Controller.updateCheckmarks(lanugageListView.getViewModel(), "rowLanguageCode", currentCode);
+    }
+
+    function model () {
+        return lanugageListView;
     }
 
     id: languagePane
@@ -43,6 +46,7 @@ PXPane {
         viewComponent: Component {
             PXRowLanguage {
                 function mouseAreaEvent (mouseArea) {
+                    console.log("Setting lang: " + rowLanguageCode + ", for user " + globalVariables.currentUserId);
                     LanguageController.languages.setLanguage(globalVariables.currentUserId, rowLanguageCode);
                     globalVariables.setCurrentLangCode(rowLanguageCode);
                     languagePane.updateCheckmarks(rowLanguageCode);
