@@ -27,7 +27,9 @@ PXWindowDraggable {
         if (notification === "language changed") {
             helpWindow.updateHelpText();
         } else if (notification === "logout") {
-            helpWindow.close();
+            helpWindow.logout();
+        } else if (notification === "login") {
+            helpWindow.login();
         }
     }
 

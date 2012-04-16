@@ -17,6 +17,7 @@
  *   directly to the provided model, using the ListModel.append() method
  */
 
+import "../JS/PXNotifications.js" as Notifications
 import QtQuick 1.1
 
 Rectangle {
@@ -30,6 +31,14 @@ Rectangle {
             id: localListDelegate;
             Rectangle {}
         }
+
+    // Implements "Notification Delegate Protocol"
+    function receivedNotification (notification, params) {
+
+        if (notification === "login") {
+            localListModelArray.refresh();
+        }
+    }
 
     function getViewModel () {
         return localListModel;
@@ -53,6 +62,14 @@ Rectangle {
 
     function clear () {
         localListModel.clear();
+    }
+
+    Component.onCompleted: {
+        Notifications.registry.registerForNotification(localListModelArray, "login");
+    }
+
+    Component.onDestruction: {
+        Notifications.registry.unregisterForAll(localListModelArray);
     }
 
     id: localListModelArray;

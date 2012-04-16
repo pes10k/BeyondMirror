@@ -24,7 +24,7 @@ QtObject {
 
     // Whenever the user id changes, we need to update the current language for the application
     onCurrentUserIdChanged: {
-        currentLangCode = LanguageController.languages.language(currentUserId);
+        setCurrentLangCode(LanguageController.languages.language(currentUserId));
     }
 
     // Each window should report that it's going through it's "login" serialization

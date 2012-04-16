@@ -27,7 +27,7 @@ Text {
 
     onTextKeyChanged: {
         if (textElement.shouldTranslate) {
-            textElement.text = Lang.translateTerm(textElement.textKey);
+            textElement.text = Lang.translateTerm(textElement.textKey, globalVariables.currentLangCode);
         } else {
             textElement.text = textElement.textKey;
         }

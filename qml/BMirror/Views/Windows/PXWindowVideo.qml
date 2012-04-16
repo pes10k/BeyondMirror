@@ -21,15 +21,15 @@ PXWindowDraggable {
 
         Image {
             anchors.top: parent.top
-            id:video
-            height: parent.height*0.9
+            id: video
+            height: parent.height * 0.9
             width:  parent.width
         }
 
         Image{
-            id:player
-            source:"../../Images/player.png"
-            height:parent.height*0.1
+            id: player
+            source: "../../Images/player.png"
+            height: parent.height * 0.1
             width: parent.width
             anchors.top: video.bottom
         }
