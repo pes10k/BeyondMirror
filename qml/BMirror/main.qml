@@ -191,8 +191,8 @@ Rectangle {
     PXWidgetStocks {
         id: stocksWidget
         visible: false
-        width: 340
-        height: 340
+        x: 340
+        y: 340
         uniqueIdentifier: "stocks widget"
         width: 300
         height: 400
