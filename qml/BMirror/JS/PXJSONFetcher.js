@@ -40,6 +40,11 @@ var fetcher = (function () {
                             get_cache[url] = result;
 
                             callback(result, url);
+
+                        } else if (request.status < 100) {
+
+                            callback(false);
+
                         }
                     };
                 }

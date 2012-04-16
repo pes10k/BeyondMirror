@@ -13,6 +13,11 @@ Rectangle {
     property variant rowTextInputDelgate;
     property string rowTextInputIdentifier;
 
+    property bool isDisplayingFeedback: false;
+    property color feedbackColor;
+    property string feedbackTextKey;
+    property string prevFeedbackTextKey;
+
     function modelArray () {
         return arrayListModel;
     }
@@ -24,11 +29,31 @@ Rectangle {
     function setFeedback (message, duration, isError) {
 
         feedbackTimer.interval = duration;
-        feedbackText.textKey = message
-        feedbackText.color = isError ? "red" : "green"
-        editRow.visible = false;
+        editSheet.feedbackTextKey = message
+        editSheet.feedbackColor = isError ? Qt.rgba(255, 0, 0, 1) : Qt.rgba(0, 0, 0, 1);
+        editSheet.isDisplayingFeedback = true
         feedbackTimer.start();
     }
+
+    onIsDisplayingFeedbackChanged: {
+
+        if (editSheet.isDisplayingFeedback) {
+
+            editSheet.prevFeedbackTextKey = newSectionLabel.textKey;
+            newSectionLabel.textKey = editSheet.feedbackTextKey;
+            newSectionLabel.color = editSheet.feedbackColor;
+
+        } else {
+
+            newSectionLabel.textKey = editSheet.prevFeedbackTextKey;
+            newSectionLabel.color = Qt.rgba(0, 0, 0, 1);
+
+        }
+    }
+
+    id: editSheet
+    anchors.fill: parent
+    color: "white"
 
     Timer {
         id: feedbackTimer
@@ -36,13 +61,9 @@ Rectangle {
         running: false;
         repeat: false;
         onTriggered: {
-            editRow.visible = true;
+            isDisplayingFeedback = false
         }
     }
-
-    id: editSheet
-    anchors.fill: parent
-    color: "white"
 
     PXListModelArray {
 
@@ -75,6 +96,7 @@ Rectangle {
     }
 
     PXText {
+        textKey: isDisplayingFeedback ? newSectionLabel.feedbackText : newSectionLabel.textKey
         id: newSectionLabel
         anchors.bottom: editRow.top
         anchors.bottomMargin: 0
@@ -82,24 +104,9 @@ Rectangle {
         anchors.leftMargin: 5
         anchors.right: parent.right
         anchors.rightMargin: 5
-        color: "black"
+        color: isDisplayingFeedback ? newSectionLabel.feedbackColor : "black"
         height: parent.height > 30 ? 30 : parent.height
         visible: parent.height > 40
-    }
-
-    PXText {
-        id: feedbackText
-        height: editRow.height
-        width: editRow.width
-        visible: !editRow.visible
-        anchors.right: parent.right
-        anchors.rightMargin: 5
-        anchors.left: parent.left
-        anchors.leftMargin: 5
-        anchors.bottom: parent.bottom
-        anchors.bottomMargin: 5
-
-        verticalAlignment: Text.AlignVCenter
     }
 
     PXRowTextInput {

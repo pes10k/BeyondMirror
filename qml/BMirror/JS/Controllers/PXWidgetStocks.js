@@ -17,7 +17,7 @@ var stockFetcher = (function () {
 
           fetcher.get("http://www.google.com/finance/info?infotype=infoquoteall&q=" + call_letters, function (result, url) {
 
-              if (result.length == 0) {
+              if (!result || result.length === 0) {
 
                   callback(false);
 
@@ -70,7 +70,7 @@ var stocks = (function () {
             // being watched.
             if (config.indexOf(new_stock) !== -1) {
 
-                return false;
+                callback(false);
 
             } else {
 

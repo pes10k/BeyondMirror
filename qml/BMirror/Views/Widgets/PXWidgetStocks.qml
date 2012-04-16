@@ -14,11 +14,18 @@ PXWindowWidget {
 
         if (rowTextInput.rowTextInputIdentifier === "stocks text input") {
 
-            StocksController.stocks.addStock(globalVariables.currentUserId, rowTextInput.text(), function () {
+            StocksController.stocks.addStock(globalVariables.currentUserId, rowTextInput.text(), function (isSuccess) {
 
-                stocksEditSheet.modelArray().refresh();
-                stocksViewModel.refresh();
-                rowTextInput.clear();
+                if (!isSuccess) {
+
+                    stocksEditSheet.setFeedback("Invalid Stock!", 2000, true);
+
+                } else {
+
+                    stocksEditSheet.modelArray().refresh();
+                    stocksViewModel.refresh();
+                    rowTextInput.clear();
+                }
             });
         }
     }

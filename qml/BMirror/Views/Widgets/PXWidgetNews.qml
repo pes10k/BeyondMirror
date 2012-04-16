@@ -14,11 +14,19 @@ PXWindowWidget {
 
         if (rowTextInput.rowTextInputIdentifier === "news text input") {
 
-            NewsController.news.addFeed(globalVariables.currentUserId, rowTextInput.text(), function () {
+            NewsController.news.addFeed(globalVariables.currentUserId, rowTextInput.text(), function (isSuccess) {
 
-                newsEditWidget.modelArray().refresh();
-                newsViewModel.refresh();
-                rowTextInput.clear();
+                if (!isSuccess) {
+
+                    newsEditWidget.setFeedback("Invalid topic!", 2000, true);
+
+                } else {
+
+                    newsEditWidget.modelArray().refresh();
+                    newsViewModel.refresh();
+                    rowTextInput.clear();
+
+                }
             });
         }
     }
