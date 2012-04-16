@@ -63,11 +63,22 @@ PXWindowWidget {
                     }
                 );
             }
+
+        } else if (notification === "logout") {
+
+            newsWidget.logout();
+
+        } else if (notification === "login") {
+
+            newsWidget.login();
+
         }
     }
 
     Component.onCompleted: {
         Notifications.registry.registerForNotification(newsWidget, "edit row delete clicked");
+        Notifications.registry.registerForNotification(newsWidget, "logout");
+        Notifications.registry.registerForNotification(newsWidget, "login");
     }
 
     Component.onDestruction: {

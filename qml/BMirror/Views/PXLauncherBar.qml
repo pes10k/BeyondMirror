@@ -14,14 +14,22 @@ Rectangle {
 
         switch (notification) {
 
-        case "window closed":
+            case "window closed":
 
-            var relatedLauncher = launcherBar.widgetMappings[params.window.uniqueIdentifier];
+                var relatedLauncher = launcherBar.widgetMappings[params.window.uniqueIdentifier];
 
-            if (relatedLauncher) {
+                if (relatedLauncher) {
+                    relatedLauncher.state = "DEFAULT";
+                }
+                break;
 
-                relatedLauncher.state = "DEFAULT";
-            }
+            case "logout":
+                launcherBar.visible = false;
+                break;
+
+            case "login":
+                launcherBar.visible = true;
+                break;
         }
     }
 
@@ -48,6 +56,8 @@ Rectangle {
         // we can update the corresponding launcher item's state (disabled, etc.)
         // as needed.
         Notifications.registry.registerForNotification(launcherBar, "window closed");
+        Notifications.registry.registerForNotification(launcherBar, "logout");
+        Notifications.registry.registerForNotification(launcherBar, "login");
     }
 
     Component.onDestruction: {
@@ -60,7 +70,7 @@ Rectangle {
     }
 
     id: launcherBar
-    height: 115
+    height: 105
     color: "transparent"
 
     Rectangle {
@@ -181,11 +191,10 @@ Rectangle {
             id: logOutLauncher
             launcherIdentifier: "log out launcher"
             launcherDelegate: applicationManager
-            textKey: "Log out"
+            textKey: "Log Out"
             anchors.left: helpLauncher.right
             anchors.leftMargin: 10
             launcherImage: "../../Images/Log-out.png"
-
         }
     }
 }

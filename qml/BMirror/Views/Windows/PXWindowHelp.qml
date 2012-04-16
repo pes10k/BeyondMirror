@@ -26,6 +26,8 @@ PXWindowDraggable {
 
         if (notification === "language changed") {
             helpWindow.updateHelpText();
+        } else if (notification === "logout") {
+            helpWindow.close();
         }
     }
 
@@ -37,6 +39,7 @@ PXWindowDraggable {
 
     Component.onCompleted: {
         Notifications.registry.registerForNotification(helpWindow, "language changed");
+        Notifications.registry.registerForNotification(helpWindow, "logout");
         helpWindow.updateHelpText();
     }
 
@@ -47,6 +50,7 @@ PXWindowDraggable {
     id: helpWindow
     titleKey: "Help"
     uniqueIdentifier: "help window"
+    beginClosed: false
 
     contentView: Rectangle {
 

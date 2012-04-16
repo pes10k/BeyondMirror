@@ -61,11 +61,22 @@ PXWindowWidget {
                     }
                 );
             }
+
+        } else if (notification === "logout") {
+
+            twitterWidget.logout();
+
+        } else if (notification === "login") {
+
+            twitterWidget.login();
+
         }
     }
 
     Component.onCompleted: {
         Notifications.registry.registerForNotification(twitterWidget, "edit row delete clicked");
+        Notifications.registry.registerForNotification(twitterWidget, "logout");
+        Notifications.registry.registerForNotification(twitterWidget, "login");
     }
 
     Component.onDestruction: {
@@ -74,6 +85,7 @@ PXWindowWidget {
 
     id: twitterWidget
     titleKey: "Twitter"
+    uniqueIdentifier: "twitter widget"
 
     configurationView: PXEditableSheet {
         id: twitterEditWidget

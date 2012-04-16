@@ -35,6 +35,30 @@ var dbConnection = (function () {
     };
 }());
 
+// Deletes all settings for a user.  Used to clear out all content for a temporary user.
+var deleteAllForUser = function (user_id, callback) {
+
+    dbConnection().transaction(function (tx) {
+
+       var rs = tx.executeSql("DELETE FROM settings WHERE user_id = ?", [user_id]);
+
+        if (callback) {
+            callback( !! rs.rowsAffected);
+        }
+    });
+};
+
+// Returns a boolean description of whether there is any data stored for the given user
+var dataExistsForUser = function (user_id, callback) {
+
+    dbConnection().transaction(function (tx) {
+
+       var rs = tx.executeSql("SELECT * FROM settings WHERE user_id = ? LIMIT 1", [user_id]);
+
+       callback(rs.rows.length === 1);
+    });
+}
+
 /**
  * Returns a value stored in the app's SQLite instance.  Values
  * are automatically deserialized before being returned,

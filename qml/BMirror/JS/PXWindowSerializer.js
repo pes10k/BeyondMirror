@@ -6,8 +6,8 @@
  * sessions.
  */
 
-Qt.include("PXUser.js")
 Qt.include("PXStorage.js");
+Qt.include("PXApp.js");
 
 /**
  * Userializes a window and populates relevant properties
@@ -15,6 +15,8 @@ Qt.include("PXStorage.js");
  * this just restores the window's position to where it
  * was when it was last closed.
  *
+ * @param int user_id
+ *   Unique identifier for a user in the system
  * @param object pxwindow
  *   A PXWindow instance that may have properites / state stored
  *   in the database
@@ -22,20 +24,22 @@ Qt.include("PXStorage.js");
  * @return bool
  *   True if some state was restored to the window.  Otherwise, false.
  */
-function unserializeWindow (pxwindow) {
+function unserializeWindow (user_id, pxwindow, callback) {
 
-    var window_properties = valueForKey(currentUser.userId(), pxwindow.uniqueIdentifier);
+    var window_properties = valueForKey(user_id, pxwindow.uniqueIdentifier),
+        result = false;
 
     if (window_properties) {
 
         pxwindow.x = window_properties.x;
         pxwindow.y = window_properties.y;
         pxwindow.visible = window_properties.visible || false;
-        return true;
 
-    } else {
+        result = true;
+    }
 
-        return false;
+    if (callback) {
+        callback(result);
     }
 }
 
@@ -44,6 +48,8 @@ function unserializeWindow (pxwindow) {
  * sessions.  Currently just attempts to store the window's X / Y
  * cords
  *
+ * @param int user_id
+ *   Unique identifier for a user in the system
  * @param object pxwindow
  *   A PXWindow instance that should have properites / state stored
  *   in the database.  This window must have a unique identifier
@@ -53,21 +59,23 @@ function unserializeWindow (pxwindow) {
  *   Returns true if some properties for the window were set.  Otherwise,
  *   returns false.
  */
-function serializeWindow (pxwindow) {
+function serializeWindow (user_id, pxwindow, callback) {
+
+    var params = {};
 
     // If we don't have a unique identifier for the window, we won't
     // be able to save anything retreivable anyway, so bail out now
     if (!pxwindow.uniqueIdentifier) {
 
-        return false;
+        callback(false);
 
     } else {
 
-        return setValueForKey(currentUser.userId(), {
-          "x" : pxwindow.x,
-          "y" : pxwindow.y,
-          "visible" : pxwindow.visible && !pxwindow.beginClosed
-        }, pxwindow.uniqueIdentifier);
+        params.x = pxwindow.x;
+        params.y = pxwindow.y;
+        params.visible = pxwindow.visible && pxwindow.beginClosed !== true;
+
+        setValueForKey(user_id, params, pxwindow.uniqueIdentifier, callback);
     }
 }
 

@@ -1,9 +1,17 @@
 import "../JS/PXWindowSerializer.js" as WindowSerializer
+import "../JS/PXNotifications.js" as Notifications
 import "./Controls"
 
 import QtQuick 1.1
 
 PXWindow {
+
+    // Implements "Notification Delegate Protocol"
+    function receivedNotification (notification, params) {
+        if (notification === "logout") {
+            windowDraggable.logout();
+        }
+    }
 
     // Implementation of Button Delegate Protcol
     function buttonClicked (a_button, a_mouse_event) {
@@ -14,6 +22,34 @@ PXWindow {
             windowDraggable.close();
             break;
         }
+    }
+
+    function close () {
+        windowDraggable.state = "CLOSING"
+    }
+
+    function open () {
+        windowDraggable.z = globalVariables.currentZIndex++;
+        windowDraggable.state = "APPEARING"
+    }
+
+    function logout () {
+        WindowSerializer.serializeWindow(globalVariables.currentUserId, windowDraggable, function (isSuccess) {
+            if (isSuccess) {
+                console.log("Logging out for window: " + windowDraggable.uniqueIdentifier + " with user " + globalVariables.currentUserId);
+                windowDraggable.close();
+                globalVariables.logoutForWindow(windowDraggable);
+            }
+        });
+    }
+
+    function login () {
+        console.log("Logging in for window: " + windowDraggable.uniqueIdentifier + " with user " + globalVariables.currentUserId);
+        WindowSerializer.unserializeWindow(globalVariables.currentUserId, windowDraggable, function (isSuccess) {
+            globalVariables.loginForWindow(windowDraggable);
+        });
+
+        globalVariables.loginForWindow(windowDraggable);
     }
 
     // Instances of PXWindowDraggable should define PXWindowDraggable.contentView
@@ -41,12 +77,15 @@ PXWindow {
             windowDraggable.contentView.parent = windowContent;
         }
 
-        WindowSerializer.unserializeWindow(windowDraggable);
         windowDraggable.z = globalVariables.currentZIndex++;
+
+        Notifications.registry.registerForNotification(windowDraggable, "logout");
+        Notifications.registry.registerForNotification(windowDraggable, "login");
     }
 
     Component.onDestruction: {
-        WindowSerializer.serializeWindow(windowDraggable);
+        WindowSerializer.serializeWindow(globalVariables.currentUserId, windowDraggable);
+        Notifications.registry.unregisterForAll(windowDraggable);
     }
 
     id: windowDraggable;

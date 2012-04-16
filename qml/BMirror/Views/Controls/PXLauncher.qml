@@ -15,9 +15,20 @@
  *  - launcherItemClicked (launcherItem)
  */
 import "../"
+import "../../JS/PXNotifications.js" as Notifications
 import QtQuick 1.1
 
 Rectangle {
+
+    // Implementation of "Notification Delegate Protocol"
+    function receivedNotification (notification, params) {
+
+        if (notification === "login") {
+            if (launcherItem.launcherDelegate) {
+                launcherItem.launcherDelegate.launcherInitilized(launcherItem);
+            }
+        }
+    }
 
     // Including elements should set this property to be the path to
     // the image to use for this launcher item.
@@ -43,9 +54,7 @@ Rectangle {
     color: "transparent"
 
     Component.onCompleted: {
-        if (launcherItem.launcherDelegate) {
-            launcherItem.launcherDelegate.launcherInitilized(launcherItem);
-        }
+        Notifications.registry.registerForNotification(launcherItem, "login");
     }
 
     Rectangle {

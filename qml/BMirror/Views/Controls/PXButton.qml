@@ -15,7 +15,7 @@ Rectangle {
 
     id: button
     width: 100
-    height: 50
+    height: 40
     color: "#000000"
     radius: 5
     border.color: "#ffffff"

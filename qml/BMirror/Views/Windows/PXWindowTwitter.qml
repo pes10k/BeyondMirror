@@ -23,6 +23,7 @@ PXWindowDraggable {
     uniqueIdentifier: "twitter window draggable"
 
     contentView: Rectangle {
+
         id: contentView
         color: "black"
         anchors.fill: parent

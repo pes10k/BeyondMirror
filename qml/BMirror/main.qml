@@ -40,31 +40,41 @@ Rectangle {
 
         switch (notification) {
 
-        case "request for window":
+            case "request for window":
 
-            relevantWindow = main.windowMappings[request.window];
+                relevantWindow = main.windowMappings[request.window];
 
-            if (relevantWindow) {
-                if (!relevantWindow.isOpen()) {
-                    relevantWindow.open();
+                if (relevantWindow) {
+                    if (!relevantWindow.isOpen()) {
+                        relevantWindow.open();
+                    }
+
+                    relevantWindow.setParams(request.params);
                 }
 
-                relevantWindow.setParams(request.params);
-            }
+                break;
 
-            break;
         }
     }
 
     // Implementation of the "Launcher Delegate Protocol"
     function launcherItemClicked (launcherItem) {
 
-        var relevantWidget = main.launcherMappings[launcherItem.launcherIdentifier];
+        var relevantWidget;
 
-        if (relevantWidget) {
+        if (launcherItem.launcherIdentifier === "log out launcher") {
 
-            if (!relevantWidget.isOpen()) {
-                relevantWidget.open();
+            Notifications.registry.sendNotification("logout");
+
+        } else {
+
+            relevantWidget = main.launcherMappings[launcherItem.launcherIdentifier];
+
+            if (relevantWidget) {
+
+                if (!relevantWidget.isOpen()) {
+                    relevantWidget.open();
+                }
             }
         }
     }
@@ -137,12 +147,21 @@ Rectangle {
         id: globalVariables
     }
 
+    PXWindowLogin {
+        id: loginWindow
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.verticalCenter: parent.verticalCenter
+        height: parent.height * .75
+        width: parent.width * .5
+    }
+
     PXLauncherBar {
         applicationManager: main
-        width: 768
+        width: 750
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottom: parent.bottom
         anchors.bottomMargin: -5
+        visible: false
     }
 
     PXWidgetNews {
@@ -156,7 +175,6 @@ Rectangle {
     PXWidgetTwitter {
         id: twitterWidget
         visible: false
-        uniqueIdentifier: "twitter widget"
         width: 300
         height: 400
     }
@@ -219,6 +237,7 @@ Rectangle {
         y: 20
         width: 200
         height: 120
+        visible: false
     }
 
     PXWidgetWeather {
@@ -240,6 +259,5 @@ Rectangle {
         visible: false
         width: 800
         height: 600
-
     }
 }

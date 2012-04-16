@@ -1,4 +1,5 @@
 import "../JS/PXWindowSerializer.js" as WindowSerializer
+import "../JS/PXNotifications.js" as Notifications
 import "./Controls"
 import QtQuick 1.1
 
@@ -38,7 +39,8 @@ PXWindowDraggable {
             windowDraggable.configurationView.parent = configurationPanel;
         }
 
-        WindowSerializer.unserializeWindow(windowDraggable);
+        Notifications.registry.registerForNotification(windowDraggable, "logout");
+        Notifications.registry.registerForNotification(windowDraggable, "login");
     }
 
 
