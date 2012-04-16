@@ -22,6 +22,7 @@ PXRowNext {
         textLabel.anchors.left = image.right
         textLabel.maximumLineCount = 1;
         textLabel.width = tweetRow.width - image.width - 60;
+        textLabel.shouldTranslate = false;
     }
 
     id: tweetRow

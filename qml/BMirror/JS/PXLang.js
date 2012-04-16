@@ -30,7 +30,10 @@ var translationTable = (function () {
         if (table === false) {
 
             table = {
-                "de" : {},
+                "zh" : {
+"News" : "",
+
+                },
             };
         }
 
@@ -71,7 +74,7 @@ var translateTerm = function (term, new_language) {
 
         } else {
 
-//            console.log("No translation for key '" + term + "' for language '" + current_language + "'");
+            console.log('"' + term + '" : "",');
             return term;
         }
     }
