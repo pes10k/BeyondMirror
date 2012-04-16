@@ -14,11 +14,18 @@ PXWindowWidget {
 
         if (rowTextInput.rowTextInputIdentifier === "twitter text input") {
 
-            TwitterController.tweets.addAccount(globalVariables.currentUserId, rowTextInput.text(), function () {
+            TwitterController.tweets.addAccount(globalVariables.currentUserId, rowTextInput.text(), function (isSuccess) {
 
-                twitterEditWidget.modelArray().refresh();
-                twitterViewModel.refresh();
-                rowTextInput.clear();
+                if (!isSuccess) {
+
+                    twitterEditWidget.setFeedback("Account already exists!", 2000, true);
+
+                } else {
+
+                    twitterEditWidget.modelArray().refresh();
+                    twitterViewModel.refresh();
+                    rowTextInput.clear();
+                }
             });
         }
     }
@@ -43,7 +50,6 @@ PXWindowWidget {
         if (notification === "edit row delete clicked") {
 
             if (params.modelIdentifier == "twitter config model") {
-
                 GenericController.removeRowFromModel(
                     params.row,
                     twitterEditWidget.modelArray().getViewModel(),
@@ -73,6 +79,7 @@ PXWindowWidget {
         id: twitterEditWidget
         rowTextInputDelgate: twitterWidget
         rowTextInputIdentifier: "twitter text input"
+        rowTextInputTextKey: "Follow additional twitterers:"
         modelIdentifier: "twitter config model"
         arrayResultDelegate: twitterWidget
         viewComponent: Component {

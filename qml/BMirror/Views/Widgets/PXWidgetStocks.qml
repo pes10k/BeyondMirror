@@ -68,6 +68,8 @@ PXWindowWidget {
     id: stocksWidget
 
     configurationView: PXEditableSheet {
+        id: stocksEditSheet
+        rowTextInputTextKey: "Add additional stock:"
         rowTextInputDelgate: stocksWidget
         rowTextInputIdentifier: "stocks text input"
         modelIdentifier: "stocks config model"
@@ -75,8 +77,6 @@ PXWindowWidget {
         viewComponent: Component {
             PXRowTextEdit {}
         }
-
-        id: stocksEditSheet
     }
 
     contentView: PXListModelArray {

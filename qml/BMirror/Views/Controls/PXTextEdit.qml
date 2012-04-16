@@ -1,4 +1,4 @@
-// import QtQuick 1.0 // to target S60 5th Edition or Maemo 5
+import "../"
 import QtQuick 1.1
 
 Rectangle {
@@ -11,11 +11,37 @@ Rectangle {
         textElement.text = "";
     }
 
+    function setFeedback (message, duration, isError) {
+
+        feedbackTimer.interval = duration;
+        feedbackText.textKey = message
+        feedbackText.color = isError ? "red" : "green"
+        textElement.visible = false;
+        feedbackTimer.start();
+    }
+
+    Timer {
+        id: feedbackTimer
+        interval: 500;
+        running: false;
+        repeat: false;
+        onTriggered: {
+            textElement.visible = true;
+        }
+    }
+
     id: addTextContainer
     color: "#ffffff"
-
     border.width: 1
     border.color: "#000000"
+
+    PXText {
+        id: feedbackText
+        height: textElement.height
+        width: textElement.width
+        visible: !textElement.visible
+        anchors.horizontalCenter: parent.horizontalCenter
+    }
 
     TextEdit {
 

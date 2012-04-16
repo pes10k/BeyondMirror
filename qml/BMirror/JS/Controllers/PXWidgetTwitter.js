@@ -121,7 +121,7 @@ var tweets = (function () {
 
             account_name = account_name.replace("@", "");
 
-            if (config[account_name]) {
+            if (config.indexOf(account_name) !== -1) {
 
                 callback(false);
 
@@ -141,19 +141,7 @@ var tweets = (function () {
             var config = current_prefs(user_id),
                 adjusted_items = removeFromArray(account_name, config);
 
-            // If the item we were trying to remove wasn't in the collection,
-            // there isn't anything to do
-            if (config === adjusted_items) {
-
-                if (callback) {
-                    callback(current_items);
-                }
-
-            } else {
-
-                setValueForKey(user_id, adjusted_items, data_key, callback);
-
-            }
+            setValueForKey(user_id, adjusted_items, data_key, callback);
         }
     };
 }());

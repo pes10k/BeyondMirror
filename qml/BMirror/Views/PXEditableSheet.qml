@@ -8,6 +8,8 @@ Rectangle {
     property variant arrayResultDelegate;
     property variant viewComponent;
 
+    property alias textInput: editRow.textInput
+    property alias rowTextInputTextKey: newSectionLabel.textKey;
     property variant rowTextInputDelgate;
     property string rowTextInputIdentifier;
 
@@ -19,9 +21,28 @@ Rectangle {
         return editRow;
     }
 
+    function setFeedback (message, duration, isError) {
+
+        feedbackTimer.interval = duration;
+        feedbackText.textKey = message
+        feedbackText.color = isError ? "red" : "green"
+        editRow.visible = false;
+        feedbackTimer.start();
+    }
+
+    Timer {
+        id: feedbackTimer
+        interval: 500;
+        running: false;
+        repeat: false;
+        onTriggered: {
+            editRow.visible = true;
+        }
+    }
+
     id: editSheet
-    width: parent.width
-    height: parent.height
+    anchors.fill: parent
+    color: "white"
 
     PXListModelArray {
 
@@ -30,7 +51,7 @@ Rectangle {
         viewComponent: editSheet.viewComponent
 
         id: arrayListModel
-        anchors.bottom: editRow.top
+        anchors.bottom: seperator.top
         anchors.bottomMargin: 0
         anchors.left: parent.left
         anchors.leftMargin: 0
@@ -48,8 +69,37 @@ Rectangle {
         anchors.leftMargin: 0
         anchors.right: parent.right
         anchors.rightMargin: 0
+        anchors.bottom: newSectionLabel.top
+        anchors.bottomMargin: 5
+        visible: parent.height > 10
+    }
+
+    PXText {
+        id: newSectionLabel
         anchors.bottom: editRow.top
         anchors.bottomMargin: 0
+        anchors.left: parent.left
+        anchors.leftMargin: 5
+        anchors.right: parent.right
+        anchors.rightMargin: 5
+        color: "black"
+        height: parent.height > 30 ? 30 : parent.height
+        visible: parent.height > 40
+    }
+
+    PXText {
+        id: feedbackText
+        height: editRow.height
+        width: editRow.width
+        visible: !editRow.visible
+        anchors.right: parent.right
+        anchors.rightMargin: 5
+        anchors.left: parent.left
+        anchors.leftMargin: 5
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: 5
+
+        verticalAlignment: Text.AlignVCenter
     }
 
     PXRowTextInput {

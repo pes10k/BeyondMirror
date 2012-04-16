@@ -15,6 +15,7 @@ Rectangle {
     id: webViewContainer
 
     Rectangle {
+
         id: progressBarContainer
         height: (webView.progress == 1 || !webViewContainer.showProgressBar) ? 0 : 25
         visible: webViewContainer.showProgressBar && webView.progress < 1
@@ -27,8 +28,8 @@ Rectangle {
         Rectangle {
             id: progressBarEmpty
             color: "#696969"
-            anchors.rightMargin: 5
-            anchors.leftMargin: 5
+            anchors.rightMargin: 0
+            anchors.leftMargin: 0
             anchors.bottomMargin: 5
             anchors.topMargin: 0
             anchors.fill: parent
@@ -46,7 +47,6 @@ Rectangle {
                 anchors.rightMargin: parent.width
             }
         }
-
     }
 
     FlickableWebView {

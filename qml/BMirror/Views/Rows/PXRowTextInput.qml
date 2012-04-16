@@ -18,6 +18,8 @@ Rectangle {
     // A string, uniquely defining this row text input across the entire application
     property string rowTextInputIdentifier;
 
+    property alias textInput: textInput;
+
     // Returns the current text entered into the text input
     function text () {
         return textInput.text();

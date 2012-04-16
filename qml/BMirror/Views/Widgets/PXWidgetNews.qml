@@ -73,6 +73,7 @@ PXWindowWidget {
         id: newsEditWidget
         rowTextInputDelgate: newsWidget
         rowTextInputIdentifier: "news text input"
+        rowTextInputTextKey: "Add news topics:"
         modelIdentifier: "news config model"
         arrayResultDelegate: newsWidget
         viewComponent: Component {
