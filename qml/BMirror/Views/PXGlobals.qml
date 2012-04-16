@@ -13,11 +13,10 @@ QtObject {
 
     property int currentZIndex: 0;
     property int currentUserId: 0;
-    property string currentLangCode: LanguageController.languages.language(currentUserId);
+    property string currentLangCode: "en";
     property int windowRegistery: 0;
 
     function setCurrentLangCode (newLangCode) {
-
         currentLangCode = newLangCode;
         Notifications.registry.sendNotification("language changed", {"code" : newLangCode});
     }
@@ -50,8 +49,5 @@ QtObject {
     function logoutComplete () {
 
         currentUserId = -1;
-
-        // Delete any stored settings we have the for the anonymous user
-        Storage.deleteAllForUser(-1);
     }
 }

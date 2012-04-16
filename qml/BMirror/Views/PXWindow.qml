@@ -4,16 +4,6 @@ import QtQuick 1.1
 
 Rectangle {
 
-    // Implements "Notification Delegate Protocol"
-//    function receivedNotification (notification, params) {
-//        if (notification === "logout") {
-
-//            WindowSerializer.serializeWindow(globalVariables.currentUserId, windowBase, function () {
-//                windowBase.close();
-//            });
-//        }
-//    }
-
     function isOpen () {
         return windowBase.visible == true;
     }
@@ -25,10 +15,6 @@ Rectangle {
     function open () {
         windowBase.z = globalVariables.currentZIndex++;
         windowBase.state = "APPEARING"
-    }
-
-    Component.onDestruction: {
-        Notifications.registry.unregisterForAll(windowBase);
     }
 
     id: windowBase

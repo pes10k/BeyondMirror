@@ -32,8 +32,10 @@ PXWindow {
                 break;
 
             case "configure new user":
+            case "configure system":
                 setActivePane(languagePane);
                 break;
+
         }
     }
 
@@ -69,7 +71,7 @@ PXWindow {
         Notifications.registry.registerForNotification(loginWindow, "login");
         Notifications.registry.registerForNotification(loginWindow, "logout");
         Notifications.registry.registerForNotification(loginWindow, "configure new user");
-        Notifications.registry.registerForNotification(loginWindow, "configure new system");
+        Notifications.registry.registerForNotification(loginWindow, "configure system");
         receivedNotification("logout");
     }
 
@@ -138,6 +140,14 @@ PXWindow {
                         setActivePane(languagePane);
                     }
                     break;
+
+                case "configure system":
+                    if (wifiPane.visible) {
+                        setActivePane(languagePane);
+                    } else if (accountPane.visible) {
+                        setActivePane(wifiPane);
+                    }
+                    break;
             }
         }
 
@@ -160,6 +170,18 @@ PXWindow {
 
                     if (languagePane.visible) {
                         setActivePane(accountPane);
+                    } else if (accountPane.visible) {
+                        globalVariables.currentUserId = temporaryUserId;
+                        LanguageController.languages.setLanguage(globalVariables.currentUserId, globalVariables.currentLangCode);
+                        Notifications.registry.sendNotification("login", {"user_id" : globalVariables.currentUserId});
+                    }
+                    break;
+
+                case "configure system":
+                    if (languagePane.visible) {
+                        setActivePane(wifiPane);
+                    } else if (wifiPane.visible) {
+                        setActivePane(accountPane.visible);
                     } else if (accountPane.visible) {
                         globalVariables.currentUserId = temporaryUserId;
                         LanguageController.languages.setLanguage(globalVariables.currentUserId, globalVariables.currentLangCode);
