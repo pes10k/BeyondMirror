@@ -47,6 +47,7 @@ PXWindow {
         Notifications.registry.registerForNotification(loginWindow, "logout");
         Notifications.registry.registerForNotification(loginWindow, "configure new user");
         Notifications.registry.registerForNotification(loginWindow, "configure system user");
+        receivedNotification("logout");
     }
 
     Component.onDestruction: {
