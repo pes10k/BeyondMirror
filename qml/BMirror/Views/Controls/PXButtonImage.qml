@@ -5,7 +5,8 @@ Rectangle {
 
     property string buttonIdentifier;
     property bool isBackButton: false;
-    property alias textKey: buttonLabel.textKey
+    property alias textKey: buttonLabel.textKey;
+    property alias source: nextImage.source;
 
     id: button
     width: 120
@@ -35,8 +36,6 @@ Rectangle {
         anchors.left: isBackButton ? parent.left : undefined
         anchors.leftMargin: 10
         anchors.verticalCenter: parent.verticalCenter
-        sourceSize.width: 22
-        sourceSize.height: 18
         source: isBackButton ? "../../Images/backwards-icon.png" : "../../Images/forward-icon.png"
     }
 

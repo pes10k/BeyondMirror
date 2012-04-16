@@ -53,6 +53,7 @@ PXWindow {
 
         prevButton.visible = isWifiPane || isAccountPane;
         nextButton.visible = isWifiPane || isLanguagePane || isAccountPane;
+        noButton.visible = isAccountPane;
 
         nextButton.textKey = isAccountPane ? "Yes" : "Next";
 
@@ -158,6 +159,22 @@ PXWindow {
         anchors.bottomMargin: 20
         anchors.left: parent.left
         anchors.leftMargin: 20
+    }
+
+    PXButtonImage {
+
+        function onClick (button) {
+            temporaryUserId = -1;
+            LanguageController.languages.setLanguage(globalVariables.currentUserId, globalVariables.currentLangCode);
+            Notifications.registry.sendNotification("login", {"user_id" : globalVariables.currentUserId});
+        }
+
+        id: noButton
+        textKey: "No"
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: 20
+        anchors.horizontalCenter: parent.horizontalCenter
+        source: "../../Images/delete-icon.png"
     }
 
     PXButtonImage {

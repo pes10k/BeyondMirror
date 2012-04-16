@@ -98,7 +98,7 @@ Rectangle {
         height: 20
         anchors.bottom: parent.bottom
         color: "white"
-        font.pointSize: 16
+        font.pointSize: 14
         horizontalAlignment: Text.AlignHCenter
     }
 

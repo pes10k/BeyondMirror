@@ -1,0 +1,4 @@
+var calendarFetcher = (function () {
+
+
+}());

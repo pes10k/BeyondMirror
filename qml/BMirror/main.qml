@@ -24,7 +24,7 @@ Rectangle {
         "weather launcher" : weatherWidget,
         "settings launcher" : settingsWindow,
         "help launcher": helpWidget,
-        //"log out launcher": logOutWidget
+        "calendar launcher" : calendarWidget
     }
 
     property variant windowMappings: {
@@ -161,7 +161,7 @@ Rectangle {
 
     PXLauncherBar {
         applicationManager: main
-        width: 750
+        width: 824
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottom: parent.bottom
         anchors.bottomMargin: -5
@@ -253,6 +253,13 @@ Rectangle {
 
     PXWindowSettings {
         id: settingsWindow
+        visible: false
+        width: 500
+        height: 400
+    }
+
+    PXWidgetCalendar {
+        id: calendarWidget
         visible: false
         width: 500
         height: 400

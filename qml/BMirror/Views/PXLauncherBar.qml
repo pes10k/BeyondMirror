@@ -46,6 +46,7 @@ Rectangle {
         "weather widget" : weatherLauncher,
         "settings window" : settingsLauncher,
         "help window": helpLauncher,
+        "calendar widget" : calendarLauncher,
         "log out window": logOutLauncher
     }
 
@@ -169,11 +170,21 @@ Rectangle {
         }
 
         PXLauncher {
+            id: calendarLauncher
+            launcherIdentifier: "calendar launcher"
+            launcherDelegate: applicationManager
+            textKey: "Calendar"
+            anchors.left: weatherLauncher.right
+            anchors.leftMargin: 10
+            launcherImage: "../../Images/calendar.png"
+        }
+
+        PXLauncher {
             id: settingsLauncher
             launcherIdentifier: "settings launcher"
             launcherDelegate: applicationManager
             textKey: "Settings"
-            anchors.left: weatherLauncher.right
+            anchors.left: calendarLauncher.right
             anchors.leftMargin: 10
             launcherImage: "../../Images/setting.png"
         }

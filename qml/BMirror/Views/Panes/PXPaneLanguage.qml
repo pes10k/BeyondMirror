@@ -46,7 +46,6 @@ PXPane {
         viewComponent: Component {
             PXRowLanguage {
                 function mouseAreaEvent (mouseArea) {
-                    console.log("Setting lang: " + rowLanguageCode + ", for user " + globalVariables.currentUserId);
                     LanguageController.languages.setLanguage(globalVariables.currentUserId, rowLanguageCode);
                     globalVariables.setCurrentLangCode(rowLanguageCode);
                     languagePane.updateCheckmarks(rowLanguageCode);
