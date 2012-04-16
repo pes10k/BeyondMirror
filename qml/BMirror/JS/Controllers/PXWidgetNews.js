@@ -61,7 +61,7 @@ var news = (function () {
                 if (!current_items) {
 
                     current_items = {
-                        "Local News" : "https://ajax.googleapis.com/ajax/services/search/news?v=1.0&geo=Chicago,%20IL"
+                        "Local News" : "http://ajax.googleapis.com/ajax/services/search/news?v=1.0&geo=Chicago,%20IL"
                     };
                     setValueForKey(user_id, current_items, data_key);
                 }
@@ -128,7 +128,7 @@ var news = (function () {
 
             } else {
 
-                current_feeds[search_term] = "https://ajax.googleapis.com/ajax/services/search/news?v=1.0&q=" + encodeURIComponent(search_term);
+                current_feeds[search_term] = "http://ajax.googleapis.com/ajax/services/search/news?v=1.0&q=" + encodeURIComponent(search_term);
 
                 // Build up a cache for the news items in this URL
                 // immediatly, to make things quicker.
