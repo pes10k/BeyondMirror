@@ -83,7 +83,7 @@ PXWindowDraggable {
         }
 
         PXWebView {
-            color: "black"
+            color: "white"
             id: helpWebView
             showProgressBar: false
             anchors.top: parent.top

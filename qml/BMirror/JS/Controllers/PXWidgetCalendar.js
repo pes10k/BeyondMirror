@@ -15,10 +15,7 @@ var calendarFetcher = (function () {
 
         fetcher.get("http://snyderp.org/calendar-data.php?rand=" + Math.random() + "&user_id=" + user_id, function (results, url) {
 
-            console.log("T");
-
             if (callback) {
-                console.log("Z");
                 callback(results);
             }
         });
