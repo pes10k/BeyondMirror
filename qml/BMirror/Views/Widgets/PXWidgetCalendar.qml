@@ -14,8 +14,6 @@ PXWindowWidget {
     // "Array List Model Delegate Protocol" Definition
     function rowsForModel (model, modelIdentifier) {
 
-        var auth_code;
-
         if (modelIdentifier === "calendar model") {
             CalendarController.addEventsToModel(globalVariables.currentUserId, model);
         }
