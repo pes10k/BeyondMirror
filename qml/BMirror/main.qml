@@ -10,6 +10,7 @@ import "Views"
 import "Views/Widgets"
 import "Views/Windows"
 import "JS/PXNotifications.js" as Notifications
+import "JS/PXStorage.js" as Storage
 
 Rectangle {
 
@@ -125,7 +126,9 @@ Rectangle {
     }
 
     Component.onDestruction: {
-        globalVariables.logoutComplete();
+
+        // Delete any stored settings we have the for the anonymous user
+        Storage.deleteAllForUser(-1);
         Notifications.registry.unregisterForAll(main);
     }
 
