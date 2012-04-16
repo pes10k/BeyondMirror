@@ -4,9 +4,9 @@ Qt.include("../PXUser.js");
 Qt.include("../PXJSONFetcher.js");
 Qt.include("../PXStrings.js");
 
-var healthSources = (function () {
+var videoSources = (function () {
 
-    var data_key = "health preferences",
+    var data_key = "video preferences",
         store_prefs = function (user_id, prefs) {
             setValueForKey(user_id, prefs, data_key);
         },
@@ -15,17 +15,17 @@ var healthSources = (function () {
             var current_prefs = valueForKey(user_id, data_key);
 
             if (!current_prefs) {
-            
+
                 current_prefs = {
-                  "source" : "Magic Device",
+                  "source" : "videoFavorite",
                 };
-                
+
                 store_prefs(user_id, current_prefs);
             }
 
             return current_prefs;
         };
-      
+
     return {
         currentSource: function (user_id) {
 
@@ -44,8 +44,8 @@ var healthSources = (function () {
 var addDataSourcesToModel = (function () {
 
     var rows = [
-        {"rowTextKey" : "Magic Device", "isCurrent" : false},
-        {"rowTextKey" : "Fantastic Device", "isCurrent" : false}
+        {"rowTextKey" : "videoFavorite", "isCurrent" : false},
+        {"rowTextKey" : "videoPopular", "isCurrent" : false}
     ];
 
     return function (model) {

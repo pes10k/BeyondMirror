@@ -4,14 +4,29 @@ import "../Rows"
 import "../"
 import "../../JS/PXData.js" as PXData
 import "../../JS/PXNotifications.js" as Notifications
+import "../../JS/Controllers/PXWidgetVideo.js" as VideoController
+import "../../JS/Controllers/PXController.js" as Controller
 import QtQuick 1.1
 
 PXWindowWidget {
 
+    //var videoData = PXData.videoData1
+
     property variant currentTab: tvshowsTab;
+    property string currentSource: 'videoFavorite'
+
+    function updateCheckmarks (value) {
+
+        return Controller.updateCheckmarks(videoWidgetConfig.getViewModel(), "rowTextKey", value);
+    }
 
     // Implementation of the "Array List Model Delegate Protocol"
     function rowsForModel (model, modelIdentifier) {
+        var videoData = [];
+        if(currentSource === 'videoFavorite')
+            videoData = PXData.videoData1
+        else if (currentSource === 'videoPopular')
+            videoData = PXData.videoData2
 
         var current_data,
             i = 0;
@@ -20,15 +35,15 @@ PXWindowWidget {
 
             if (videoWidget.currentTab == moviesTab) {
 
-                current_data = PXData.movies;
+                current_data = videoData['movies'];
 
             } else if (videoWidget.currentTab == tvshowsTab) {
 
-                current_data = PXData.tvshows;
+                current_data = videoData['tvshows'];
 
             } else if (videoWidget.currentTab == podcastTab) {
 
-                current_data = PXData.podcasts;
+                current_data = videoData['podcasts'];
 
             }
 
@@ -41,7 +56,11 @@ PXWindowWidget {
         }
     }
 
+
     function tabItemClicked (tabItem) {
+
+        if(currentTab===tabItem)
+            return
 
         currentTab.state = "DISABLED"
         switch (tabItem.tabIdentifier) {
@@ -66,7 +85,55 @@ PXWindowWidget {
     id: videoWidget
     titleKey: "Video"
 
-    Rectangle {
+    configurationView: Rectangle {
+
+        function rowsForModel (model, modelIdentifier) {
+            VideoController.addDataSourcesToModel(model);
+            updateCheckmarks(VideoController.videoSources.currentSource(globalVariables.currentUserId));
+        }
+
+        id: configPane
+        anchors.fill: parent
+        visible: parent.height > 40
+
+        PXText {
+            id: dataSourceLabel
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.top: parent.top
+            anchors.topMargin: 10
+            textKey: "Video Information Data Source"
+            color: "black"
+            horizontalAlignment: Text.AlignHCenter
+        }
+
+        PXListModelArray {
+            id: videoWidgetConfig
+            arrayResultDelegate: configPane
+            modelIdentifier: "video source model"
+            viewComponent: Component {
+                PXRowCheck {
+                    function mouseAreaEvent (mouseArea) {
+                        VideoController.videoSources.setSource(globalVariables.currentUserId, rowTextKey);
+                        videoWidget.updateCheckmarks(rowTextKey);
+                        currentSource = rowTextKey
+                        videoModel.refresh()
+                        console.log(rowTextKey)
+                    }
+                }
+            }
+
+            width: 260
+            anchors.top: dataSourceLabel.bottom
+            anchors.topMargin: 5
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: 5
+        }
+    }
+
+
+
+    /*Rectangle {
         color:"white"
         anchors.horizontalCenter: parent.horizontalCenter
         height:parent.height*0.8
@@ -112,7 +179,7 @@ PXWindowWidget {
                 }
             }
         }
-    }
+    }*/
 
 
     contentView: Rectangle {

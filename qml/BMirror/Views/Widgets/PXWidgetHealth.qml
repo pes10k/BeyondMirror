@@ -93,6 +93,10 @@ PXWindowWidget {
                     function mouseAreaEvent (mouseArea) {
                         HealthController.healthSources.setSource(globalVariables.currentUserId, rowTextKey);
                         healthWidget.updateCheckmarks(rowTextKey);
+                        if(rowTextKey === "Magic Device")
+                            nutritionInfoTable.source = '../../Images/nutrition.png'
+                        else if(rowTextKey === "Fantastic Device")
+                            nutritionInfoTable.source=   '../../Images/nutrition2.png'
                     }
                 }
             }
